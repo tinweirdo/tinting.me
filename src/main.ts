@@ -1,7 +1,7 @@
 
-import { ViteSSG } from 'vite-ssg'
-import App from './App.vue'
-import autoRoutes from '~pages'
+import { ViteSSG } from 'vite-ssg';
+import App from './App.vue';
+import autoRoutes from '~pages';
 
 const routes = autoRoutes.map((i) => {
   return {
@@ -9,15 +9,15 @@ const routes = autoRoutes.map((i) => {
     alias: i.path.endsWith('/')
       ? `${i.path}index.html`
       : `${i.path}.html`,
-  }
-})
+  };
+});
 
-const scrollBehavior = (_: any, _: any, savedPosition: any) => {
+const scrollBehavior = (from: any, to: any, savedPosition: any) => {
   if (savedPosition)
-    return savedPosition
+    return savedPosition;
   else
-    return { top: 0 }
-}
+    return { top: 0 };
+};
 
 export const createApp = ViteSSG(
   App,
@@ -29,4 +29,4 @@ export const createApp = ViteSSG(
     //   router.afterEach(() => { NProgress.done() })
     // }
   },
-)
+);

@@ -1,22 +1,29 @@
 {
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:vue/vue3-recommended"
+    "plugin:vue/vue3-recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
-  "plugins": ["@typescript-eslint"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "vue/setup-compiler-macros": true
+  },
   "parser": "vue-eslint-parser",
   "parserOptions": {
+    "sourceType": "module",
     "ecmaVersion": 2020,
-    "env": {
-      "browser": true,
-      "node": true
-    },
-  "parser": "@typescript-eslint/parser"
+    "parser": "@typescript-eslint/parser"
   },
+  "plugins": ["vue", "@typescript-eslint"],
   "rules": {
     "no-unused-vars": "warn",
-    "vue/multi-word-component-names": "off"
+    "vue/multi-word-component-names": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "semi": "warn",
+    "camelcase": "warn",
+    "no-trailing-spaces": "warn",
+    "arrow-parens": "warn",
+    "no-extra-parens": "warn"
   }
 }
