@@ -11,8 +11,7 @@ import Pages from 'vite-plugin-pages';
 export default defineConfig({
   resolve: {
     alias: [
-      { find: '@/', replacement: `${resolve(__dirname, 'src')}/` },
-      { find: '~/', replacement: `${resolve(__dirname)}/` },
+      { find: '~/', replacement: `${resolve(__dirname, 'src')}/` }
     ],
   },
   optimizeDeps: {

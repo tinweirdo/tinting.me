@@ -1,9 +1,14 @@
 <script lang="ts" setup>
+// const props = defineProps<{ frontmatter: Object }>({
+//   frontmatter: {}
+// })
 const props = defineProps({
-  frontmatter: Object
+  a: 0
 })
 
-console.log(props.frontmatter)
+console.log(props.a)
+
+// console.log(props.frontmatter)
 </script>
 
 <template>

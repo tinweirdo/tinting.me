@@ -12,7 +12,7 @@ const routes = autoRoutes.map((i) => {
   }
 })
 
-const scrollBehavior = (to: any, from: any, savedPosition: any) => {
+const scrollBehavior = (_: any, _: any, savedPosition: any) => {
   if (savedPosition)
     return savedPosition
   else
