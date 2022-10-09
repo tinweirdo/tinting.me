@@ -2,11 +2,6 @@
 // const props = defineProps<{ frontmatter: Object }>({
 //   frontmatter: {}
 // })
-const props = defineProps({
-  a: 0
-})
-
-console.log(props.a)
 
 // console.log(props.frontmatter)
 </script>
