@@ -24,6 +24,8 @@
     "camelcase": "warn",
     "no-trailing-spaces": "warn",
     "arrow-parens": "warn",
-    "no-extra-parens": "warn"
+    "no-extra-parens": "warn",
+    "newline-before-return": "warn",
+    "eol-last": "warn"
   }
 }
