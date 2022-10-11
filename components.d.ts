@@ -8,6 +8,9 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Github: typeof import('./src/components/Github.vue')['default']
+    Header: typeof import('./src/components/Header.vue')['default']
+    Mardown: typeof import('./src/components/Mardown.vue')['default']
+    Markdown: typeof import('./src/components/Markdown.vue')['default']
     Post: typeof import('./src/components/Post.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

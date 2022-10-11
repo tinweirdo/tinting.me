@@ -20,12 +20,11 @@
     "no-unused-vars": "warn",
     "vue/multi-word-component-names": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "semi": "warn",
+    "semi": ["warn", "never"],
     "camelcase": "warn",
     "no-trailing-spaces": "warn",
     "arrow-parens": "warn",
-    "no-extra-parens": "warn",
-    "newline-before-return": "warn",
-    "eol-last": "warn"
+    "eol-last": "warn",
+    "comma-dangle": ["warn", "always-multiline"]
   }
 }
