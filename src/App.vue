@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import useThemeMode from './hooks/useThemeMode'
 import { useHead } from '@vueuse/head'
+import { DESCRIPTION, SITE_NAME } from './env'
 
 useHead({
   meta: [
-    { property: 'og:title', content: import.meta.env.VITE_TITLE },
-    { name: 'description', content: import.meta.env.VITE_DESCRIPTION },
+    { property: 'og:title', content: SITE_NAME },
+    { name: 'description', content: DESCRIPTION },
   ],
 })
 
@@ -13,9 +14,5 @@ useThemeMode()
 </script>
 
 <template>
-  <Header />
-  <main>
-    <ClientOnly />
-    <router-view />
-  </main>
+  <router-view />
 </template>

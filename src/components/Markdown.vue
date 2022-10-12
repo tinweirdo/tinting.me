@@ -1,25 +1,38 @@
 <script lang="ts" setup>
 import { useHead } from '@vueuse/head'
+import { DESCRIPTION, SITE_NAME } from '~/env'
 
-const props = defineProps<{ frontmatter: any }>()
+interface FrontMatter {
+  title: string,
+  subtitle?: string,
+  date?: Date,
+  category?: string,
+  tags: string[],
+  [k: string]: any
+}
 
-const { showSiteName = false, title, custom } = props?.frontmatter ?? {}
+const props = defineProps<{ frontmatter: FrontMatter }>()
+
+const { showSiteName = false, title, custom, keywords, tags } = props?.frontmatter ?? {}
 
 useHead({
-  title: showSiteName ? title + ' - ' + import.meta.env.VITE_SITE_NAME : title,
+  title: showSiteName ? title + ' - ' + SITE_NAME : title,
   meta: [
     { property: 'og:title', content: props.frontmatter.title },
-    { name: 'description', content: import.meta.env.VITE_DESCRIPTION },
+    { name: 'description', content: DESCRIPTION },
+    { name: 'keywords', content: (keywords ?? tags ?? []).join(', ') },
   ],
 })
 </script>
 
 <template>
+  <Header />
   <slot v-if="custom" />
-  <article
-    v-else
-    class="m-auto"
-  >
-    <slot />
-  </article>
+  <template v-else>
+    <main>
+      <article class="m-auto">
+        <slot />
+      </article>
+    </main>
+  </template>
 </template>

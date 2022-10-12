@@ -1,10 +1,5 @@
 import { inject, InjectionKey, onMounted, provide, watch } from 'vue'
-
-export const enum ThemeMode {
-  Light = 'light',
-  Dark = 'dark',
-  Auto = 'auto',
-}
+import { DEFAULT_THEME_MODE } from '~/env'
 
 export const setPreferThemeMode = (mode: ThemeMode) => {
   localStorage.setItem('theme', mode)
@@ -22,7 +17,7 @@ export const getPreferThemeMode = () => {
     return ThemeMode.Dark
   }
 
-  return ThemeMode.Light
+  return DEFAULT_THEME_MODE
 }
 
 export const getSystemThemeMode = () => {

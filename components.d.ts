@@ -7,12 +7,15 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Author: typeof import('./src/components/Header/Author.vue')['default']
     Github: typeof import('./src/components/Github.vue')['default']
-    Header: typeof import('./src/components/Header.vue')['default']
+    Header: typeof import('./src/components/Header/index.vue')['default']
     Mardown: typeof import('./src/components/Mardown.vue')['default']
     Markdown: typeof import('./src/components/Markdown.vue')['default']
+    NavBar: typeof import('./src/components/Header/NavBar.vue')['default']
     Post: typeof import('./src/components/Post.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TopMeta: typeof import('./src/components/Header/TopMeta.vue')['default']
   }
 }
