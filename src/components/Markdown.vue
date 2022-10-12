@@ -13,10 +13,10 @@ interface FrontMatter {
 
 const props = defineProps<{ frontmatter: FrontMatter }>()
 
-const { showSiteName = false, title, custom, keywords, tags } = props?.frontmatter ?? {}
+const { hideSiteName = false, title, custom, keywords, tags } = props?.frontmatter ?? {}
 
 useHead({
-  title: showSiteName ? title + ' - ' + SITE_NAME : title,
+  title: hideSiteName ? title : title + ' - ' + SITE_NAME,
   meta: [
     { property: 'og:title', content: props.frontmatter.title },
     { name: 'description', content: DESCRIPTION },
