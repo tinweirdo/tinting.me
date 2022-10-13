@@ -1,12 +1,26 @@
 :root {
-  --c-bg: #fff;
+  --bg-base: #fff;
+  --bg-deep: #f3f4f6;
+  --bg-deeper: #e5e5e5;
+  --color-accent: #74579b;
+  --text-lite: #aaa;
+  --text-base: #555;
+  --text-deep: #222;
+  --text-deeper: #000;
 }
 
 :root.dark {
-  --c-bg: #050505;
+  --bg-base: #181818;
+  --bg-deep: #2D2D2D;
+  --bg-deeper: #555555;
+  --color-accent: #74579b;
+  --text-lite: #aaa;
+  --text-base: #d5d5d5;
+  --text-deep: #eaeaea;
+  --text-deeper: #ffffff;
 }
 
 body {
-  background-color: var(--c-bg);
+  background-color: var(--bg-base);
   font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"!important;
 }

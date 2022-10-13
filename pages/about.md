@@ -2,52 +2,85 @@
 title: About
 ---
 
-Hello.
+# H1 title
 
-Hello.
+## H2 title
 
-Hello.
+### H3 title
 
-Hello.
+This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. 
 
-Hello.
+This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph. 
 
-Hello.
+ - List 1
+ - List 2
+ - List 3
+ - List 4
+ - List 5
 
-Hello.
+ 1. List 1
+ 2. List 2
+ 3. List 3
+ 4. List 4
+ 5. List 5
 
-Hello.
+ - [ ] todo undone
+ - [x] todo done
 
-Hello.
+ [https://github.com](https://github.com)
 
-Hello.
+ 这个是代码 `git clone ssh@github.com.xxx`
 
-Hello.
+```js
+import { ViteSSG } from 'vite-ssg'
+import autoRoutes from '~pages'
+import NProgress from 'nprogress'
+import App from './App.vue'
 
-Hello.
+import 'virtual:windi.css'
+import './style.less'
 
-Hello.
+const routes = autoRoutes.map((i) => {
+  return {
+    ...i,
+    alias: i.path.endsWith('/')
+      ? `${i.path}index.html`
+      : `${i.path}.html`,
+  }
+})
 
-Hello.
+const scrollBehavior = (from: any, to: any, savedPosition: any) => {
+  if (savedPosition)
+    return savedPosition
+  else
+    return { top: 0 }
+}
 
-Hello.
+export const createApp = ViteSSG(
+  App,
+  { routes, scrollBehavior },
+  ({ router, isClient }) => {
 
-Hello.
+    if (isClient) {
+      router.beforeEach(() => { NProgress.start() })
+      router.afterEach(() => { NProgress.done() })
+    }
+  },
+)
+```
 
-Hello.
+| 属性    | 类型                               | 默认值 |
+| ------- | ---------------------------------- | ------ |
+| class   | string                             | ''     |
+| id      | number                             | 0      |
+| counter | `{count: number, current: number}` | 说明   |
+ 
 
-Hello.
+---
 
-Hello.
+> 这是引用文本这是引用文本这是引用文本这是引用文本这是引用文本
+> 这是引用文本
+>
+> 这是引用文本
 
-Hello.
-
-Hello.
-
-Hello.
-
-Hello.
-
-Hello.
-
-<github />
+<Github />

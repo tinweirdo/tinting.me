@@ -1,15 +1,7 @@
 <script lang="ts" setup>
 import { useHead } from '@vueuse/head'
 import { DESCRIPTION, SITE_NAME } from '~/env'
-
-interface FrontMatter {
-  title: string,
-  subtitle?: string,
-  date?: Date,
-  category?: string,
-  tags: string[],
-  [k: string]: any
-}
+import { FrontMatter } from '~/types'
 
 const props = defineProps<{ frontmatter: FrontMatter }>()
 
@@ -26,13 +18,10 @@ useHead({
 </script>
 
 <template>
-  <Header />
   <slot v-if="custom" />
-  <template v-else>
-    <main>
-      <article class="m-auto">
-        <slot />
-      </article>
-    </main>
-  </template>
+  <article v-else class="m-auto mt-56px">
+    <Article :frontmatter="frontmatter">
+      <slot />
+    </Article>
+  </article>
 </template>

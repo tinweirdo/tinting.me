@@ -13,6 +13,14 @@ export default defineConfig({
   theme: {
     extend: {
       colors: {
+        'bg-base': 'var(--bg-base)',
+        'bg-deep': 'var(--bg-deep)',
+        'bg-deeper': 'var(--bg-deeper)',
+        'accent': 'var(--color-accent)',
+        'lite': 'var(--text-lite)',
+        'base': 'var(--text-base)',
+        'deep': 'var(--text-deep)',
+        'deeper': 'var(--text-deeper)',
       },
     },
     fontSize: {

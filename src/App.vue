@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useThemeMode from './hooks/useThemeMode'
+import { provideThemeMode } from './hooks/useThemeMode'
 import { useHead } from '@vueuse/head'
 import { DESCRIPTION, SITE_NAME } from './env'
 
@@ -10,9 +10,12 @@ useHead({
   ],
 })
 
-useThemeMode()
+provideThemeMode()
 </script>
 
 <template>
-  <router-view />
+  <Header />
+  <main>
+    <RouterView />
+  </main>
 </template>

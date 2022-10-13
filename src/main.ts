@@ -1,4 +1,3 @@
-
 import { ViteSSG } from 'vite-ssg'
 import autoRoutes from '~pages'
 import NProgress from 'nprogress'

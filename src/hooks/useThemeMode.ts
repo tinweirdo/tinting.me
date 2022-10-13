@@ -1,5 +1,11 @@
-import { inject, InjectionKey, onMounted, provide, watch } from 'vue'
+import { inject, InjectionKey, onMounted, provide, ref, Ref, watch } from 'vue'
 import { DEFAULT_THEME_MODE } from '~/env'
+
+export const enum ThemeMode {
+  Light = 'light',
+  Dark = 'dark',
+  Auto = 'auto',
+}
 
 export const setPreferThemeMode = (mode: ThemeMode) => {
   localStorage.setItem('theme', mode)
@@ -9,18 +15,14 @@ export const setPreferThemeMode = (mode: ThemeMode) => {
 export const getPreferThemeMode = () => {
   const storeMode = localStorage.getItem('theme')
 
-  if (storeMode === ThemeMode.Auto) {
-    return getSystemThemeMode()
+  if ([ThemeMode.Auto, ThemeMode.Dark, ThemeMode.Light].includes(storeMode as ThemeMode)) {
+    return storeMode as ThemeMode
   }
 
-  if (storeMode === ThemeMode.Dark) {
-    return ThemeMode.Dark
-  }
-
-  return DEFAULT_THEME_MODE
+  return DEFAULT_THEME_MODE as ThemeMode
 }
 
-export const getSystemThemeMode = () => {
+export const getSystemThemeMode = (): ThemeMode.Dark | ThemeMode.Light => {
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     return ThemeMode.Dark
   }
@@ -29,17 +31,17 @@ export const getSystemThemeMode = () => {
 }
 
 const KEY = Symbol() as InjectionKey<{
-  themeMode: ThemeMode;
+  themeMode: Ref<ThemeMode>;
   toggleThemeMode: () => void;
   setThemeMode: (mode: ThemeMode) => void;
 }>
 
-export const privideThemeMode = () => {
-  let themeMode = $ref<ThemeMode>(getPreferThemeMode())
+export const provideThemeMode = () => {
+  const themeMode = ref<ThemeMode>(getPreferThemeMode())
   const setThemeMode = (mode: ThemeMode) =>
-    (themeMode = setPreferThemeMode(mode))
+    (themeMode.value = setPreferThemeMode(mode))
   const toggleThemeMode = () => {
-    switch (themeMode) {
+    switch (themeMode.value) {
       case ThemeMode.Auto:
         setThemeMode(ThemeMode.Light)
         break
@@ -51,7 +53,7 @@ export const privideThemeMode = () => {
     }
   }
   const updateRootClass = () => {
-    if (getPreferThemeMode() === ThemeMode.Dark) {
+    if ((themeMode.value === ThemeMode.Auto && getSystemThemeMode() === ThemeMode.Dark) || themeMode.value === ThemeMode.Dark) {
       document.documentElement.classList.add('dark')
     } else {
       document.documentElement.classList.remove('dark')
@@ -69,7 +71,4 @@ export const privideThemeMode = () => {
   })
 }
 
-export default () => {
-  const themeMode = inject(KEY)
-  return themeMode
-}
+export default () => inject(KEY)

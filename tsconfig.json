@@ -10,13 +10,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "types": ["vite/client", "vite-plugin-pages/client", "vue/ref-macros",],
+    "types": ["vite/client", "vite-plugin-pages/client", "vue/ref-macros"],
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
       "~/*": ["src/*"],
-    }
+      "*": ["src/*"]
+    },
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]

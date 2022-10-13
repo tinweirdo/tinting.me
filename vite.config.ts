@@ -14,6 +14,7 @@ import Shiki from 'markdown-it-shiki'
 import Anchor from 'markdown-it-anchor'
 import LinkAttributes from 'markdown-it-link-attributes'
 import TOC from 'markdown-it-table-of-contents'
+import TaskLists from 'markdown-it-task-lists'
 import slugify from './scripts/slugify'
 
 // https://vitejs.dev/config/
@@ -97,6 +98,8 @@ export default defineConfig({
           includeLevel: [1, 2, 3],
           slugify,
         })
+
+        md.use(TaskLists)
 
       },
     }),
