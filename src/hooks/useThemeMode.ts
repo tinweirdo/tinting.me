@@ -1,5 +1,6 @@
 import { inject, InjectionKey, onMounted, provide, ref, Ref, watch } from 'vue'
 import { DEFAULT_THEME_MODE } from '~/env'
+import { defaultWindow } from '@vueuse/core'
 
 export const enum ThemeMode {
   Light = 'light',
@@ -8,22 +9,22 @@ export const enum ThemeMode {
 }
 
 export const setPreferThemeMode = (mode: ThemeMode) => {
-  localStorage.setItem('theme', mode)
+  defaultWindow?.localStorage.setItem('theme', mode)
   return mode
 }
 
 export const getPreferThemeMode = () => {
-  const storeMode = localStorage.getItem('theme')
+  const storeMode = defaultWindow?.localStorage.getItem('theme')
 
   if ([ThemeMode.Auto, ThemeMode.Dark, ThemeMode.Light].includes(storeMode as ThemeMode)) {
     return storeMode as ThemeMode
   }
 
-  return DEFAULT_THEME_MODE as ThemeMode
+  return DEFAULT_THEME_MODE
 }
 
 export const getSystemThemeMode = (): ThemeMode.Dark | ThemeMode.Light => {
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  if (defaultWindow?.matchMedia('(prefers-color-scheme: dark)').matches) {
     return ThemeMode.Dark
   }
 
@@ -54,9 +55,9 @@ export const provideThemeMode = () => {
   }
   const updateRootClass = () => {
     if ((themeMode.value === ThemeMode.Auto && getSystemThemeMode() === ThemeMode.Dark) || themeMode.value === ThemeMode.Dark) {
-      document.documentElement.classList.add('dark')
+      defaultWindow?.document.documentElement.classList.add('dark')
     } else {
-      document.documentElement.classList.remove('dark')
+      defaultWindow?.document.documentElement.classList.remove('dark')
     }
   }
   watch(themeMode, updateRootClass, { immediate: true })
