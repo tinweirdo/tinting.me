@@ -12,6 +12,7 @@
   "dependencies": {
     "@vueuse/core": "^9.3.0",
     "@vueuse/head": "^0.7.0",
+    "dayjs": "^1.11.5",
     "nprogress": "^0.2.0",
     "reset-css": "^5.0.1",
     "vue": "^3.2.37",

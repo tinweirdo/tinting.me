@@ -6,6 +6,10 @@ html:not(.dark) .shiki-dark {
   display: none;
 }
 
+* {
+  @apply transition-colors duration-200;
+}
+
 .prose pre:not(.shiki) {
   @apply m-0 p-0 bg-transparent;
 }
@@ -29,7 +33,7 @@ html:not(.dark) .shiki-dark {
   background: #f8f8f8 !important;
 }
 .shiki-dark {
-  background: #0e0e0e !important;
+  background: #101010 !important;
 }
 
 html.dark .shiki-light {
@@ -202,10 +206,10 @@ h6:focus .header-anchor {
 .prose h1 {
   @apply text-deep;
   font-weight: 800;
-  font-size: 2.25em;
+  font-size: 1.8em;
   margin-top: 0;
-  margin-bottom: 0.8888889em;
-  line-height: 1.1111111;
+  margin-bottom: 0.8em;
+  line-height: 1.2;
 }
 .prose h2 {
   @apply text-deep;
@@ -421,7 +425,7 @@ h6:focus .header-anchor {
   padding-left: 1.1111111em;
 }
 .prose-sm h1 {
-  font-size: 2.1428571em;
+  font-size: 1.55em;
   margin-top: 0;
   margin-bottom: 0.8em;
   line-height: 1.2;

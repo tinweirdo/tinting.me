@@ -29,6 +29,8 @@ export default defineConfig({
       'vue',
       'vue-router',
       '@vueuse/core',
+      'dayjs',
+      'dayjs/plugin/localizedFormat',
     ],
   },
   plugins: [

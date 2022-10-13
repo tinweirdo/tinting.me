@@ -24,7 +24,10 @@ const onMouseEnter = ({ target }: MouseEvent) => {
   highlightState.with = offsetWidth
 }
 
-const onOut = () => highlightState.visible = false
+const onOut = () => {
+  console.log('onOut')
+  highlightState.visible = false
+}
 
 onMounted(() => {
   highlightState.with = document.querySelector<HTMLElement>('.menu-item:first-of-type')?.offsetWidth ?? 0
@@ -46,7 +49,7 @@ const themeIcon = computed(() => {
 </script>
 
 <template>
-  <nav class="border-b-dark-100 border-b-width-1px flex items-center justify-between leading-24px text-sm sticky top-16px">
+  <nav class="border-b-dark-100 border-b-width-1px flex items-center justify-between leading-24px text-sm sticky top-16px select-none">
     <div class="flex items-center">
       <slot />
       <div class="relative" @mouseout="onOut" @touchend="onOut">
