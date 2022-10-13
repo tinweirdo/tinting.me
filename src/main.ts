@@ -17,6 +17,8 @@ const routes = autoRoutes.map((i) => {
   }
 })
 
+NProgress.configure({ showSpinner: false })
+
 const scrollBehavior = (from: any, to: any, savedPosition: any) => {
   if (savedPosition)
     return savedPosition
