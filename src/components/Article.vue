@@ -15,7 +15,11 @@ const props = defineProps<{ frontmatter: FrontMatter }>()
       </h2>
       <p class="text-lite text-sm mt-20px">
         <span v-if="frontmatter.date" class="inline-block after:content-\2022 after:mx-0.5em last-of-type:after:hidden">{{ formatDate(frontmatter.date) }}</span>
-        <span v-if="frontmatter.category" class="inline-block after:content-\2022 after:mx-0.5em last-of-type:after:hidden">{{ frontmatter.category }}</span>
+        <span v-if="frontmatter.category" class="inline-block after:content-\2022 after:mx-0.5em last-of-type:after:hidden hover:text-base transition-colors !duration-0">
+          <RouterLink :to="`/category/${frontmatter.category}`">
+            {{ frontmatter.category }}
+          </RouterLink>
+        </span>
       </p>
     </div>
     <slot />
