@@ -17,6 +17,7 @@ export default defineConfig({
         'bg-deep': 'var(--bg-deep)',
         'bg-deeper': 'var(--bg-deeper)',
         'accent': 'var(--color-accent)',
+        'mark': 'var(--color-mark)',
         'lite': 'var(--text-lite)',
         'base': 'var(--text-base)',
         'deep': 'var(--text-deep)',

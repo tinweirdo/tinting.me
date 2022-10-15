@@ -49,14 +49,37 @@ html:not(.dark) .shiki-dark {
 }
 
 .prose a {
-  @apply text-deep transition-colors duration-200 border-b-1px border-solid border-deep;
-  font-weight: inherit;
+  @apply text-lite transition-colors duration-200 relative;
   text-decoration: none;
-  transition: border 0.3s ease-in-out;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    @apply text-base;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -.2em;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid currentColor;
+  }
 }
 
-.prose a:hover {
-  @apply text-deeper border-deeper;
+.prose mark {
+  position: relative;
+  background: none;
+  &::after {
+    content: '';
+    position: absolute;
+    top: -.2em;
+    bottom: -.2em;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    @apply bg-mark;
+  }
 }
 
 .prose a code {
@@ -184,6 +207,27 @@ h6:focus .header-anchor {
     display: none;
   }
 }
+
+.prose .task-list-item-checkbox[type='checkbox'] {
+  background-image: none !important;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  display: inline-block;
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
+  font-size: 1.2em;
+  margin-right: .2em;
+  &:not(:checked)::after {
+    content: '⏳';
+  }
+  &:checked::after {
+    content: '✅'
+  }
+}
+
 .prose hr {
   @apply border-lite my-3em h-1px border-solid border-b-1px;
 }

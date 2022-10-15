@@ -5,22 +5,22 @@
 }
 
 .table-of-contents {
+  @apply flex flex-col items-center justify-center transition-opacity duration-300;
   position: fixed;
-  top: 80px;
-  padding-top: 70px;
-  font-size: 0.8em;
-  right: 10px;
-  width: 200px;
+  top: 0;
   bottom: 0;
+  right: 0;
+  font-size: 0.8rem;
+  max-width: 200px;
+  padding: 10vh 32px 10vh 0;
   overflow-y: auto;
   overflow-x: hidden;
   text-overflow: ellipsis;
   opacity: 0;
-  transition: all .4s ease-out;
-}
 
-.table-of-contents:hover {
-  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .table-of-contents ul > li::before {
@@ -29,4 +29,13 @@
 
 .table-of-contents ul > li {
   padding-left: 0.8rem;
+}
+
+.table-of-contents a {
+  @apply !text-lite;
+  @apply transition-colors duration-150;
+
+  &:hover {
+    @apply !text-deep;
+  }
 }

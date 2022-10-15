@@ -101,7 +101,7 @@ export default defineConfig({
           slugify,
         })
 
-        md.use(TaskLists)
+        md.use(TaskLists, { label: false })
 
       },
     }),
