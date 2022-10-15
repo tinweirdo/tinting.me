@@ -4,5 +4,6 @@ export interface FrontMatter {
   date?: Date,
   category?: string,
   tags: string[],
-  [k: string]: any
+  head?: { [k: keyof any]: any },
+  [k: keyof any]: any
 }

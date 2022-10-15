@@ -49,25 +49,17 @@ html:not(.dark) .shiki-dark {
 }
 
 .prose a {
-  @apply text-lite transition-colors duration-200 relative;
+  @apply text-base transition-colors duration-200 relative border-b-1px border-solid border-b-lite transition-colors duration-300;
   text-decoration: none;
-  transition: color 0.2s ease-in-out;
 
   &:hover {
-    @apply text-base;
+    @apply border-b-deep;
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -.2em;
-    left: 0;
-    right: 0;
-    border-bottom: 1px solid currentColor;
-  }
 }
 
 .prose mark {
+  @apply text-dark-800;
   position: relative;
   background: none;
   &::after {
@@ -78,7 +70,7 @@ html:not(.dark) .shiki-dark {
     left: 0;
     right: 0;
     z-index: -1;
-    @apply bg-mark;
+    @apply bg-mark dark:bg-yellow-300;
   }
 }
 
@@ -89,6 +81,18 @@ html:not(.dark) .shiki-dark {
 .prose hr {
   width: 50px;
   margin: 2em auto;
+}
+
+.prose a.header-anchor {
+  position: absolute;
+  right: 100%;
+  padding-right: 0.5em;
+  opacity: 0;
+  border: 0!important;
+
+  &::after, &:hover::after {
+    display: none;
+  }
 }
 
 h1:hover .header-anchor,
@@ -246,6 +250,11 @@ h6:focus .header-anchor {
 }
 .prose blockquote p:last-of-type::after {
   content: close-quote;
+}
+.prose {
+  h1, h2, h3 {
+    position: relative;
+  }
 }
 .prose h1 {
   @apply text-deep;

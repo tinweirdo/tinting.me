@@ -18,4 +18,5 @@ provideThemeMode()
   <main>
     <RouterView />
   </main>
+  <Footer />
 </template>

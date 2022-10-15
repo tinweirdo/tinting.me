@@ -9,7 +9,7 @@ import { FrontMatter } from '~/types'
 const props = defineProps<{ frontmatter: FrontMatter }>()
 const content = ref<HTMLElement>()
 
-const { hideSiteName = false, title, custom, keywords, tags } = props?.frontmatter ?? {}
+const { hideSiteName = false, title, custom, keywords, tags, head = {} } = props?.frontmatter ?? {}
 
 useHead({
   title: hideSiteName ? title : title + ' - ' + SITE_NAME,
@@ -18,6 +18,7 @@ useHead({
     { name: 'description', content: DESCRIPTION },
     { name: 'keywords', content: (keywords ?? tags ?? []).join(', ') },
   ],
+  ...head,
 })
 
 const router = useRouter()

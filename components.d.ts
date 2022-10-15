@@ -9,6 +9,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Article: typeof import('./src/components/Article.vue')['default']
     Author: typeof import('./src/components/Header/Author.vue')['default']
+    Footer: typeof import('./src/components/Footer.vue')['default']
     Github: typeof import('./src/components/Github.vue')['default']
     Header: typeof import('./src/components/Header/index.vue')['default']
     Markdown: typeof import('./src/components/Markdown.vue')['default']
