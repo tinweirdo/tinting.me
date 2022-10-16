@@ -9,6 +9,7 @@ import Components from 'unplugin-vue-components/vite'
 import eslint from 'vite-plugin-eslint'
 import Pages from 'vite-plugin-pages'
 import matter from 'gray-matter'
+import MarkdownIt from 'markdown-it'
 import Markdown from 'vite-plugin-vue-markdown'
 import Shiki from 'markdown-it-shiki'
 import Anchor from 'markdown-it-anchor'
@@ -16,6 +17,7 @@ import LinkAttributes from 'markdown-it-link-attributes'
 import TOC from 'markdown-it-table-of-contents'
 import TaskLists from 'markdown-it-task-lists'
 import slugify from './scripts/slugify'
+import excludePosts from './scripts/excludePosts'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -55,13 +57,23 @@ export default defineConfig({
     Pages({
       extensions: ['vue', 'md'],
       pagesDir: 'pages',
+      exclude: excludePosts(),
+      importMode: 'async',
       extendRoute(route) {
         const path = resolve(__dirname, route.component.slice(1))
-        if (!path.includes('projects.md')) {
-          const md = fs.readFileSync(path, 'utf-8')
-          const { data } = matter(md)
-          route.meta = Object.assign(route.meta || {}, { frontmatter: data })
-        }
+        const md = fs.readFileSync(path, 'utf-8')
+        const { data, excerpt } = matter(md, { excerpt: (file) => {
+          const content = ((file as any).content as string).replace(/<[^>]*>/g, '').replace(/\[\[toc\]\]/g, '')
+          ;(file as any).excerpt =  MarkdownIt()
+            .render(content)
+            .replace(/<[^>]*>/g, '')
+            .replace(/\n/g, ' ')
+            .replace(/\s+/, ' ')
+            .slice(0, 280)
+            .concat('...')
+          return file
+        } })
+        route.meta = Object.assign(route.meta || {}, { frontmatter: data, excerpt })
         return route
       },
     }),

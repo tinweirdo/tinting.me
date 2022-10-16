@@ -1,4 +1,4 @@
-import { inject, InjectionKey, onMounted, provide, ref, Ref, watch } from 'vue'
+import { inject, InjectionKey, onMounted, provide, ref, Ref, watch, readonly } from 'vue'
 import { DEFAULT_THEME_MODE } from '~/env'
 import { defaultWindow } from '@vueuse/core'
 
@@ -32,7 +32,7 @@ export const getSystemThemeMode = (): ThemeMode.Dark | ThemeMode.Light => {
 }
 
 const KEY = Symbol() as InjectionKey<{
-  themeMode: Ref<ThemeMode>;
+  themeMode: Readonly<Ref<ThemeMode>>;
   toggleThemeMode: () => void;
   setThemeMode: (mode: ThemeMode) => void;
 }>
@@ -61,7 +61,7 @@ export const provideThemeMode = () => {
     }
   }
   watch(themeMode, updateRootClass, { immediate: true })
-  provide(KEY, { themeMode, toggleThemeMode, setThemeMode })
+  provide(KEY, { themeMode: readonly(themeMode), toggleThemeMode, setThemeMode })
   onMounted(() => {
     const media = window.matchMedia('(prefers-color-scheme: dark)')
     if (typeof media.addEventListener === 'function') {

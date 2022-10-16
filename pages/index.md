@@ -5,9 +5,9 @@ head:
   title: Wayne Wu
 ---
 
-Hi, I'm Wayne Wu, working in the Front-End and is lover of photography, as you viewing is my personal blog, I share my life and tech-experience.
+Hi, I'm <mark>Wayne Wu</mark>, working in the Front-End and is lover of photography, as you viewing is my personal blog, I share my life and tech-experience.
 
-你好，我叫 Wayne Wu，一名前端工作者、摄影爱好者。正如你所见，这是我的个人博客，我在这里分享生活与技术心得。
+你好，我叫 <mark>Wayne Wu</mark>，一名前端工作者、摄影爱好者。正如你所见，这是我的个人博客，我在这里分享生活与技术心得。
 
 I Love programming and exploring, wishing create valuable things. You can browse [my projects here](/projects).
 
@@ -19,4 +19,4 @@ You can find me in the ways below:
 
  - Mail me at **wayne-wu@outlook.com**
  - Wechat to **cute-guan**
- - [Github WayneWu98 ](https://github.com/WayneWu98)
+ - [Github **WayneWu98**](https://github.com/WayneWu98)

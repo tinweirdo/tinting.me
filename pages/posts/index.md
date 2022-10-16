@@ -1,5 +1,7 @@
 ---
 title: Posts
+custom: true
 ---
 
-TODO...
+<Space :size="96" />
+<ListPosts />

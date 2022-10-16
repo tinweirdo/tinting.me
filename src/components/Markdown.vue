@@ -9,14 +9,14 @@ import { FrontMatter } from '~/types'
 const props = defineProps<{ frontmatter: FrontMatter }>()
 const content = ref<HTMLElement>()
 
-const { hideSiteName = false, title, custom, keywords, tags, head = {} } = props?.frontmatter ?? {}
+const { hideSiteName = false, title, custom, keywords, head = {} } = props?.frontmatter ?? {}
 
 useHead({
   title: hideSiteName ? title : title + ' - ' + SITE_NAME,
   meta: [
     { property: 'og:title', content: props.frontmatter.title },
     { name: 'description', content: DESCRIPTION },
-    { name: 'keywords', content: (keywords ?? tags ?? []).join(', ') },
+    { name: 'keywords', content: (keywords ?? []).join(', ') },
   ],
   ...head,
 })
@@ -71,12 +71,12 @@ onMounted(() => {
 
 <template>
   <slot v-if="custom" ref="content" />
-  <Article
+  <Post
     v-else
     ref="content"
-    class="m-auto mt-56px"
+    class="m-auto mt-80px"
     :frontmatter="frontmatter"
   >
     <slot />
-  </Article>
+  </Post>
 </template>
