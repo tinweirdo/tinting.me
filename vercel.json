@@ -3,5 +3,15 @@
   "cleanUrls": true,
   "framework": "vite",
   "installCommand": "npm i --legacy-peer-deps",
-  "trailingSlash": false
+  "trailingSlash": false,
+  "routes": [
+    {
+        "handle": "filesystem"
+    },
+    {
+        "src": "/(.*)",
+        "status": 404,
+        "dest": "/404"
+    }
+]
 }
