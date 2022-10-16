@@ -7,8 +7,6 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    Article: typeof import('./src/components/Article.vue')['default']
-    ArticleMeta: typeof import('./src/components/ArticleMeta.vue')['default']
     Author: typeof import('./src/components/Header/Author.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     Github: typeof import('./src/components/Github.vue')['default']
@@ -22,6 +20,5 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Space: typeof import('./src/components/Space.vue')['default']
-    TopMeta: typeof import('./src/components/Header/TopMeta.vue')['default']
   }
 }
