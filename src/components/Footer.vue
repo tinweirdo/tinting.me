@@ -4,8 +4,8 @@ import { AUTHOR } from '~/env'
 </script>
 
 <template>
-  <footer class="px-24px py-32px mt-64px">
-    <div class="mx-auto w-content opacity-50 prose">
+  <footer class="py-32px mt-64px">
+    <div class="w-content opacity-50 prose">
       <p style="font-size: .8rem" class="!m-0">
         <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>
       </p>

@@ -74,7 +74,7 @@ onMounted(() => {
   <Post
     v-else
     ref="content"
-    class="mx-24px mt-80px"
+    class="mt-80px"
     :frontmatter="frontmatter"
   >
     <slot />

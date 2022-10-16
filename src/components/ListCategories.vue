@@ -5,11 +5,10 @@ const categories = useCategories()
 </script>
 
 <template>
-  <div class="px-24px">
+  <div class="w-content">
     <div
       v-for="{name, count} in categories"
       :key="name"
-      class="w-content m-auto"
     >
       <RouterLink
         v-slot="{ navigate }"

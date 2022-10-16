@@ -11,6 +11,9 @@ export default defineConfig({
     prefix: 'w:',
   },
   theme: {
+    screens: {
+      '<w-content': { raw: '(max-width: calc(48rem + 48px))' },
+    },
     extend: {
       colors: {
         'bg-base': 'var(--bg-base)',
@@ -33,7 +36,7 @@ export default defineConfig({
     },
   },
   shortcuts: {
-    'w-content': 'max-w-48rem',
+    'w-content': 'max-w-48rem mx-auto !<w-content:mx-24px',
   },
   plugins: [form],
 })

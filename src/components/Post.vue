@@ -6,7 +6,7 @@ defineProps<{ frontmatter: FrontMatter }>()
 
 <template>
   <article>
-    <div class="w-content m-auto">
+    <div class="w-content">
       <div class="mb-2.2em">
         <h1 v-if="frontmatter.title" class="text-2.25em font-bold mb-0.1em text-deeper leading-tight">
           {{ frontmatter.title }}
@@ -16,7 +16,7 @@ defineProps<{ frontmatter: FrontMatter }>()
         </h2>
         <PostMeta class="mt-20px" :frontmatter="frontmatter" />
       </div>
-      <slot class="w-content m-auto" />
+      <slot />
     </div>
   </article>
 </template>
