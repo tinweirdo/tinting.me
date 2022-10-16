@@ -32,5 +32,8 @@ export default defineConfig({
       xl: ['24px', '32px'],
     },
   },
+  shortcuts: {
+    'w-content': 'max-w-48rem',
+  },
   plugins: [form],
 })

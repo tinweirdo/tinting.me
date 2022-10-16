@@ -7,7 +7,6 @@ import useThemeMode, { ThemeMode } from '~/hooks/useThemeMode'
 const menus = [
   { to: '/posts', title: 'Blog'},
   { to: '/projects', title: 'Projects'},
-  { to: '/about', title: 'About'},
   { to: '/categories', title: 'Categories'},
 ]
 const route = useRoute()

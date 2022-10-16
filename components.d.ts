@@ -8,9 +8,11 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Author: typeof import('./src/components/Header/Author.vue')['default']
+    Banner: typeof import('./src/components/Banner.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     Github: typeof import('./src/components/Github.vue')['default']
     Header: typeof import('./src/components/Header/index.vue')['default']
+    ListCategories: typeof import('./src/components/ListCategories.vue')['default']
     ListPosts: typeof import('./src/components/ListPosts.vue')['default']
     Markdown: typeof import('./src/components/Markdown.vue')['default']
     NavBar: typeof import('./src/components/Header/NavBar.vue')['default']
