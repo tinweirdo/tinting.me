@@ -3,8 +3,5 @@
   "cleanUrls": false,
   "framework": "vite",
   "installCommand": "npm i --legacy-peer-deps",
-  "trailingSlash": false,
-  "redirects": [
-    { "source": "/:path(.*).html", "destination": "/:path*" }
-  ]
+  "trailingSlash": false
 }
