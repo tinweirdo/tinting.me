@@ -42,7 +42,7 @@ onMounted(() => {
       <slot />
       <div class="w-full relative h-56px overflow-hidden">
         <div class="absolute left-0 top-0 -bottom-40px right-0 overflow-x-scroll whitespace-nowrap" @mouseout="onOut" @touchend="onOut">
-          <span class="<md:hidden absolute top-12px rounded-4px transition-all opacity-0 bg-bg-deep" :class="{ '!opacity-100': highlightState.visible }" :style="{ width: highlightState.with + 'px', left: highlightState.left + 'px', height: highlightState.height + 'px' }" />
+          <span class="<w-content:hidden absolute top-12px rounded-4px transition-all opacity-0 bg-bg-deep" :class="{ '!opacity-100': highlightState.visible }" :style="{ width: highlightState.with + 'px', left: highlightState.left + 'px', height: highlightState.height + 'px' }" />
           <RouterLink v-for="menu in menus" :key="menu.to" :to="menu.to">
             <span class="menu-item relative px-12px py-16px inline-block transition-colors duration-300 text-base hover:text-deeper after:content-DEFAULT after:h-2px after:bg-deeper after:absolute after:bottom-0 after:left-12px after:right-12px after:opacity-0" :class="{ 'after:opacity-100 !text-deeper': route.path === menu.to }" @mouseenter="onMouseEnter">
               {{ menu.title }}

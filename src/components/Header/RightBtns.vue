@@ -19,14 +19,13 @@ const themeIcon = computed(() => {
 
 <template>
   <div class="flex-shrink-0 flex items-center <md:hidden">
-    <a href="https://github.com/WayneWu98" target="_blank" class="btn flex block cursor-pointer p-4px rounded-4px bg-transparent hover:bg-bg-deep">
-      <Icon
-        width="24"
-        height="24"
-        icon="ant-design:github-filled"
-      />
+    <a href="/feed.xml" target="_blank" class="btn mr-4px flex block cursor-pointer p-4px rounded-4px bg-transparent hover:bg-bg-deep">
+      <Icon width="24" height="24" icon="humbleicons:rss" />
     </a>
-    <span class="btn flex block cursor-pointer p-4px rounded-4px bg-transparent hover:bg-bg-deep box-border">
+    <a href="https://github.com/WayneWu98" target="_blank" class="btn mr-4px flex block cursor-pointer p-4px rounded-4px bg-transparent hover:bg-bg-deep">
+      <Icon width="24" height="24" icon="ant-design:github-filled" />
+    </a>
+    <span class="btn mr-4px flex block cursor-pointer p-4px rounded-4px bg-transparent hover:bg-bg-deep box-border">
       <Icon
         :icon="themeIcon"
         width="24"

@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx vite-ssg build",
+  "buildCommand": "npm run build",
   "cleanUrls": true,
   "framework": "vite",
   "installCommand": "npm i --legacy-peer-deps",
