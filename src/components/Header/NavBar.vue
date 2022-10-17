@@ -24,10 +24,7 @@ const onMouseEnter = ({ target }: MouseEvent) => {
   highlightState.height = offsetHeight - 24
 }
 
-const onOut = () => {
-  console.log('onOut')
-  highlightState.visible = false
-}
+const onOut = () => highlightState.visible = false
 
 onMounted(() => {
   const el = document.querySelector<HTMLElement>('.menu-item:first-of-type')

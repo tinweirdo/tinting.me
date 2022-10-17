@@ -39,7 +39,6 @@ async function buildBlogRSS() {
       rss: `${VITE_DOMAIN}feed.xml`,
     },
   }
-  console.log('files', files)
   const posts: any[] = (
     await Promise.all(
       files.filter((i) => !i.includes('index'))
@@ -70,7 +69,6 @@ async function buildBlogRSS() {
 }
 
 async function writeFeed(name: string, options: FeedOptions, items: Item[]) {
-  console.log('items', items)
   options.author = AUTHOR
   options.image = `${VITE_DOMAIN}avatar.png`
   options.favicon = `${VITE_DOMAIN}logo.png`
