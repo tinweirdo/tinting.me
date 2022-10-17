@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     Header: typeof import('./src/components/Header/index.vue')['default']
     ListCategories: typeof import('./src/components/ListCategories.vue')['default']
     ListPosts: typeof import('./src/components/ListPosts.vue')['default']
+    ListProjects: typeof import('./src/components/ListProjects.vue')['default']
     Markdown: typeof import('./src/components/Markdown.vue')['default']
     NavBar: typeof import('./src/components/Header/NavBar.vue')['default']
     Post: typeof import('./src/components/Post.vue')['default']

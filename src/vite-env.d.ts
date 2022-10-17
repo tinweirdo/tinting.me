@@ -12,7 +12,7 @@ interface ImportMetaEnv {
   readonly VITE_DEFAULT_THEME_MODE: string,
   readonly VITE_AUTHOR: string,
   readonly VITE_EMAIL: string,
-  readonly VITE_WEBSITE: string
+  readonly VITE_DOMAIN: string
 }
 
 interface ImportMeta {
