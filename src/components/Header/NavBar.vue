@@ -1,8 +1,6 @@
 <script lang="ts" setup>
-import { computed, onMounted, reactive } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import { Icon } from '@iconify/vue'
-import useThemeMode, { ThemeMode } from '~/hooks/useThemeMode'
 
 const menus = [
   { to: '/posts', title: 'Blog'},
@@ -36,20 +34,6 @@ onMounted(() => {
   highlightState.with = el?.offsetWidth ?? 0
   highlightState.height = (el?.offsetHeight ?? 0 ) - 24
 })
-
-const { themeMode, toggleThemeMode } = useThemeMode() ?? {}
-
-const themeIcon = computed(() => {
-  switch (themeMode?.value) {
-    case ThemeMode.Light:
-      return 'fluent-emoji:waning-gibbous-moon'
-    case ThemeMode.Dark:
-      return 'fluent-emoji:waning-crescent-moon'
-    default:
-      return 'fluent-emoji:last-quarter-moon'
-  }
-})
-
 </script>
 
 <template>
@@ -67,14 +51,6 @@ const themeIcon = computed(() => {
         </div>
       </div>
     </div>
-    <div class="flex-shrink-0 <md:hidden">
-      <Icon
-        class="cursor-pointer p-4px rounded-4px bg-transparent hover:bg-bg-deep"
-        :icon="themeIcon"
-        width="32"
-        height="32"
-        @click="toggleThemeMode?.()"
-      />
-    </div>
+    <RightBtns class="<w-content:hidden" />
   </nav>
 </template>

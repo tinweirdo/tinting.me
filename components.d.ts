@@ -20,6 +20,7 @@ declare module '@vue/runtime-core' {
     Post: typeof import('./src/components/Post.vue')['default']
     PostMeta: typeof import('./src/components/PostMeta.vue')['default']
     Redirect: typeof import('./src/components/Redirect.vue')['default']
+    RightBtns: typeof import('./src/components/Header/RightBtns.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Space: typeof import('./src/components/Space.vue')['default']

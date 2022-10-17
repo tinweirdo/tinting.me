@@ -23,11 +23,13 @@ defineProps<{ projects: Project[] }>()
       :key="item.name"
       :href="item.link"
       target="_blank"
-      class="block !py-32px <w-content:w-full border-b-1px !border-b-border border-solid hover:opacity-50 !transition-opacity !duration-150 relative cursor-pointer"
+      class="block flex items-center justify-between !py-32px <w-content:w-full border-b-1px !border-b-border border-solid hover:opacity-50 !transition-opacity !duration-150 relative cursor-pointer"
     >
-      <h2 class="text-base text-deep !m-0 !p-0">{{ item.name }}</h2>
-      <p v-if="item.desc" class="!mt-16px !mb-0 text-lite">{{ item.desc }}</p>
-      <span v-if="item.status" class="tag absolute top-1/2 right-0 -translate-y-1/2" :class="`tag_${item.status.replace(/\s+/, '-')}`">{{ item.status }}</span>
+      <div>
+        <h2 class="text-base text-deep !m-0 !p-0">{{ item.name }}</h2>
+        <p v-if="item.desc" class="!mt-16px !mb-0 text-lite">{{ item.desc }}</p>
+      </div>
+      <span v-if="item.status" class="tag flex-shrink-0 ml-12px" :class="`tag_${item.status.replace(/\s+/, '-')}`">{{ item.status }}</span>
     </a>
   </div>
 </template>
