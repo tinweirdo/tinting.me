@@ -1,10 +1,7 @@
 {
   "buildCommand": "npm run build",
-  "cleanUrls": false,
+  "cleanUrls": true,
   "framework": "vite",
   "installCommand": "npm i --legacy-peer-deps",
-  "trailingSlash": false,
-  "redirects": [
-    { "source": "/:path(.*).html", "destination": "/:path*" }
-  ]
+  "trailingSlash": false
 }
