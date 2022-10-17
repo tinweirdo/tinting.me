@@ -18,6 +18,8 @@ import TOC from 'markdown-it-table-of-contents'
 import TaskLists from 'markdown-it-task-lists'
 import slugify from './scripts/slugify'
 import excludePosts from './scripts/excludePosts'
+import generateSitemap from 'vite-ssg-sitemap'
+import env from './scripts/env'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -123,5 +125,8 @@ export default defineConfig({
   ssgOptions: {
     formatting: 'minify',
     format: 'cjs',
+    onFinished() {
+      generateSitemap({ hostname: env.VITE_DOMAIN })
+    },
   },
 })

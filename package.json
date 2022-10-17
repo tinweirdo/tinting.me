@@ -54,6 +54,7 @@
     "vite-plugin-vue-markdown": "^0.22.1",
     "vite-plugin-windicss": "^1.8.8",
     "vite-ssg": "^0.20.0",
+    "vite-ssg-sitemap": "^0.4.3",
     "vite-svg-loader": "^3.6.0",
     "vue-eslint-parser": "^9.1.0",
     "vue-tsc": "^0.40.4",
