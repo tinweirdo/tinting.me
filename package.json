@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "npx vite --port 3333",
-    "build": "npm run rss && npx vite-ssg build",
+    "build": "npx vite-ssg build && npm run rss",
     "rss": "npx esno ./scripts/rss.ts",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint . --fix"
