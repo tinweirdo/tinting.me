@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { useRoute } from 'vue-router'
 import { FrontMatter } from '~/types'
 defineProps<{ frontmatter: FrontMatter }>()
 </script>

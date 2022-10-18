@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import dayjs from 'dayjs'
-import { computed, ComputedRef } from 'vue'
-import { useRouter } from 'vue-router'
+import { computed } from 'vue'
 import usePosts, { Post } from '~/hooks/usePosts'
-import { FrontMatter } from '~/types'
 import { formatDate } from '~/utils'
 import PostMeta from './PostMeta.vue'
 

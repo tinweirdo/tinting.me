@@ -11,7 +11,7 @@ defineProps<{ showAuthorName?: boolean }>()
     <RouterLink v-slot="{ navigate, href }" to="/" custom>
       <a class="inline-flex items-center flex-shrink-0" :href="href" @click="navigate">
         <img
-          src="/public/avatar.jpeg"
+          src="/avatar.jpeg"
           :alt="AUTHOR"
           class="rounded-full w-32px h-32px box-border border-1px border-bg-deep border-solid box-border"
         >

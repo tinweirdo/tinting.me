@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
-import { useElementVisibility, useIntersectionObserver } from '@vueuse/core'
-import { AUTHOR, EMAIL } from '~/env'
+import { ref } from 'vue'
+import { useIntersectionObserver } from '@vueuse/core'
 import NavBar from './NavBar.vue'
 const authorEl = ref<HTMLElement>()
 const visible = ref(true)
