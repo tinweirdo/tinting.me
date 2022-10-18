@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import WindiCSS from 'vite-plugin-windicss'
 import SVG from 'vite-svg-loader'
+import Icons from 'unplugin-icons/vite'
 import Inspect from 'vite-plugin-inspect'
 import Components from 'unplugin-vue-components/vite'
 import eslint from 'vite-plugin-eslint'
@@ -56,6 +57,7 @@ export default defineConfig({
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
     }),
     SVG({ svgo: false }),
+    Icons({ compiler: 'vue3' }),
     Pages({
       extensions: ['vue', 'md'],
       pagesDir: 'pages',

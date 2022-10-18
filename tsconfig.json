@@ -10,7 +10,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "types": ["vite/client", "vite-plugin-pages/client", "vue/ref-macros"],
+    "types": ["vite/client", "vite-plugin-pages/client", "vue/ref-macros", "unplugin-icons/types/vue"],
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "baseUrl": "./",
