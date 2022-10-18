@@ -11,6 +11,9 @@
     "lint:fix": "npx eslint . --fix"
   },
   "dependencies": {
+    "@iconify-icons/ant-design": "^1.2.4",
+    "@iconify-icons/fluent-emoji": "^1.2.3",
+    "@iconify-icons/humbleicons": "^1.2.1",
     "@vueuse/core": "^9.3.0",
     "@vueuse/head": "^0.7.0",
     "dayjs": "^1.11.5",
