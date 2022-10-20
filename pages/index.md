@@ -5,7 +5,7 @@ head:
   title: Wayne Wu
 ---
 
-Hi, I'm <mark>Wayne Wu</mark>, working in the Front-End and is lover of photography, as you viewing is my personal blog, I share my life and tech-experience.
+Hi, I'm <mark>Wayne Wu</mark>, working in the Front-End and is lover of photography, as you viewing is my personal blog, I share my life and tech-experience here.
 
 你好，我叫 <mark>Wayne Wu</mark>，一名前端工作者、摄影爱好者。正如你所见，这是我的个人博客，我在这里分享生活与技术心得。
 
