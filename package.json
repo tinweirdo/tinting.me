@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npx vite --port 3333",
+    "dev": "npx netlify dev --live",
+    "dev:web": "npx vite --port 3333",
     "build": "npx vite-ssg build && npm run rss",
     "rss": "npx esno ./scripts/rss.ts",
     "lint": "npx eslint .",
