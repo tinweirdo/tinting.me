@@ -1,3 +1,4 @@
 [build]
   publish = "dist/"
   environment = { NODE_VERSION = "16", NODE_FLAGS = "--legacy-peer-deps" }
+  command = "npm run build"
