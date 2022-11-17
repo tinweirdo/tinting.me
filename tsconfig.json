@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowUmdGlobalAccess": true,
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
