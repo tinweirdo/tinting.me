@@ -1,6 +1,6 @@
 import type { MiddlewareObj } from '@middy/core'
 import type { HandlerEvent } from '@netlify/functions'
-import context from '../context'
+import context from './context'
 import { verify } from '../jwt'
 
 interface Config {

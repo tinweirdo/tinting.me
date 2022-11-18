@@ -9,3 +9,4 @@ export const SMTP_HOST = process.env.SMTP_HOST as string
 export const SMTP_PORT = process.env.SMTP_PORT as string
 export const SMTP_EMAIL = process.env.SMTP_EMAIL as string
 export const SMTP_PASSWORD = process.env.SMTP_PASSWORD as string
+export const VITE_EMAIL = process.env.VITE_EMAIL as string

@@ -1,7 +1,24 @@
-// export interface HandlerEvent<T = any> {
-//   rawUrl: string,
-//   path: string,
-//   httpMethod: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'OPTION',
-//   headers: Record<string, string | undefined>,
-//   body: T
-// }
+export const enum CommentStatus {
+  Published = 'published',
+  Unreviewed = 'unreviewed'
+}
+
+export const enum CommentRole {
+  Manager = 'manager',
+  Visitor = 'visitor'
+}
+
+export interface Comment {
+  objectId: string,
+  id?: string,
+  nickname: string,
+  email: string,
+  website?: string,
+  content: string,
+  publushed: boolean,
+  createdAt: string,
+  updatedAt: string,
+  status: CommentStatus,
+  role: CommentRole,
+  parent?: string,
+}

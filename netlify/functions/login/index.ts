@@ -8,8 +8,7 @@ import { Response } from '../../core/app'
 import auth from '../../core/middleware/auth'
 import error from '../../core/middleware/error'
 import type { HandlerEvent } from '@netlify/functions'
-import context from '../../core/context'
-import ctxMiddleware from '../../core/middleware/context'
+import context, { middleware as useContext } from '../../core/middleware/context'
 import { AUTH_PASSWORD, AUTH_USERNAME } from '../../core/env'
 import { encode } from '../../core/jwt'
 
@@ -20,6 +19,7 @@ const postSchema = {
     body: {
       type: 'object',
       required: ['username', 'password'],
+      additionalProperties: false,
       properties: {
         username: {
           type: 'string',
@@ -52,10 +52,7 @@ const post = middy<HandlerEvent, any>()
         return Response.forbidden('password is invalid.')
       }
 
-      return Response.ok({
-        type: 'Bearer',
-        token: await encode(),
-      })
+      return Response.ok(await encode())
     },
   )
 
@@ -69,7 +66,7 @@ const routes: Route<any>[] = [
 ]
 
 export const handler = middy()
-  .use(ctxMiddleware())
+  .use(useContext())
   .use(httpJsonBodyParser())
   .use(error())
   .handler(httpRouterHandler(routes))
