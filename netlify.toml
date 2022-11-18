@@ -3,10 +3,5 @@
   environment = { NODE_VERSION = "16", NODE_FLAGS = "--legacy-peer-deps", NETLIFY_EXPERIMENTAL_BUILD_RUST_SOURCE = "true"}
   command = "npm run build"
 
-[dev]
-  command = "npm run dev:web"
-  targetPort = 3333
-  port = 3334
-
 [functions]
   directory = "netlify/functions/"
