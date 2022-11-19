@@ -5,3 +5,8 @@
 
 [functions]
   directory = "netlify/functions/"
+  included_files = ["**/*.ejs"]
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"

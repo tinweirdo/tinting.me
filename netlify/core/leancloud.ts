@@ -35,7 +35,9 @@ export const getComments = (where: Record<string, any>) => {
 }
 
 export const getComment = (objectId: string) => {
-  return request.get<any, Comment>(`${COMMENT_API}/${objectId}`, { params: { include: 'parent' } })
+  return request
+    .get<any, FilledComment>(`${COMMENT_API}/${objectId}`, { params: { include: 'parent' } })
+    .then((comment) => comment.objectId ? comment : undefined)
 }
 
 export const createComment = (id: string, comment: Comment) => {

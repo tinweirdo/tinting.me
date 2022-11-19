@@ -34,9 +34,9 @@ async function buildBlogRSS() {
     link: VITE_DOMAIN,
     copyright: `CC BY-NC-SA 4.0 2013-PRESENT © ${VITE_AUTHOR}`,
     feedLinks: {
-      json: `${VITE_DOMAIN}feed.json`,
-      atom: `${VITE_DOMAIN}feed.atom`,
-      rss: `${VITE_DOMAIN}feed.xml`,
+      json: `${VITE_DOMAIN}/feed.json`,
+      atom: `${VITE_DOMAIN}/feed.atom`,
+      rss: `${VITE_DOMAIN}/feed.xml`,
     },
   }
   const posts: any[] = (
@@ -50,14 +50,14 @@ async function buildBlogRSS() {
             .replace('src="/', `src="${VITE_DOMAIN}/`)
 
           if (data.image?.startsWith('/'))
-            data.image = VITE_DOMAIN + data.image
+            data.image = VITE_DOMAIN + '/' + data.image
 
           return {
             ...data,
             date: new Date(data.date),
             content: html,
             author: [AUTHOR],
-            link: VITE_DOMAIN + i.replace(/^pages(.+)\.md$/, '$1'),
+            link: VITE_DOMAIN + '/' + i.replace(/^pages(.+)\.md$/, '$1'),
           }
         }),
     ))
@@ -70,8 +70,8 @@ async function buildBlogRSS() {
 
 async function writeFeed(name: string, options: FeedOptions, items: Item[]) {
   options.author = AUTHOR
-  options.image = `${VITE_DOMAIN}avatar.png`
-  options.favicon = `${VITE_DOMAIN}logo.png`
+  options.image = `${VITE_DOMAIN}/avatar.png`
+  options.favicon = `${VITE_DOMAIN}/logo.png`
 
   const feed = new Feed(options)
 

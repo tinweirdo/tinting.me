@@ -10,7 +10,7 @@ export const enum CommentRole {
 
 export interface Comment {
   objectId: string,
-  id?: string,
+  id: string,
   nickname: string,
   email: string,
   website?: string,

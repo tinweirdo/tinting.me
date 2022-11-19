@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title><%= SITE_NAME %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      a:hover {
+        text-decoration: underline!important;
+      }
+    </style>
+  </head>
+  <body style="background-color: #F5F7F8; padding: 48px;">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="680" style="background-color: #FFFFFF; box-shadow: 0 2px 30px 0 #EDEDED; padding-left: 32px; padding-right: 32px; padding-top: 32px; padding-bottom: 32px;">
+      <tbody style="background-color: #FFFF; ">
+        <tr><td style="color: #555555; font-size: 16px;"><%= title %></td></tr>
+        <tr>
+          <td style="padding-top: 32px; padding-bottom: 32px;">
+            <table>
+              <tbody>
+                <tr><td style="font-style: italic; color: #666666; font-size: 24px; line-height: 1.5; font-weight: 300;">"<%= content %>"</td></tr>
+                <tr><td align="right" style="padding-top: 16px; font-size: 20px; font-weight: 400; color: #555555;"><span style="font-size: 14px; padding-right: 14px; font-style: italic; color: #999999;">From</span><%= author %></td></tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <% if (links.length) { %>
+          <tr><td style="padding-bottom: 32px;"><span style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #DDDDDD;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+          <% for (var  i = 0; i < links.length; i++) { %>
+            <tr><td style="color: #AAAAAA; font-size: 14px; line-height: 1.2; padding-bottom: 6px;"><%= links[i].label %>：<a style="color: #BBBBBB; text-decoration: underline;" href="<%= links[i].value %>" target="_blank"><%= links[i].value %></a></tr>
+          <% }; %>
+          <tr><td style="padding-top: 26px; padding-bottom: 20px;"><span style="border-top-width: 1px; border-top-style: solid; border-top-color: #DDDDDD;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+        <% } %>
+        <tr><td align="right" style="font-size: 12px; color: #BBBBBB; padding-top: 16px;"><a style="color: #BBBBBB; text-decoration: none;" href="<%= AUTHOR_DOMAIN %>" target="_blank">来自 <%= SITE_NAME %></a></td></tr>
+      </tbody>
+    </table>
+  </body>
+</html>

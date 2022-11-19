@@ -2,12 +2,14 @@ import { Response as InternalResponse } from "@netlify/functions/dist/function/r
 
 export const enum ErrorCode {
   OK = 2000,
+  NotFound = 4004,
   Forbidden = 4001,
   Unkown = 5000,
 }
 
 export const enum ResponseMessage {
   OK = 'success.',
+  NotFound = 'not found.',
   Forbidden = 'forbidden.',
   Unkown = 'unkown error.',
 }
@@ -32,6 +34,10 @@ export class ResponseBody {
 
   static error<T extends Error>(error: T, message: string = error.message): ResponseBody {
     return ResponseBody.new(null, ErrorCode.Unkown, message)
+  }
+
+  static notFound(message: string = ResponseMessage.NotFound): ResponseBody {
+    return ResponseBody.new(null, ErrorCode.NotFound, message)
   }
 }
 
@@ -59,5 +65,9 @@ export class Response implements InternalResponse {
 
   static forbidden(message?: string): Response {
     return Response.new(ResponseBody.forbidden(message), 401)
+  }
+
+  static notFound(message?: string): Response {
+    return Response.new(ResponseBody.notFound(message), 404)
   }
 }

@@ -5,6 +5,7 @@ import { setCommentStatus } from "../../core/leancloud"
 import auth from "../../core/middleware/auth"
 import { Response } from '../../core/app'
 import { CommentStatus } from "../../core/types"
+import Mailer from "./mailer"
 
 const inputSchema = {
   type: 'object',
@@ -34,6 +35,7 @@ export default middy<HandlerEvent, any>()
       const objectId = e.pathParameters.objectId as string
       const status = (e.body  as any).status as CommentStatus
       await setCommentStatus(objectId, status)
+      if (status === CommentStatus.Published) Mailer.reply(objectId)
       return Response.ok()
     },
   )
