@@ -57,7 +57,7 @@ async function buildBlogRSS() {
             date: new Date(data.date),
             content: html,
             author: [AUTHOR],
-            link: VITE_DOMAIN + '/' + i.replace(/^pages(.+)\.md$/, '$1'),
+            link: VITE_DOMAIN + '/' + i.replace(/^\.?\/?pages\/?(.+)\.md$/, '$1'),
           }
         }),
     ))
