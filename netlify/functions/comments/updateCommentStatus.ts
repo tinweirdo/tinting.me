@@ -1,7 +1,7 @@
 import middy from "@middy/core"
 import validator from "@middy/validator"
 import { HandlerEvent } from "@netlify/functions"
-import { updateComment } from "../../core/leancloud"
+import { setCommentStatus } from "../../core/leancloud"
 import auth from "../../core/middleware/auth"
 import { Response } from '../../core/app'
 import { CommentStatus } from "../../core/types"
@@ -28,12 +28,12 @@ export default middy<HandlerEvent, any>()
   .use(auth())
   .use(validator({ inputSchema }))
   .handler(
-    async (e, ctx) => {
+    async (e) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore:next-line
       const objectId = e.pathParameters.objectId as string
       const status = (e.body  as any).status as CommentStatus
-      updateComment(objectId, { status })
+      await setCommentStatus(objectId, status)
       return Response.ok()
     },
   )

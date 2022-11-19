@@ -22,3 +22,5 @@ export interface Comment {
   role: CommentRole,
   parent?: string,
 }
+
+export type FilledComment = { parent?: FilledComment, children: FilledComment[] } & Exclude<Comment, 'parent'>

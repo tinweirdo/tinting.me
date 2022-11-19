@@ -8,6 +8,7 @@ import createComment from './createComment'
 import getComments from './getComments'
 import updateComment from './updateComment'
 import updateCommentStatus from './updateCommentStatus'
+import deleteComment from './deleteComment'
 
 const routes: Route<any>[] = [
   {
@@ -29,6 +30,11 @@ const routes: Route<any>[] = [
     method: 'PUT',
     path: '/.netlify/functions/comments/{objectId}',
     handler: updateComment,
+  },
+  {
+    method: 'DELETE',
+    path: '/.netlify/functions/comments/{objectId}',
+    handler: deleteComment,
   },
 ]
 
