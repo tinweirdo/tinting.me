@@ -63,6 +63,7 @@
     "markdown-it-shiki": "^0.5.1",
     "markdown-it-table-of-contents": "^0.6.0",
     "markdown-it-task-lists": "^2.1.1",
+    "netlify-cli": "^12.2.4",
     "typescript": "^4.6.4",
     "unplugin-icons": "^0.14.12",
     "unplugin-vue-components": "^0.22.8",
