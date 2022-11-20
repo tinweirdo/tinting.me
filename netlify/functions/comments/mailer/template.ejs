@@ -10,28 +10,27 @@
       }
     </style>
   </head>
-  <body style="background-color: #F5F7F8; padding-top: 48px; padding-bottom: 48px;">
-    <table align="center" border="0" cellpadding="0" cellspacing="0" style="background-color: #FFFFFF; box-shadow: 0 2px 30px 0 #EDEDED; padding-left: 32px; padding-right: 32px; padding-top: 32px; padding-bottom: 32px; max-width: 680px; margin-left: auto; margin-right: auto;">
-      <tbody style="background-color: #FFFF; ">
-        <tr><td style="color: #555555; font-size: 16px;"><%= title %></td></tr>
+  <body style="background-color: #FFFFFF;">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 800px; padding-top: 16px; padding-bottom: 16px; margin-left: auto; margin-right: auto;">
+      <tbody>
+        <tr><td style="color: #555555; font-size: 25px; line-height: 1.4; font-weight: bold;"><%= title %></td></tr>
         <tr>
           <td style="padding-top: 32px; padding-bottom: 32px;">
-            <table>
+            <table style="width: 100%; border-left-width: 4px; border-left-color: #EEEEEE; border-left-style: solid; padding-left: 16px;">
               <tbody>
                 <tr><td style="font-style: italic; color: #666666; font-size: 24px; line-height: 1.5; font-weight: 300;">"<%= content %>"</td></tr>
-                <tr><td align="right" style="padding-top: 16px; font-size: 20px; font-weight: 400; color: #555555;"><span style="font-size: 14px; padding-right: 14px; font-style: italic; color: #999999;">From</span><%= author %></td></tr>
+                <tr><td align="right" style="width: 100%; text-align: right; padding-top: 16px; font-size: 20px; font-weight: 400; color: #555555;"><span style="font-size: 14px; padding-right: 14px; font-style: italic; color: #999999;">From</span><%= author %></td></tr>
               </tbody>
             </table>
           </td>
         </tr>
         <% if (links.length) { %>
-          <tr><td style="padding-bottom: 32px;"><span style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #DDDDDD;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
           <% for (var  i = 0; i < links.length; i++) { %>
-            <tr><td style="color: #AAAAAA; font-size: 14px; line-height: 1.2; padding-bottom: 6px;"><%= links[i].label %>：<a style="color: #BBBBBB; text-decoration: underline;" href="<%= links[i].value %>" target="_blank"><%= links[i].value %></a></tr>
+            <tr><td style="color: #666666; font-size: 14px; line-height: 1.2; padding-bottom: 6px;"><%= links[i].label %>：<a style="color: #42A5F5; text-decoration: underline;" href="<%= links[i].value %>" target="_blank"><%= links[i].value %></a></tr>
           <% }; %>
-          <tr><td style="padding-top: 26px; padding-bottom: 20px;"><span style="border-top-width: 1px; border-top-style: solid; border-top-color: #DDDDDD;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
         <% } %>
-        <tr><td align="right" style="font-size: 12px; color: #BBBBBB; padding-top: 16px;"><a style="color: #BBBBBB; text-decoration: none;" href="<%= AUTHOR_DOMAIN %>" target="_blank">来自 <%= SITE_NAME %></a></td></tr>
+        <tr><td align="right" style="font-size: 12px; color: #BBBBBB; padding-top: 40px;">请不要回复此邮件，有任何问题请联系 <a href="mailto:<%= AUTHOR_EMAIL %>" style="text-decoration: underline; color: #42A5F5;"><%= AUTHOR_EMAIL %></a></td></tr>
+        <tr><td align="right" style="font-size: 12px; color: #BBBBBB; padding-top: 8px;"><a style="color: #BBBBBB; text-decoration: none;" href="<%= AUTHOR_DOMAIN %>" target="_blank">来自 <%= SITE_NAME %></a></td></tr>
       </tbody>
     </table>
   </body>

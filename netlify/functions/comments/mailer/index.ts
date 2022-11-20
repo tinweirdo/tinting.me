@@ -76,6 +76,7 @@ const notice = async (objectId: string) => {
       html,
     })
   } catch (err) {
+    console.log('send email err', err)
     logger.error(err?.message ?? err)
   }
 
