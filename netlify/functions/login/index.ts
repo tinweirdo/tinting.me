@@ -60,7 +60,7 @@ const post = middy<HandlerEvent, any>()
 const routes: Route<any>[] = [
   {
     method: 'POST',
-    path: '/.netlify/functions/login',
+    path: '/api/login',
     handler: post,
   },
 ]

@@ -14,32 +14,32 @@ import deleteComment from './deleteComment'
 const routes: Route<any>[] = [
   {
     method: 'GET',
-    path: '/.netlify/functions/comments',
+    path: '/api/comments',
     handler: getComments,
   },
   {
     method: 'GET',
-    path: '/.netlify/functions/comments/{objectId}',
+    path: '/api/comments/{objectId}',
     handler: getComment,
   },
   {
     method: 'POST',
-    path: '/.netlify/functions/comments',
+    path: '/api/comments',
     handler: createComment,
   },
   {
     method: 'PUT',
-    path: '/.netlify/functions/comments/{objectId}/status',
+    path: '/api/comments/{objectId}/status',
     handler: updateCommentStatus,
   },
   {
     method: 'PUT',
-    path: '/.netlify/functions/comments/{objectId}',
+    path: '/api/comments/{objectId}',
     handler: updateComment,
   },
   {
     method: 'DELETE',
-    path: '/.netlify/functions/comments/{objectId}',
+    path: '/api/comments/{objectId}',
     handler: deleteComment,
   },
 ]
