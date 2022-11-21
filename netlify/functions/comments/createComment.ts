@@ -60,7 +60,7 @@ export default middy<HandlerEvent, any>()
         comment.parent = { __type: 'Pointer', className: 'Comment', objectId: comment.parent }
       }
       const { objectId } = await createComment(id, comment)
-      if (!isAuthed) Mailer.notice(objectId)
+      if (!isAuthed) await Mailer.notice(objectId)
       return Response.ok(await getComment(objectId))
     },
   )

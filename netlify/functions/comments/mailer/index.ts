@@ -1,5 +1,5 @@
 import * as ejs from 'ejs'
-import { getComment } from "../../../core/leancloud"
+import { getComment, updateComment } from "../../../core/leancloud"
 import fs from 'fs-extra'
 import logger from '../../../core/log'
 import { AUTHOR_DOMAIN, AUTHOR_EMAIL, AUTHOR_NAME, SMTP_EMAIL } from '../../../core/env'
@@ -21,7 +21,7 @@ const getTpl = async () => {
 const reply = async (objectId: string) => {
   try {
     const comment = await getComment(objectId)
-    if (!comment?.parent) {
+    if (!comment?.parent || comment?.noticed) {
       return
     }
     const tpl = await getTpl()
@@ -44,6 +44,7 @@ const reply = async (objectId: string) => {
       text: `你在${SITE_NAME}的评论得到了回复，点击链接查看(${AUTHOR_DOMAIN}/${path}#comment-${objectId})`,
       html,
     })
+    await updateComment(objectId, { noticed: true })
   } catch (err) {
     logger.error(err?.message ?? err)
   }

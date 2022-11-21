@@ -35,7 +35,7 @@ export default middy<HandlerEvent, any>()
       const objectId = e.pathParameters.objectId as string
       const status = (e.body  as any).status as CommentStatus
       await setCommentStatus(objectId, status)
-      if (status === CommentStatus.Published) Mailer.reply(objectId)
+      if (status === CommentStatus.Published) await Mailer.reply(objectId)
       return Response.ok()
     },
   )
