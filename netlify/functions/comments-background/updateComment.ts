@@ -1,15 +1,10 @@
 import middy from "@middy/core"
 import validator from "@middy/validator"
 import { HandlerEvent } from "@netlify/functions"
-import { createComment, getComment } from "../../core/leancloud"
+import { getComment, updateComment } from "../../core/leancloud"
 import auth from "../../core/middleware/auth"
-import { parseQuery } from "../../core/utils"
 import { Response } from '../../core/app'
-import context from '../../core/middleware/context'
 import { Comment, CommentRole, CommentStatus } from "../../core/types"
-import { AUTHOR_EMAIL } from "../../core/env"
-
-import Mailer from './mailer'
 
 const inputSchema = {
   type: 'object',
@@ -36,31 +31,29 @@ const inputSchema = {
         parent: {
           type: 'string',
         },
+        role: {
+          type: 'string',
+          enum: [CommentRole.Manager, CommentRole.Visitor],
+        },
+        status: {
+          type: 'string',
+          enum: [CommentStatus.Published, CommentStatus.Unreviewed],
+        },
       },
     },
   },
 }
 
 export default middy<HandlerEvent, any>()
-  .use(auth({ week: true }))
+  .use(auth())
   .use(validator({ inputSchema }))
   .handler(
-    async (e, ctx) => {
-      const { id } = parseQuery(e.rawQuery)
-      if (!id) {
-        return Response.error(new Error('request params is invalid.'))
-      }
-      const isAuthed = context.isAuthed(ctx.awsRequestId)
+    async (e) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore:next-line
+      const objectId = e.pathParameters.objectId as string
       const comment = e.body as any as Comment
-      comment.status = isAuthed ? CommentStatus.Published : CommentStatus.Unreviewed
-      comment.role = comment.email === AUTHOR_EMAIL && isAuthed ? CommentRole.Manager : CommentRole.Visitor
-      if (comment.parent) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore:next-line
-        comment.parent = { __type: 'Pointer', className: 'Comment', objectId: comment.parent }
-      }
-      const { objectId } = await createComment(id, comment)
-      if (!isAuthed) await Mailer.notice(objectId)
+      await updateComment(objectId, comment)
       return Response.ok(await getComment(objectId))
     },
   )
