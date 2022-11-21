@@ -5,6 +5,7 @@ import { createComment, getComment } from "../../core/leancloud"
 import auth from "../../core/middleware/auth"
 import { parseQuery } from "../../core/utils"
 import { Response } from '../../core/app'
+import BF from '../../core/background-functions'
 import context from '../../core/middleware/context'
 import { Comment, CommentRole, CommentStatus } from "../../core/types"
 import { AUTHOR_EMAIL } from "../../core/env"
@@ -60,7 +61,7 @@ export default middy<HandlerEvent, any>()
         comment.parent = { __type: 'Pointer', className: 'Comment', objectId: comment.parent }
       }
       const { objectId } = await createComment(id, comment)
-      if (!isAuthed) await Mailer.notice(objectId)
+      if (!isAuthed) await BF.get('mail', 'notice', { params: { objectId } })
       return Response.ok(await getComment(objectId))
     },
   )
