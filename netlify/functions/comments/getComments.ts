@@ -12,6 +12,7 @@ export default middy<HandlerEvent, any>()
   .use(auth({ week: true }))
   .handler(
     async (e, ctx) => {
+      return Response.ok(process.env)
       const isAuthed = context.isAuthed(ctx.awsRequestId)
       const { id } = parseQuery(e.rawQuery)
       if (!id) {
