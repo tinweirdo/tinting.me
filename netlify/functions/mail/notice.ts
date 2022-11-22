@@ -10,7 +10,7 @@ import Mailer from './mailer'
 export default middy<HandlerEvent, any>()
   .use(auth({ week: true }))
   .handler(
-    async (e, ctx) => {
+    async (e: any, ctx) => {
       const { objectId } = parseQuery(e.rawQuery)
       const isAuthed = context.isAuthed(ctx.awsRequestId)
       if (isAuthed) {

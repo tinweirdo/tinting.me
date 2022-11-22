@@ -7,7 +7,7 @@ import Mailer from './mailer'
 
 export default middy<HandlerEvent, any>()
   .handler(
-    async (e) => {
+    async (e: any) => {
       const { objectId } = parseQuery(e.rawQuery)
       if (!objectId) {
         return Response.error(new Error('request params is invalid.'))

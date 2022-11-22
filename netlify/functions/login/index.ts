@@ -36,7 +36,7 @@ const post = middy<HandlerEvent, any>()
   .use(auth({ week: true }))
   .use(validator({ inputSchema: postSchema }))
   .handler(
-    async (e, ctx) => {
+    async (e: any, ctx) => {
       if (context.get(ctx.awsRequestId).isAuthed) {
         return Response.ok('already logined.')
       }
@@ -52,7 +52,10 @@ const post = middy<HandlerEvent, any>()
         return Response.forbidden('password is invalid.')
       }
 
-      return Response.ok(await encode())
+      return Response.ok({
+        type: 'Bearer',
+        token: await encode(),
+      })
     },
   )
 

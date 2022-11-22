@@ -26,3 +26,18 @@ export interface Comment {
 }
 
 export type FilledComment = { parent?: FilledComment, children: FilledComment[] } & Exclude<Comment, 'parent'>
+
+
+export const enum ErrorCode {
+  OK = 2000,
+  NotFound = 4004,
+  Forbidden = 4001,
+  Unkown = 5000,
+}
+
+export const enum ResponseMessage {
+  OK = 'success.',
+  NotFound = 'not found.',
+  Forbidden = 'forbidden.',
+  Unkown = 'unkown error.',
+}

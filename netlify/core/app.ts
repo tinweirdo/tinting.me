@@ -1,18 +1,5 @@
 import { Response as InternalResponse } from "@netlify/functions/dist/function/response"
-
-export const enum ErrorCode {
-  OK = 2000,
-  NotFound = 4004,
-  Forbidden = 4001,
-  Unkown = 5000,
-}
-
-export const enum ResponseMessage {
-  OK = 'success.',
-  NotFound = 'not found.',
-  Forbidden = 'forbidden.',
-  Unkown = 'unkown error.',
-}
+import { ErrorCode, ResponseMessage } from "./types"
 
 export class ResponseBody {
   readonly data?: any
