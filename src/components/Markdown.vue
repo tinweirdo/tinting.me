@@ -78,4 +78,5 @@ onMounted(() => {
   >
     <slot />
   </Post>
+  <Comment />
 </template>
