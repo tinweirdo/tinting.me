@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-
 const enum ProjectStatus {
   Upcoming ='upcoming',
   Maintaining = 'maintaining',
