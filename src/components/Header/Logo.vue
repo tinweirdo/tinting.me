@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AUTHOR_NAME } from '~/env'
+import { SITE_NAME } from '~/env'
 
 defineProps<{ showAuthorName?: boolean }>()
 </script>
@@ -12,10 +12,10 @@ defineProps<{ showAuthorName?: boolean }>()
       <a class="inline-flex items-center flex-shrink-0" :href="href" @click="navigate">
         <img
           src="/avatar.jpeg"
-          :alt="AUTHOR_NAME"
+          :alt="SITE_NAME"
           class="rounded-full w-32px h-32px box-border border-1px border-bg-deep border-solid box-border"
         >
-        <span v-show="showAuthorName" class="inline-block ml-8px text-deep font-bold">{{ AUTHOR_NAME }}</span>
+        <span v-show="showAuthorName" class="inline-block ml-8px text-deep font-bold">{{ SITE_NAME }}</span>
       </a>
     </RouterLink>
   </div>

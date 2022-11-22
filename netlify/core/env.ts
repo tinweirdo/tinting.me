@@ -1,3 +1,7 @@
+import dotenv from 'dotenv'
+
+dotenv.config()
+
 export const JWT_SECRET = process.env.JWT_SECRET as string
 export const AUTH_USERNAME = process.env.AUTH_USERNAME as string
 export const AUTH_PASSWORD = process.env.AUTH_PASSWORD as string
@@ -11,7 +15,8 @@ export const SMTP_PORT = (process.env?.SMTP_PORT ?? 25) as number
 export const SMTP_EMAIL = process.env.SMTP_EMAIL as string
 export const SMTP_PASSWORD = process.env.SMTP_PASSWORD as string
 
-export const APP_SITE_NAME = process.env.VITE_SITE_NAME as string
-export const APP_AUTHOR_EMAIL = process.env.VITE_EMAIL as string
-export const APP_AUTHOR_NAME = process.env.VITE_AUTHOR as string
-export const APP_DOMAIN = process.env.VITE_DOMAIN as string
+export const SITE_NAME = process.env.VITE_SITE_NAME as string
+export const SITE_DESCRIPTION = process.env.VITE_SITE_DESCRIPTION as string
+export const SITE_DOMAIN = process.env.VITE_SITE_DOMAIN as string
+export const AUTHOR_EMAIL = process.env.VITE_AUTHOR_EMAIL as string
+export const AUTHOR_NAME = process.env.VITE_AUTHOR_NAME as string

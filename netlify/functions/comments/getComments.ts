@@ -11,7 +11,7 @@ import { filterSensitiveFields, constructComments } from './utils'
 export default middy<HandlerEvent, any>()
   .use(auth({ week: true }))
   .handler(
-    async (e, ctx) => {
+    async (e: any, ctx) => {
       const isAuthed = context.isAuthed(ctx.awsRequestId)
       const { id } = parseQuery(e.rawQuery)
       if (!id) {

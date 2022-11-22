@@ -48,7 +48,7 @@ export default middy<HandlerEvent, any>()
   .use(auth())
   .use(validator({ inputSchema }))
   .handler(
-    async (e) => {
+    async (e: any) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore:next-line
       const objectId = e.pathParameters.objectId as string

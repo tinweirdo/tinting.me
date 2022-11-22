@@ -7,7 +7,7 @@ import { parseQuery } from "../../core/utils"
 import { Response } from '../../core/app'
 import context from '../../core/middleware/context'
 import { Comment, CommentRole, CommentStatus } from "../../core/types"
-import { APP_AUTHOR_EMAIL } from "../../core/env"
+import { AUTHOR_EMAIL } from "../../core/env"
 
 const inputSchema = {
   type: 'object',
@@ -43,7 +43,7 @@ export default middy<HandlerEvent, any>()
   .use(auth({ week: true }))
   .use(validator({ inputSchema }))
   .handler(
-    async (e, ctx) => {
+    async (e: any, ctx) => {
       const { id } = parseQuery(e.rawQuery)
       if (!id) {
         return Response.error(new Error('request params is invalid.'))
@@ -51,7 +51,7 @@ export default middy<HandlerEvent, any>()
       const isAuthed = context.isAuthed(ctx.awsRequestId)
       const comment = e.body as any as Comment
       comment.status = isAuthed ? CommentStatus.Published : CommentStatus.Unreviewed
-      comment.role = comment.email === APP_AUTHOR_EMAIL && isAuthed ? CommentRole.Manager : CommentRole.Visitor
+      comment.role = comment.email === AUTHOR_EMAIL && isAuthed ? CommentRole.Manager : CommentRole.Visitor
       if (comment.parent) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore:next-line
