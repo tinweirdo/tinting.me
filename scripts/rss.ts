@@ -7,12 +7,12 @@ import type { FeedOptions, Item } from 'feed'
 import { Feed } from 'feed'
 import env from './env'
 
-const { VITE_SITE_NAME, VITE_AUTHOR, VITE_EMAIL, VITE_DOMAIN, VITE_DESCRIPTION } = env
+const { VITE_SITE_NAME, VITE_AUTHOR_NAME, VITE_AUTHOR_EMAIL, VITE_SITE_DOMAIN, VITE_SITE_DESCRIPTION } = env
 
 const AUTHOR = {
-  name: VITE_AUTHOR,
-  email: VITE_EMAIL,
-  link: VITE_DOMAIN,
+  name: VITE_AUTHOR_NAME,
+  email: VITE_AUTHOR_EMAIL,
+  link: VITE_SITE_DOMAIN,
 }
 const markdown = MarkdownIt({
   html: true,
@@ -29,14 +29,14 @@ async function buildBlogRSS() {
 
   const options = {
     title: VITE_SITE_NAME,
-    description: VITE_DESCRIPTION,
-    id: VITE_DOMAIN,
-    link: VITE_DOMAIN,
-    copyright: `CC BY-NC-SA 4.0 2013-PRESENT © ${VITE_AUTHOR}`,
+    description: VITE_SITE_DESCRIPTION,
+    id: VITE_SITE_DOMAIN,
+    link: VITE_SITE_DOMAIN,
+    copyright: `CC BY-NC-SA 4.0 2013-PRESENT © ${VITE_AUTHOR_NAME}`,
     feedLinks: {
-      json: `${VITE_DOMAIN}/feed.json`,
-      atom: `${VITE_DOMAIN}/feed.atom`,
-      rss: `${VITE_DOMAIN}/feed.xml`,
+      json: `${VITE_SITE_DOMAIN}/feed.json`,
+      atom: `${VITE_SITE_DOMAIN}/feed.atom`,
+      rss: `${VITE_SITE_DOMAIN}/feed.xml`,
     },
   }
   const posts: any[] = (
@@ -47,17 +47,17 @@ async function buildBlogRSS() {
           const { data, content } = matter(raw)
 
           const html = markdown.render(content)
-            .replace('src="/', `src="${VITE_DOMAIN}/`)
+            .replace('src="/', `src="${VITE_SITE_DOMAIN}/`)
 
           if (data.image?.startsWith('/'))
-            data.image = VITE_DOMAIN + '/' + data.image
+            data.image = VITE_SITE_DOMAIN + '/' + data.image
 
           return {
             ...data,
             date: new Date(data.date),
             content: html,
             author: [AUTHOR],
-            link: VITE_DOMAIN + '/' + i.replace(/^\.?\/?pages\/?(.+)\.md$/, '$1'),
+            link: VITE_SITE_DOMAIN + '/' + i.replace(/^\.?\/?pages\/?(.+)\.md$/, '$1'),
           }
         }),
     ))
@@ -70,8 +70,8 @@ async function buildBlogRSS() {
 
 async function writeFeed(name: string, options: FeedOptions, items: Item[]) {
   options.author = AUTHOR
-  options.image = `${VITE_DOMAIN}/avatar.png`
-  options.favicon = `${VITE_DOMAIN}/logo.png`
+  options.image = `${VITE_SITE_DOMAIN}/avatar.png`
+  options.favicon = `${VITE_SITE_DOMAIN}/logo.png`
 
   const feed = new Feed(options)
 

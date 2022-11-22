@@ -3,7 +3,7 @@ import { defaultWindow, useEventListener } from '@vueuse/core'
 import { useHead } from '@vueuse/head'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { DESCRIPTION, SITE_NAME } from '~/env'
+import { SITE_DESCRIPTION, SITE_NAME } from '~/env'
 import { FrontMatter } from '~/types'
 
 const props = defineProps<{ frontmatter: FrontMatter }>()
@@ -15,7 +15,7 @@ useHead({
   title: hideSiteName ? title : title + ' - ' + SITE_NAME,
   meta: [
     { property: 'og:title', content: props.frontmatter.title },
-    { name: 'description', content: DESCRIPTION },
+    { name: 'description', content: SITE_DESCRIPTION },
     { name: 'keywords', content: (keywords ?? []).join(', ') },
   ],
   ...head,

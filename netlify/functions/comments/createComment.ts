@@ -7,9 +7,7 @@ import { parseQuery } from "../../core/utils"
 import { Response } from '../../core/app'
 import context from '../../core/middleware/context'
 import { Comment, CommentRole, CommentStatus } from "../../core/types"
-import { AUTHOR_EMAIL } from "../../core/env"
-
-import Mailer from './mailer'
+import { APP_AUTHOR_EMAIL } from "../../core/env"
 
 const inputSchema = {
   type: 'object',
@@ -53,14 +51,13 @@ export default middy<HandlerEvent, any>()
       const isAuthed = context.isAuthed(ctx.awsRequestId)
       const comment = e.body as any as Comment
       comment.status = isAuthed ? CommentStatus.Published : CommentStatus.Unreviewed
-      comment.role = comment.email === AUTHOR_EMAIL && isAuthed ? CommentRole.Manager : CommentRole.Visitor
+      comment.role = comment.email === APP_AUTHOR_EMAIL && isAuthed ? CommentRole.Manager : CommentRole.Visitor
       if (comment.parent) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore:next-line
         comment.parent = { __type: 'Pointer', className: 'Comment', objectId: comment.parent }
       }
       const { objectId } = await createComment(id, comment)
-      if (!isAuthed) await Mailer.notice(objectId)
       return Response.ok(await getComment(objectId))
     },
   )

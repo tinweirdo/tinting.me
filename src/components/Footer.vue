@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AUTHOR } from '~/env'
+import { AUTHOR_NAME } from '~/env'
 
 </script>
 
@@ -10,7 +10,7 @@ import { AUTHOR } from '~/env'
         <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>
       </p>
       <p style="font-size: .8rem" class="!m-0 flex items-center justify-between">
-        <span>2013-PRESENT © {{ AUTHOR }}</span>
+        <span>2013-PRESENT © {{ AUTHOR_NAME }}</span>
         <a
           ref="noopener"
           href="https://beian.miit.gov.cn/"
