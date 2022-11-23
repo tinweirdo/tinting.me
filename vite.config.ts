@@ -129,7 +129,7 @@ export default defineConfig({
     formatting: 'minify',
     format: 'cjs',
     onFinished() {
-      generateSitemap({ hostname: env.VITE_DOMAIN })
+      generateSitemap({ hostname: env.VITE_SITE_DOMAIN })
     },
   },
 })
