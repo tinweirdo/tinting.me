@@ -2,6 +2,7 @@
 import { provideThemeMode } from './hooks/useThemeMode'
 import { useHead } from '@vueuse/head'
 import { SITE_DESCRIPTION, SITE_NAME } from './env'
+import { provideAuthState } from './hooks/useAuthState'
 
 useHead({
   meta: [
@@ -11,6 +12,7 @@ useHead({
 })
 
 provideThemeMode()
+provideAuthState()
 </script>
 
 <template>

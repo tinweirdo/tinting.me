@@ -27,6 +27,7 @@ export default defineConfig({
   resolve: {
     alias: [
       { find: '~/', replacement: `${resolve(__dirname, 'src')}/` },
+      { find: 'netlify/', replacement: `${resolve(__dirname, 'netlify')}/` },
     ],
   },
   optimizeDeps: {

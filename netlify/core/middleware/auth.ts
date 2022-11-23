@@ -2,6 +2,7 @@ import type { MiddlewareObj } from '@middy/core'
 import type { HandlerEvent } from '@netlify/functions'
 import context from './context'
 import { verify } from '../jwt'
+import { Response } from '../app'
 
 interface Config {
   week?: boolean | ((event: any) => boolean | Promise<boolean>)
@@ -22,7 +23,7 @@ export default ({ week }: Config = {}): MiddlewareObj<HandlerEvent, any> => ({
       await verify(event.headers?.authorization?.split(' ').pop() ?? '')
       context.set(req.context.awsRequestId, 'isAuthed', true)
     } catch (err) {
-      if (!_week) throw err
+      if (!_week) return Response.forbidden(err.message)
     }
   },
 })
