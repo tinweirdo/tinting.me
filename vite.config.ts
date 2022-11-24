@@ -123,6 +123,16 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    cors: true,
+    open: true,
+    proxy: {
+      '^/api': {
+        target: env.DEV ? 'http://127.0.0.1:3334' : env.VITE_SITE_DOMAIN,
+        changeOrigin: true,
+      },
+    },
+  },
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   ssgOptions: {

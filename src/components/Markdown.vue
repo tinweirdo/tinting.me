@@ -73,10 +73,10 @@ onMounted(() => {
   <Post
     v-else
     ref="content"
-    class="mt-80px"
+    class="my-80px"
     :frontmatter="frontmatter"
   >
     <slot />
   </Post>
-  <Comment />
+  <Comment class="w-content my-80px" />
 </template>

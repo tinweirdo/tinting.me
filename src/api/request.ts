@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { SITE_DOMAIN } from '~/env'
+import { SITE_DOMAIN, DEV } from '~/env'
 import { ErrorCode } from 'netlify/core/types'
 import { logout, state as authState } from '~/hooks/useAuthState'
 
@@ -10,7 +10,7 @@ export interface ResponseBody<T = any> {
 }
 
 const request = axios.create({
-  baseURL: SITE_DOMAIN + '/api',
+  baseURL: ( DEV ? 'http://localhost:3333' : SITE_DOMAIN) + '/api',
 })
 
 request.interceptors.request.use((config) => {

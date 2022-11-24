@@ -16,7 +16,7 @@ provideAuthState()
 </script>
 
 <template>
-  <Header />
+  <!-- <Header /> -->
   <main>
     <RouterView />
   </main>

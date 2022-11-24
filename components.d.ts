@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
     Comment: typeof import('./src/components/Comment/index.vue')['default']
     CommentBar: typeof import('./src/components/Comment/CommentBar.vue')['default']
     CommentDrawer: typeof import('./src/components/Comment/CommentDrawer.vue')['default']
+    CommentForm: typeof import('./src/components/Comment/CommentForm.vue')['default']
     CommentItem: typeof import('./src/components/Comment/CommentItem.vue')['default']
     CommentList: typeof import('./src/components/Comment/CommentList.vue')['default']
     Comments: typeof import('./src/components/comments/index.vue')['default']

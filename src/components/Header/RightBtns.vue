@@ -17,10 +17,9 @@ const { themeMode, toggleThemeMode } = useThemeMode() ?? {}
       <IconGithub width="24" height="24" />
     </a>
     <span class="btn mr-4px flex block cursor-pointer p-4px rounded-4px bg-transparent hover:bg-bg-deep box-border" @click="toggleThemeMode">
-
-      <IconWaningCrescentMoon v-if="themeMode === ThemeMode.Dark" width="24" height="24" />
-      <IconWaningGibbousMoon v-else-if="themeMode === ThemeMode.Light" width="24" height="24" />
-      <IconLastQuarterMoon v-else width="24" height="24" />
+      <IconWaningCrescentMoon v-show="themeMode === ThemeMode.Dark" width="24" height="24" />
+      <IconWaningGibbousMoon v-show="themeMode === ThemeMode.Light" width="24" height="24" />
+      <IconLastQuarterMoon v-show="themeMode === ThemeMode.Auto" width="24" height="24" />
     </span>
   </div>
 </template>

@@ -30,9 +30,12 @@ body {
   font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"!important;
 }
 
-#nprogress .bar {
-  background: var(--color-accent) !important;
-  .peg {
-    box-shadow: 0 0 10px var(--color-accent) , 0 0 5px var(--color-accent)  !important;
+#nprogress {
+  z-index: 9999;
+  .bar {
+    background: var(--color-accent) !important;
+    .peg {
+      box-shadow: 0 0 10px var(--color-accent) , 0 0 5px var(--color-accent)  !important;
+    }
   }
 }

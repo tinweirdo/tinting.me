@@ -9,12 +9,12 @@ import reply from './reply'
 
 const routes: Route<any>[] = [
   {
-    method: 'PUT',
+    method: 'POST',
     path: '/api/mail/notice',
     handler: notice,
   },
   {
-    method: 'PUT',
+    method: 'POST',
     path: '/api/mail/reply',
     handler: reply,
   },

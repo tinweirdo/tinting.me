@@ -3,6 +3,7 @@ import autoRoutes from '~pages'
 import NProgress from 'nprogress'
 import dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
+import { plugin as messagePlugin } from '~/plugins/message'
 import App from './App.vue'
 
 import 'virtual:windi.css'
@@ -29,9 +30,10 @@ const scrollBehavior = (from: any, to: any, savedPosition: any) => {
 export const createApp = ViteSSG(
   App,
   { routes, scrollBehavior },
-  ({ router, isClient }) => {
+  ({ router, isClient, app }) => {
     dayjs.extend(LocalizedFormat)
     if (isClient) {
+      app.use(messagePlugin)
       router.beforeEach(() => { NProgress.start() })
       router.afterEach(() => { NProgress.done() })
     }

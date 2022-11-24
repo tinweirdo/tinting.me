@@ -25,8 +25,7 @@ export interface Comment {
   parentNoticed?: boolean
 }
 
-export type FilledComment = { parent?: FilledComment, children: FilledComment[] } & Exclude<Comment, 'parent'>
-
+export type FilledComment = { parent?: FilledComment, children: FilledComment[] } & Omit<Comment, 'parent'>
 
 export const enum ErrorCode {
   OK = 2000,

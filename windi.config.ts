@@ -1,5 +1,4 @@
 import { defineConfig } from 'windicss/helpers'
-import form from 'windicss/plugin/forms'
 
 export default defineConfig({
   darkMode: 'class',
@@ -13,6 +12,7 @@ export default defineConfig({
   theme: {
     screens: {
       '<w-content': { raw: '(max-width: calc(48rem + 48px))' },
+      '>w-content': { raw: '(min-width: calc(48rem + 48px))' },
     },
     extend: {
       colors: {
@@ -35,7 +35,6 @@ export default defineConfig({
     },
   },
   shortcuts: {
-    'w-content': 'max-w-48rem mx-auto !<w-content:mx-24px',
+    'w-content': 'max-w-48rem mx-auto <w-content:mx-24px',
   },
-  plugins: [form],
 })

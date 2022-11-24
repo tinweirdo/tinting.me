@@ -7,3 +7,5 @@ export const AUTHOR_NAME = import.meta.env.VITE_AUTHOR_NAME
 export const AUTHOR_EMAIL = import.meta.env.VITE_AUTHOR_EMAIL
 export const DEFAULT_THEME_MODE = import.meta.env.VITE_DEFAULT_THEME_MODE as ThemeMode
 export const SSR = import.meta.env.SSR
+
+export const DEV = import.meta.env.DEV
