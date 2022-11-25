@@ -31,7 +31,14 @@ const inputs = reactive({
   content: '',
 })
 
-watchOnce(isAuthed, (v) => v && setPoster({ email: AUTHOR_EMAIL, nickname: AUTHOR_NAME, website: SITE_DOMAIN }))
+watchOnce(isAuthed, (v) => {
+  if (v) {
+    inputs.email = AUTHOR_EMAIL
+    inputs.nickname = AUTHOR_NAME
+    inputs.website = SITE_DOMAIN
+    setPoster({ email: AUTHOR_EMAIL, nickname: AUTHOR_NAME, website: SITE_DOMAIN })
+  }
+})
 
 const submit = () => {
   const { nickname, email, website, content } = inputs
