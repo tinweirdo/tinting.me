@@ -1,7 +1,7 @@
 ---
 title: 分类
 custom: true
-comments: disabled
+comment: hidden
 ---
 <Banner title="All Categories" />
 <Space :size="64" />

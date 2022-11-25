@@ -1,7 +1,7 @@
 ---
 title: Category
 custom: true
-comments: disabled
+comment: hidden
 ---
 <Head :title="$attrs.category" />
 <Banner :title="$attrs.category" />

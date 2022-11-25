@@ -69,7 +69,7 @@ onMounted(() => {
   >
     <slot />
   </Post>
-  <ClientOnly>
+  <ClientOnly v-if="comment !== 'hidden'">
     <Comment :disabled="comment === 'disabled'" class="w-content my-80px" />
   </ClientOnly>
 </template>
