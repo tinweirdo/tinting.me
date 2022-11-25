@@ -73,19 +73,17 @@ export default {
     <div class="border-border border-b-1px border-solid pb-12px text-deep flex items-center justify-between mb-40px">
       <span class="flex items-center font-semibold"><CommentQuote class="mr-6px" />{{ total }}</span>
       <div class="flex items-center">
+        <span class="text-base hover:opacity-70 duration-200 cursor-pointer text-size-14px" title="发表一条评论" @click.prevent="goCommentForm">发表一条评论</span>
         <LogoutIcon
           v-if="isAuthed"
-          class="cursor-pointer"
-          title="注销"
+          class="cursor-pointer ml-8px"
           @click="logout"
         />
         <SettingsIcon
           v-else-if="showManagerEntry"
-          class="cursor-pointer"
-          title="登陆"
+          class="cursor-pointer ml-8px"
           @click="login"
         />
-        <span class="text-base hover:opacity-70 duration-200 cursor-pointer text-size-14px ml-8px" title="发表一条评论" @click.prevent="goCommentForm">发表一条评论</span>
       </div>
     </div>
     <CommentList class="mb-64px" :comments="comments" />

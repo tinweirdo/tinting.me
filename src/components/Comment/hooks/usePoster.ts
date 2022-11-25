@@ -1,4 +1,4 @@
-import { isClient } from "@vueuse/core"
+import { defaultWindow } from "@vueuse/core"
 
 interface Poster {
   nickname: string,
@@ -7,26 +7,17 @@ interface Poster {
 }
 
 export const getPoster = (): Poster => {
-  if (!isClient) {
-    return {
-      nickname: '',
-      email: '',
-      website: '',
-    }
-  }
   return {
-    nickname: localStorage.getItem('posterNickname') ?? '',
-    email: localStorage.getItem('posterEmail') ?? '',
-    website: localStorage.getItem('posterWebsite') ?? '',
+    nickname: defaultWindow?.localStorage.getItem('posterNickname') ?? '',
+    email: defaultWindow?.localStorage.getItem('posterEmail') ?? '',
+    website: defaultWindow?.localStorage.getItem('posterWebsite') ?? '',
   }
 }
 
 export const setPoster = ({ nickname, email, website }: Poster) => {
-  if (isClient) {
-    localStorage.setItem('posterNickname', nickname)
-    localStorage.setItem('posterEmail', email)
-    localStorage.setItem('posterWebsite', website ?? '')
-  }
+    defaultWindow?.localStorage.setItem('posterNickname', nickname)
+    defaultWindow?.localStorage.setItem('posterEmail', email)
+    defaultWindow?.localStorage.setItem('posterWebsite', website ?? '')
 }
 
 export default () => ({ getPoster, setPoster })
