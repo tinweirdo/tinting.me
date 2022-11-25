@@ -46,7 +46,7 @@ const toggleCommentStatus = () => {
                 target="_blank"
               >{{ comment.nickname }}</a>
               <span v-else>{{ comment.nickname }}</span>
-              <CrownIcon v-if="comment.role === CommentRole.Manager" class="ml-4px transform -translate-y-1px" />
+              <CrownIcon v-if="comment.role === CommentRole.Manager" class="ml-4px transform -translate-y-2px" />
             </p>
             <p class="text-lite text-size-0.8em leading-snug">
               {{ formatDate(comment.createdAt) }}

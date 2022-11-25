@@ -1,6 +1,6 @@
 import { FilledComment } from "../../core/types"
 
-const SENSITIVE_FIELDS = ['updatedAt', 'role', 'status']
+const SENSITIVE_FIELDS = ['updatedAt', 'status']
 
 export const filterSensitiveFields = (comments: FilledComment[]) => {
   for (let i = 0; i < comments.length; i++) {
@@ -10,7 +10,6 @@ export const filterSensitiveFields = (comments: FilledComment[]) => {
   }
   return comments
 }
-
 
 export const constructComments = (comments: FilledComment[]) => {
   const parents: FilledComment[] = []
