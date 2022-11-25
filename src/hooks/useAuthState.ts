@@ -2,6 +2,7 @@ import { ErrorCode } from 'netlify/core/types'
 import { InjectionKey, provide, inject, reactive, DeepReadonly, readonly, ComputedRef, computed } from 'vue'
 import * as AuthApi from '~/api/auth'
 import message from '~/plugins/message'
+import { isClient, defaultWindow } from "@vueuse/core"
 
 interface AuthState {
   type: string,
@@ -13,19 +14,19 @@ const STORAGE_TOKEN_KEY = 'AUTH_TOKEN'
 
 const getState = (): AuthState => {
   return {
-    type: localStorage.getItem(STORAGE_TYPE_KEY) ?? '',
-    token: localStorage.getItem(STORAGE_TOKEN_KEY) ?? '',
+    type: defaultWindow?.localStorage.getItem(STORAGE_TYPE_KEY) ?? '',
+    token: defaultWindow?.localStorage.getItem(STORAGE_TOKEN_KEY) ?? '',
   }
 }
 
 const setState = (type: string, token: string) => {
-  localStorage.setItem(STORAGE_TYPE_KEY, type)
-  localStorage.setItem(STORAGE_TOKEN_KEY, token)
+  defaultWindow?.localStorage.setItem(STORAGE_TYPE_KEY, type)
+  defaultWindow?.localStorage.setItem(STORAGE_TOKEN_KEY, token)
 }
 
 const clearState = () => {
-  localStorage.removeItem(STORAGE_TYPE_KEY)
-  localStorage.removeItem(STORAGE_TOKEN_KEY)
+  defaultWindow?.localStorage.removeItem(STORAGE_TYPE_KEY)
+  defaultWindow?.localStorage.removeItem(STORAGE_TOKEN_KEY)
 }
 
 const cached = getState()

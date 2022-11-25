@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { FilledComment } from 'netlify/core/types'
 import { formatDate, getGravatar } from '~/utils'
-import CommentStatus from './CommentStatus.vue'
+import { CommentStatus } from 'netlify/core/types'
 import useComments from './hooks/useComments'
 
 defineProps<{comment: FilledComment}>()
@@ -32,14 +32,16 @@ const { setParent, disabled } = useComments()!
           </div>
         </div>
         <div class="flex items-center">
-          <CommentStatus :status="comment.status" class="mr-8px" />
           <a v-if="!disabled" class="text-base hover:text-lite duration-150 tracking-wide cursor-pointer uppercase" @click="setParent(comment)">
             Reply
           </a>
         </div>
       </div>
       <div class="text-base">
-        <span v-if="comment.parent" class="mr-0.5em text-accent">@{{ comment.parent.nickname }}</span>{{ comment.content }}
+        <p><span v-if="comment.parent" class="mr-0.5em text-accent">@{{ comment.parent.nickname }}</span>{{ comment.content }}</p>
+        <p v-if="comment.status === CommentStatus.Unreviewed" class="text-size-14px mt-1.2em text-red-500">
+          * 此条评论正在等待审核
+        </p>
       </div>
     </div>
     <div v-if="comment.children?.length" class="ml-64px">
