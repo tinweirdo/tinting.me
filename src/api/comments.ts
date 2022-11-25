@@ -8,4 +8,6 @@ export const deleteComment = (objectId: string) => request.delete<any, ResponseB
 export const updateComment = (objectId: string, { nickname, email, website, content, parent, role, status }: Partial<Comment>) => {
   return request.put<any, ResponseBody>(`/comments/${objectId}`, { nickname, email, website, content, parent, role, status })
 }
-export const updateCommentStatus = (objectId: string, status: CommentStatus) => updateComment(objectId, { status })
+export const updateCommentStatus = (objectId: string, status: CommentStatus) => {
+  return request.put<any, ResponseBody>(`/comments/${objectId}/status`, { status })
+}

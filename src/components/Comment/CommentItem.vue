@@ -1,12 +1,32 @@
 <script lang="ts" setup>
-import { FilledComment } from 'netlify/core/types'
+import { CommentRole, FilledComment } from 'netlify/core/types'
 import { formatDate, getGravatar } from '~/utils'
 import { CommentStatus } from 'netlify/core/types'
 import useComments from './hooks/useComments'
+import CrownIcon from '~icons/fluent-emoji/crown'
+import useAuthState from '~/hooks/useAuthState'
+import * as CommentApi from '~/api/comments'
+import * as MailApi from '~/api/mail'
+import { ref } from 'vue'
+const props = defineProps<{comment: FilledComment}>()
 
-defineProps<{comment: FilledComment}>()
+const { setParent, disabled, onCommentUpdated } = useComments()!
 
-const { setParent, disabled } = useComments()!
+const { isAuthed } = useAuthState()!
+
+const loading = ref(false)
+
+const toggleCommentStatus = () => {
+  if (loading.value) return
+  const status = props.comment.status === CommentStatus.Published ? CommentStatus.Unreviewed : CommentStatus.Published
+  loading.value = true
+  CommentApi.updateCommentStatus(props.comment.objectId, status)
+    .then(() => {
+      onCommentUpdated(props.comment.objectId, { status })
+      MailApi.reply(props.comment.objectId)
+    })
+    .finally(() => loading.value = false)
+}
 
 </script>
 
@@ -17,14 +37,16 @@ const { setParent, disabled } = useComments()!
         <div class="flex items-center">
           <img class="block rounded-full w-48px h-48px mr-12px bg-lite" :src="getGravatar(comment.email)">
           <div>
-            <p class="text-base font-medium mb-6px">
+            <p class="text-base font-medium mb-6px flex items-center">
               <a
                 v-if="comment.website"
                 :href="comment.website"
+                style="line-height: 1"
                 rel="noreferrer noopener"
                 target="_blank"
               >{{ comment.nickname }}</a>
               <span v-else>{{ comment.nickname }}</span>
+              <CrownIcon v-if="comment.role === CommentRole.Manager" class="ml-4px transform -translate-y-1px" />
             </p>
             <p class="text-lite text-size-0.8em leading-snug">
               {{ formatDate(comment.createdAt) }}
@@ -35,6 +57,10 @@ const { setParent, disabled } = useComments()!
           <a v-if="!disabled" class="text-base hover:text-lite duration-150 tracking-wide cursor-pointer uppercase" @click="setParent(comment)">
             Reply
           </a>
+          <template v-if="isAuthed">
+            <span class="px-12px">·</span>
+            <a class="text-base hover:text-lite duration-150 tracking-wide cursor-pointer" :class="{ 'text-lite cursor-not-allowed': loading }" @click="toggleCommentStatus">{{ comment.status !== CommentStatus.Published ? 'Pass' : 'Unpass' }} This Comment</a>
+          </template>
         </div>
       </div>
       <div class="text-base">

@@ -128,7 +128,7 @@ export default defineConfig({
     open: true,
     proxy: {
       '^/api': {
-        target: env.DEV ? 'http://127.0.0.1:3334' : env.VITE_SITE_DOMAIN,
+        target: env.VITE_SITE_DOMAIN,
         changeOrigin: true,
       },
     },

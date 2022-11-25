@@ -14,7 +14,6 @@ import { navigateToAnchor } from '~/utils'
 
 const props = defineProps<{ id?: string, disabled?: boolean }>()
 
-const disabled = computed(() => !!props.disabled)
 
 const mounted = ref(false)
 const wrap = ref<HTMLElement>()
@@ -22,6 +21,12 @@ const wrap = ref<HTMLElement>()
 onMounted(() => mounted.value = true)
 
 const route = useRoute()
+
+const { isAuthed, login, logout } = useAuthState()!
+
+watch(isAuthed, () => resetComments())
+
+const disabled = computed(() => !!props.disabled && !isAuthed.value)
 
 const id = computed(() => props.id ?? route.path)
 provide(ID_KEY, id)
@@ -46,11 +51,6 @@ const total = computed(() => comments
   .reduce((n1, n2) => n1 + n2, 0),
 )
 
-
-const { isAuthed, login, logout } = useAuthState()!
-
-watch(isAuthed, () => resetComments())
-
 const showManagerEntry = computed(() => Reflect.has(route.query, 'admin'))
 
 const goCommentForm = async (e: MouseEvent) => {
@@ -73,7 +73,12 @@ export default {
     <div class="border-border border-b-1px border-solid pb-12px text-deep flex items-center justify-between mb-40px">
       <span class="flex items-center font-semibold"><CommentQuote class="mr-6px" />{{ total }}</span>
       <div class="flex items-center">
-        <span class="text-base hover:opacity-70 duration-200 cursor-pointer text-size-14px" title="发表一条评论" @click.prevent="goCommentForm">发表一条评论</span>
+        <span
+          v-show="!disabled"
+          class="text-base hover:opacity-70 duration-200 cursor-pointer text-size-14px"
+          title="发表一条评论"
+          @click.prevent="goCommentForm"
+        >发表一条评论</span>
         <LogoutIcon
           v-if="isAuthed"
           class="cursor-pointer ml-8px"

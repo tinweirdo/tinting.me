@@ -7,8 +7,9 @@ const KEY = Symbol() as InjectionKey<{
   parent: Readonly<Ref<FilledComment | undefined>>,
   disabled: Readonly<Ref<boolean>>
   setParent: (parent?: FilledComment) => void,
-  onCommented: (comment: FilledComment) => void,
-  resetComments: () => void
+  onCommentCreateded: (comment: FilledComment) => void,
+  onCommentUpdated: (objectId: string, newComment: Partial<FilledComment>) => void,
+  resetComments: () => Promise<FilledComment[]>
 }>
 
 export const provideComments = (id: Ref<string>, { disabled } : { disabled?: Ref<boolean> }) => {
@@ -18,7 +19,7 @@ export const provideComments = (id: Ref<string>, { disabled } : { disabled?: Ref
   const setParent = (p?: FilledComment) => {
     parent.value = p
   }
-  const onCommented = (comment: FilledComment) => {
+  const onCommentCreateded = (comment: FilledComment) => {
     if (comment.parent?.objectId) {
       comments.value.some((parent, i) => {
         if (parent.objectId === comment.parent?.objectId) {
@@ -37,11 +38,24 @@ export const provideComments = (id: Ref<string>, { disabled } : { disabled?: Ref
     }
     setParent()
   }
-  const resetComments = () => {
-    getComments(id.value).then(({ data }) => comments.value = data)
+  const onCommentUpdated = (objectId: string, newComment: Partial<FilledComment>) => {
+    comments.value.some((comment, i) => {
+      if (comment.objectId === objectId) {
+
+        comments.value[i] = { ...comment, ...newComment }
+        return true
+      }
+      return comment.children?.some((child, j) => {
+        if (child.objectId === objectId) {
+          comments.value[i].children[j] = { ...child, ...newComment }
+          return true
+        }
+      })
+    })
   }
-  provide(KEY, { comments: readonly(comments), disabled: readonly(diabled), parent: readonly(parent), setParent, onCommented, resetComments })
-  return { comments, parent, setParent, onCommented, resetComments }
+  const resetComments = () => getComments(id.value).then(({ data }) => comments.value = data)
+  provide(KEY, { comments: readonly(comments), disabled: readonly(diabled), parent: readonly(parent), setParent, onCommentCreateded, onCommentUpdated, resetComments })
+  return { comments, parent, setParent, onCommentCreateded, resetComments }
 }
 
 export default () => inject(KEY)

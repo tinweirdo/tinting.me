@@ -7,15 +7,20 @@ import useComments from './hooks/useComments'
 import useId from './hooks/useId'
 import message from '~/plugins/message'
 import * as MailApi from '~/api/mail'
+import { watchOnce } from '@vueuse/shared'
+import useAuthState from '~/hooks/useAuthState'
+import { AUTHOR_EMAIL, AUTHOR_NAME, SITE_DOMAIN } from '~/env'
 
 defineEmits<{ (event: 'cancel'): void }>()
 
-const { onCommented, parent, setParent } = useComments()!
+const { onCommentCreateded, parent, setParent } = useComments()!
 const id = useId()!
 
 const loading = ref(false)
 
 const { getPoster, setPoster } = usePoster()
+
+const { isAuthed } = useAuthState()!
 
 const { nickname, email, website } = getPoster()
 
@@ -26,6 +31,8 @@ const inputs = reactive({
   content: '',
 })
 
+watchOnce(isAuthed, (v) => v && setPoster({ email: AUTHOR_EMAIL, nickname: AUTHOR_NAME, website: SITE_DOMAIN }))
+
 const submit = () => {
   const { nickname, email, website, content } = inputs
   if (!nickname || !email) return void Message.warn('请完善昵称或邮箱！')
@@ -35,7 +42,7 @@ const submit = () => {
     createComment(id.value, { nickname, email, website, content, parent: parent.value?.objectId })
       .then(({ data }) => {
         message.success('发表成功，请等待评论审核！')
-        onCommented(data)
+        onCommentCreateded(data)
         inputs.content = ''
         MailApi.notice(data.objectId)
       })

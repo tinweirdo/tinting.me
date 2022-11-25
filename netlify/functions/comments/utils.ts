@@ -29,7 +29,7 @@ export const constructComments = (comments: FilledComment[]) => {
   for (const cmt of children) {
     const parent = cmt.parent?.objectId
     if (parent && Reflect.has(pmap, parent)) {
-      parents[Reflect.get(pmap, parent)].children.push(cmt)
+      parents[Reflect.get(pmap, parent)].children.unshift(cmt)
     }
   }
 
