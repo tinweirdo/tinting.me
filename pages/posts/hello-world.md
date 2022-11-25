@@ -1,7 +1,7 @@
 ---
 title: Hello, World!
 date: 2013-10-16T19:15:30+08:00
-category: Life Zine
+category: Life
 ---
 
 [[toc]]
