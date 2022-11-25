@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
     CommentItem: typeof import('./src/components/Comment/CommentItem.vue')['default']
     CommentList: typeof import('./src/components/Comment/CommentList.vue')['default']
     Comments: typeof import('./src/components/comments/index.vue')['default']
+    CommentStatus: typeof import('./src/components/Comment/CommentStatus.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     Github: typeof import('./src/components/Github.vue')['default']
     Header: typeof import('./src/components/Header/index.vue')['default']

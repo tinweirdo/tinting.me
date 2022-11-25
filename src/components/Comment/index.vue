@@ -1,14 +1,20 @@
 <script lang="ts" setup>
-import { computed, onMounted, provide, ref } from 'vue'
+import { computed, nextTick, onMounted, provide, ref, watch } from 'vue'
 import CommentQuote from '~icons/mdi/comment-quote'
 import SettingsIcon from '~icons/ic/baseline-settings'
 import CommentForm from './CommentForm.vue'
 import { KEY as ID_KEY } from './hooks/useId'
 import { provideComments } from './hooks/useComments'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import CommentList from './CommentList.vue'
+import { CommentStatus, FilledComment } from 'netlify/core/types'
+import useAuthState from '~/hooks/useAuthState'
+import LogoutIcon from '~icons/fe/logout'
+import { navigateToAnchor } from '~/utils'
 
-const props = defineProps<{ id?: string }>()
+const props = defineProps<{ id?: string, disabled?: boolean }>()
+
+const disabled = computed(() => !!props.disabled)
 
 const mounted = ref(false)
 const wrap = ref<HTMLElement>()
@@ -19,7 +25,41 @@ const route = useRoute()
 
 const id = computed(() => props.id ?? route.path)
 provide(ID_KEY, id)
-const { parent, comments } = provideComments(id)
+const { parent, setParent, comments, resetComments } = provideComments(id, { disabled })
+resetComments()
+
+const countIt = (comment: FilledComment): number => {
+  if (!comment?.children?.length) {
+    return 1
+  }
+  return 1 + comment
+    .children
+    .filter((comment) => comment.status !== CommentStatus.Unreviewed)
+    .map(countIt)
+    .reduce((n1, n2) => n1 + n2, 0)
+}
+
+const total = computed(() => comments
+  .value
+  .filter((comment) => comment.status !== CommentStatus.Unreviewed)
+  .map(countIt)
+  .reduce((n1, n2) => n1 + n2, 0),
+)
+
+
+const { isAuthed, login, logout } = useAuthState()!
+
+watch(isAuthed, () => resetComments())
+
+const showManagerEntry = computed(() => Reflect.has(route.query, 'admin'))
+
+const goCommentForm = async (e: MouseEvent) => {
+  e.preventDefault()
+  setParent()
+  await nextTick()
+  window.history.replaceState({}, '', '#comment-form')
+  navigateToAnchor()
+}
 </script>
 
 <script lang="ts">
@@ -31,12 +71,26 @@ export default {
 <template>
   <div ref="wrap">
     <div class="border-border border-b-1px border-solid pb-12px text-deep flex items-center justify-between mb-40px">
-      <span class="flex items-center font-semibold"><CommentQuote class="mr-6px" />22</span>
-      <SettingsIcon class="cursor-pointer" />
+      <span class="flex items-center font-semibold"><CommentQuote class="mr-6px" />{{ total }}</span>
+      <div class="flex items-center">
+        <LogoutIcon
+          v-if="isAuthed"
+          class="cursor-pointer"
+          title="注销"
+          @click="logout"
+        />
+        <SettingsIcon
+          v-else-if="showManagerEntry"
+          class="cursor-pointer"
+          title="登陆"
+          @click="login"
+        />
+        <span class="text-base hover:opacity-70 duration-200 cursor-pointer text-size-14px ml-8px" title="发表一条评论" @click.prevent="goCommentForm">发表一条评论</span>
+      </div>
     </div>
-    <CommentList :comments="comments" />
-    <teleport v-if="mounted" :to="parent ? '#comment-' + parent.objectId : wrap">
-      <CommentForm :class="{ 'mt-32px': parent?.objectId }" />
+    <CommentList class="mb-64px" :comments="comments" />
+    <teleport v-if="mounted && !disabled" :to="parent ? '#comment-' + parent.objectId : wrap">
+      <CommentForm id="comment-form" :class="{ 'mt-32px': parent?.objectId }" />
     </teleport>
   </div>
 </template>

@@ -11,15 +11,17 @@ defineProps<{ comments: FilledComment[] }>()
       v-for="comment in comments"
       :key="comment.objectId"
       :comment="comment"
-      class="mb-24px pb-24px border-border border-b-1px border-solid"
+      class="py-24px border-border border-b-1px border-solid"
     />
   </div>
 </template>
 
 <style lang="less" scoped>
+.comment-list::v-deep .comment:first-child {
+  padding-top: 0!important;
+}
 .comment-list::v-deep .comment:last-child {
   border-bottom: none;
-  margin-bottom: 0!important;
   padding-bottom: 0!important;
 }
 </style>

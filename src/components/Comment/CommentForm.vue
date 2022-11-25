@@ -5,6 +5,8 @@ import Message from '~/plugins/message'
 import { createComment } from '~/api/comments'
 import useComments from './hooks/useComments'
 import useId from './hooks/useId'
+import message from '~/plugins/message'
+import * as MailApi from '~/api/mail'
 
 defineEmits<{ (event: 'cancel'): void }>()
 
@@ -29,8 +31,14 @@ const submit = () => {
   if (!nickname || !email) return void Message.warn('请完善昵称或邮箱！')
   if (!content) return void Message.warn('评论内容不能为空！')
   if (id.value) {
+    loading.value = true
     createComment(id.value, { nickname, email, website, content, parent: parent.value?.objectId })
-      .then(({ data }) => onCommented(data))
+      .then(({ data }) => {
+        message.success('发表成功，请等待评论审核！')
+        onCommented(data)
+        inputs.content = ''
+        MailApi.notice(data.objectId)
+      })
       .finally(() => loading.value = false)
   }
   setPoster(inputs)
@@ -66,11 +74,11 @@ const submit = () => {
     <div class="mt-16px">
       <button
         type="submit"
-        class="button text-size-16px bg-deeper text-bg-base"
+        class="button text-size-14px bg-deeper text-bg-base"
         :class="{ 'opacity-70 cursor-not-allowed': loading }"
         :disabled="loading"
       >
-        发布
+        Submit
       </button>
       <button
         v-if="parent"
@@ -90,9 +98,9 @@ const submit = () => {
   @apply text-base pb-6px block cursor-pointer text-size-14px;
 }
 .input {
-  @apply mb-12px border-1px border-solid border-border focus:border-base outline-none rounded-sm p-8px text-base placeholder-lite resize-none block;
+  @apply mb-12px border-1px border-solid border-border focus:border-base outline-none rounded-sm p-8px text-base placeholder-lite resize-none block bg-bg-base;
 }
 .button {
-  @apply select-none rounded-[3px] px-48px py-12px hover:opacity-70 duration-200 transition-opacity;
+  @apply select-none rounded-4px px-32px py-12px hover:opacity-70 duration-200 transition-opacity;
 }
 </style>

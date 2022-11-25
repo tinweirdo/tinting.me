@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-withDefaults(defineProps<{ direction: 'vertical' | 'horizontal', size: number }>(), { direction: 'vertical', size: 0 })
+withDefaults(defineProps<{ direction?: 'vertical' | 'horizontal', size?: number }>(), { direction: 'vertical', size: 0 })
 </script>
 
 <template>

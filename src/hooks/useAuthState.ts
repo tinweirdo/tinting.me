@@ -1,6 +1,7 @@
 import { ErrorCode } from 'netlify/core/types'
 import { InjectionKey, provide, inject, reactive, DeepReadonly, readonly, ComputedRef, computed } from 'vue'
 import * as AuthApi from '~/api/auth'
+import message from '~/plugins/message'
 
 interface AuthState {
   type: string,
@@ -27,8 +28,6 @@ const clearState = () => {
   localStorage.removeItem(STORAGE_TOKEN_KEY)
 }
 
-const KEY = Symbol() as InjectionKey<{ state: DeepReadonly<{ isAuthed: boolean } & AuthState>, isAuthed: ComputedRef<boolean>, login: (username: string, password: string) => Promise<any>, logout: () => void }>
-
 const cached = getState()
 
 export const state = reactive({
@@ -36,8 +35,16 @@ export const state = reactive({
   isAuthed: !!cached.token,
 })
 
-const login = (username: string, password: string) => {
-  return AuthApi.login(username, password)
+const KEY = Symbol() as InjectionKey<{ state: DeepReadonly<{ isAuthed: boolean } & AuthState>, isAuthed: ComputedRef<boolean>, login: () => void, logout: () => void }>
+
+export const login = () => {
+  if (state.isAuthed) return
+  const username = prompt('Please input the username:')
+  const password = prompt('Please input the password:')
+  if (!username || !password) {
+    message.warn('请输入用户名和密码！')
+  }
+  return AuthApi.login(username!, password!)
     .then((data) => {
       if (data.code !== ErrorCode.OK) throw new Error(data.message)
       const { type, token } = data.data
@@ -46,6 +53,7 @@ const login = (username: string, password: string) => {
       state.isAuthed = true
       setState(type, token)
     })
+    .catch((err) => message.error(err.message))
 }
 
 export const logout = () => {

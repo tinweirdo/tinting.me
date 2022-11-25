@@ -25,10 +25,13 @@ const COMMENT_API = LEANCLOUD_REST_API + '/1.1/classes/Comment'
 export const getComments = (where: Record<string, any>) => {
   return request.get<any, { results: FilledComment[] }>(COMMENT_API, { params: { where: JSON.stringify(where), order: '-createdAt', include: 'parent' } })
     .then(
-      (data) => {
-        return data.results.map((item) => {
-          if (item.parent) Reflect.deleteProperty(item.parent, '__type')
-          return item
+      (comments) => {
+        return comments.results.map((comment) => {
+          if (comment.parent) {
+            Reflect.deleteProperty(comment.parent, 'parent')
+            Reflect.deleteProperty(comment.parent, '__type')
+          }
+          return comment
         })
       },
     )
@@ -37,7 +40,13 @@ export const getComments = (where: Record<string, any>) => {
 export const getComment = (objectId: string) => {
   return request
     .get<any, FilledComment>(`${COMMENT_API}/${objectId}`, { params: { include: 'parent' } })
-    .then((comment) => comment.objectId ? comment : undefined)
+    .then((comment) => {
+      if (comment?.parent) {
+        Reflect.deleteProperty(comment.parent, 'parent')
+        Reflect.deleteProperty(comment.parent, '__type')
+      }
+      return comment
+    })
 }
 
 export const createComment = (id: string, comment: Comment) => {

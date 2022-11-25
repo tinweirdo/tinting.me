@@ -5,11 +5,11 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { SITE_DESCRIPTION, SITE_NAME } from '~/env'
 import { FrontMatter } from '~/types'
-
+import { navigateToAnchor } from '~/utils'
 const props = defineProps<{ frontmatter: FrontMatter }>()
 const content = ref<HTMLElement>()
 
-const { hideSiteName = false, title, custom, keywords, head = {} } = props?.frontmatter ?? {}
+const { hideSiteName = false, title, custom, keywords, comment, head = {} } = props?.frontmatter ?? {}
 
 useHead({
   title: hideSiteName ? title : title + ' - ' + SITE_NAME,
@@ -22,15 +22,6 @@ useHead({
 })
 
 const router = useRouter()
-
-const navigate = () => {
-  if (location.hash) {
-    const headerHeight = 56
-    const viewportTop = defaultWindow?.document.documentElement.scrollTop ?? 0
-    const elTop = document.querySelector(decodeURIComponent(location.hash))?.getBoundingClientRect().top ?? 0
-    defaultWindow?.scrollTo({ top: viewportTop + elTop - headerHeight - 16, behavior: 'smooth' })
-  }
-}
 
 const handleAnchors = (event: MouseEvent & { target: HTMLElement }) => {
   const link = event.target.closest('a')
@@ -54,7 +45,7 @@ const handleAnchors = (event: MouseEvent & { target: HTMLElement }) => {
     const { pathname, hash } = url
     if (hash && (!pathname || pathname === location.pathname)) {
       window.history.replaceState({}, '', hash)
-      navigate()
+      navigateToAnchor()
     } else {
       router.push({ path: pathname, hash })
     }
@@ -62,9 +53,9 @@ const handleAnchors = (event: MouseEvent & { target: HTMLElement }) => {
 }
 
 onMounted(() => {
-  useEventListener(defaultWindow, 'hashchange', navigate)
+  useEventListener(defaultWindow, 'hashchange', navigateToAnchor)
   useEventListener(content.value!, 'click', handleAnchors, { passive: false })
-  setTimeout(navigate, 500)
+  setTimeout(navigateToAnchor, 500)
 })
 </script>
 
@@ -78,5 +69,5 @@ onMounted(() => {
   >
     <slot />
   </Post>
-  <Comment class="w-content my-80px" />
+  <Comment :disabled="comment === 'disabled'" class="w-content my-80px" />
 </template>
