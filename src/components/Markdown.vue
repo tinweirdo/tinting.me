@@ -69,5 +69,7 @@ onMounted(() => {
   >
     <slot />
   </Post>
-  <Comment :disabled="comment === 'disabled'" class="w-content my-80px" />
+  <ClientOnly>
+    <Comment :disabled="comment === 'disabled'" class="w-content my-80px" />
+  </ClientOnly>
 </template>
