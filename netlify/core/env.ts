@@ -1,6 +1,9 @@
 import dotenv from 'dotenv'
+import fs from 'fs-extra'
 
-dotenv.config()
+const content = fs.readFileSync('.env').toString()
+
+const VITE_ENV = dotenv.parse<{ VITE_SITE_NAME: string, VITE_SITE_DOMAIN: string, VITE_AUTHOR_NAME: string, VITE_AUTHOR_EMAIL: string, VITE_SITE_DESCRIPTION: string}>(content)
 
 export const JWT_SECRET = process.env.JWT_SECRET as string
 export const AUTH_USERNAME = process.env.AUTH_USERNAME as string
@@ -15,8 +18,8 @@ export const SMTP_PORT = (process.env?.SMTP_PORT ?? 25) as number
 export const SMTP_EMAIL = process.env.SMTP_EMAIL as string
 export const SMTP_PASSWORD = process.env.SMTP_PASSWORD as string
 
-export const SITE_NAME = process.env.VITE_SITE_NAME as string
-export const SITE_DESCRIPTION = process.env.VITE_SITE_DESCRIPTION as string
-export const SITE_DOMAIN = process.env.VITE_SITE_DOMAIN as string
-export const AUTHOR_EMAIL = process.env.VITE_AUTHOR_EMAIL as string
-export const AUTHOR_NAME = process.env.VITE_AUTHOR_NAME as string
+export const SITE_NAME = VITE_ENV.VITE_SITE_NAME
+export const SITE_DESCRIPTION = VITE_ENV.VITE_SITE_DESCRIPTION
+export const SITE_DOMAIN = VITE_ENV.VITE_SITE_DOMAIN
+export const AUTHOR_EMAIL = process.env.VITE_AUTHOR_EMAIL
+export const AUTHOR_NAME = VITE_ENV.VITE_AUTHOR_NAME
