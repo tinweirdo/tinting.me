@@ -1,6 +1,7 @@
 ---
 title: Hi
-hideSiteName: true,
+hideSiteName: true
+comments: disabled
 head:
   title: Wayne Wu
 ---

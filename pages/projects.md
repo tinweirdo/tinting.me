@@ -1,6 +1,7 @@
 ---
 title: Projects
 custom: true
+comments: disabled
 items:
   - name: perzine
     desc: BLOG system, includes Back-End and Front-End
