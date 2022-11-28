@@ -3,6 +3,10 @@ title: Projects
 custom: true
 comment: hidden
 items:
+  - name: wayne-wu.com
+    desc: My personal website.
+    status: maintaining
+    link: https://github.com/WayneWu98/wayne-wu.com
   - name: perzine
     desc: BLOG system, includes Back-End and Front-End
     status: upcoming

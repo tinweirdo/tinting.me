@@ -1,10 +1,12 @@
 {
   "globals": {
+    "$": "readonly",
     "$$": "readonly",
     "$ref": "readonly",
+    "$shallowRef": "readonly",
     "$computed": "readonly",
-    "$toRef": "readonly",
-    "$customRef": "readonly"
+    "$customRef": "readonly",
+    "$toRef": "readonly"
   },
   "extends": [
     "eslint:recommended",
