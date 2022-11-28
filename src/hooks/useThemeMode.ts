@@ -39,8 +39,7 @@ const KEY = Symbol() as InjectionKey<{
 
 export const provideThemeMode = () => {
   const themeMode = ref<ThemeMode>(getPreferThemeMode())
-  const setThemeMode = (mode: ThemeMode) =>
-    (themeMode.value = setPreferThemeMode(mode))
+  const setThemeMode = (mode: ThemeMode) => themeMode.value = setPreferThemeMode(mode)
   const toggleThemeMode = () => {
     switch (themeMode.value) {
       case ThemeMode.Auto:

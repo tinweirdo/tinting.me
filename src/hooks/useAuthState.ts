@@ -2,7 +2,7 @@ import { ErrorCode } from 'netlify/core/types'
 import { InjectionKey, provide, inject, reactive, DeepReadonly, readonly, ComputedRef, computed } from 'vue'
 import * as AuthApi from '~/api/auth'
 import message from '~/plugins/message'
-import { isClient, defaultWindow } from "@vueuse/core"
+import { defaultWindow } from "@vueuse/core"
 
 interface AuthState {
   type: string,
@@ -44,6 +44,7 @@ export const login = () => {
   const password = prompt('Please input the password:')
   if (!username || !password) {
     message.warn('请输入用户名和密码！')
+    return
   }
   return AuthApi.login(username!, password!)
     .then((data) => {
