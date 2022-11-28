@@ -14,18 +14,18 @@ const { setParent, disabled, onCommentUpdated } = useComments()!
 
 const { isAuthed } = useAuthState()!
 
-const loading = ref(false)
+let loading = $ref(false)
 
 const toggleCommentStatus = () => {
-  if (loading.value) return
+  if (loading) return
   const status = props.comment.status === CommentStatus.Published ? CommentStatus.Unreviewed : CommentStatus.Published
-  loading.value = true
+  loading = true
   CommentApi.updateCommentStatus(props.comment.objectId, status)
     .then(() => {
       onCommentUpdated(props.comment.objectId, { status })
       MailApi.reply(props.comment.objectId)
     })
-    .finally(() => loading.value = false)
+    .finally(() => loading = false)
 }
 
 </script>

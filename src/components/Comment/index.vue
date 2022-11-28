@@ -15,10 +15,10 @@ import { navigateToAnchor } from '~/utils'
 const props = defineProps<{ id?: string, disabled?: boolean }>()
 
 
-const mounted = ref(false)
+let mounted = $ref(false)
 const wrap = ref<HTMLElement>()
 
-onMounted(() => mounted.value = true)
+onMounted(() => mounted = true)
 
 const route = useRoute()
 

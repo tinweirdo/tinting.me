@@ -16,7 +16,7 @@ defineEmits<{ (event: 'cancel'): void }>()
 const { onCommentCreateded, parent, setParent } = useComments()!
 const id = useId()!
 
-const loading = ref(false)
+let loading = $ref(false)
 
 const { getPoster, setPoster } = usePoster()
 
@@ -45,7 +45,7 @@ const submit = () => {
   if (!nickname || !email) return void Message.warn('请完善昵称或邮箱！')
   if (!content) return void Message.warn('评论内容不能为空！')
   if (id.value) {
-    loading.value = true
+    loading = true
     createComment(id.value, { nickname, email, website, content, parent: parent.value?.objectId })
       .then(({ data }) => {
         message.success('发表成功，请等待评论审核！')
@@ -53,7 +53,7 @@ const submit = () => {
         inputs.content = ''
         MailApi.notice(data.objectId)
       })
-      .finally(() => loading.value = false)
+      .finally(() => loading = false)
   }
   setPoster(inputs)
 }

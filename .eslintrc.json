@@ -1,4 +1,11 @@
 {
+  "globals": {
+    "$$": "readonly",
+    "$ref": "readonly",
+    "$computed": "readonly",
+    "$toRef": "readonly",
+    "$customRef": "readonly"
+  },
   "extends": [
     "eslint:recommended",
     "plugin:vue/vue3-recommended",

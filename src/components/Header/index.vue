@@ -4,8 +4,8 @@ import { useIntersectionObserver } from '@vueuse/core'
 import Logo from './Logo.vue'
 import NavBar from './NavBar.vue'
 const logoEl = ref<HTMLElement>()
-const visible = ref(true)
-useIntersectionObserver(logoEl, ([{ isIntersecting }]) => visible.value = isIntersecting)
+let visible = $ref(true)
+useIntersectionObserver(logoEl, ([{ isIntersecting }]) => visible = isIntersecting)
 </script>
 
 <template>

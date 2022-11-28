@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-withDefaults(defineProps<{ direction?: 'vertical' | 'horizontal', size?: number }>(), { direction: 'vertical', size: 0 })
+// eslint-disable-next-line vue/no-setup-props-destructure
+const { direction = 'vertical', size = 0 } = defineProps<{ direction?: 'vertical' | 'horizontal', size?: number }>()
 </script>
 
 <template>
