@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { nextTick, reactive } from 'vue'
 import usePoster from './hooks/usePoster'
 import Message from '~/plugins/message'
 import { createComment } from '~/api/comments'
@@ -10,6 +10,7 @@ import * as MailApi from '~/api/mail'
 import { watchOnce } from '@vueuse/shared'
 import useAuthState from '~/hooks/useAuthState'
 import { AUTHOR_EMAIL, AUTHOR_NAME, SITE_DOMAIN } from '~/env'
+import { navigateToAnchor } from '~/utils'
 
 defineEmits<{ (event: 'cancel'): void }>()
 
@@ -52,6 +53,7 @@ const submit = () => {
         onCommentCreateded(data)
         inputs.content = ''
         MailApi.notice(data.objectId)
+        nextTick(() => navigateToAnchor('#comment-' + data.objectId))
       })
       .finally(() => loading = false)
   }

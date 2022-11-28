@@ -4,7 +4,8 @@ import { defaultWindow } from '@vueuse/core'
 
 export const formatDate = (d: string | Date) => dayjs(d).format('MMM D, YYYY')
 
-export const navigateToAnchor = () => {
+export const navigateToAnchor = (hash?: string) => {
+  if (hash) window.history.replaceState({}, '', hash)
   if (location.hash) {
     const headerHeight = 56
     const viewportTop = defaultWindow?.document.documentElement.scrollTop ?? 0

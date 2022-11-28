@@ -2,11 +2,12 @@
 import { computed, nextTick, onMounted, provide, ref, watch } from 'vue'
 import CommentQuote from '~icons/mdi/comment-quote'
 import SettingsIcon from '~icons/ic/baseline-settings'
-import CommentForm from './CommentForm.vue'
 import { KEY as ID_KEY } from './hooks/useId'
 import { provideComments } from './hooks/useComments'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import CommentList from './CommentList.vue'
+import CommentForm from './CommentForm.vue'
+import CommentSkeleton from './CommentSkeleton.vue'
 import { CommentStatus, FilledComment } from 'netlify/core/types'
 import useAuthState from '~/hooks/useAuthState'
 import LogoutIcon from '~icons/fe/logout'
@@ -30,7 +31,7 @@ const disabled = computed(() => !!props.disabled && !isAuthed.value)
 
 const id = computed(() => props.id ?? route.path)
 provide(ID_KEY, id)
-const { parent, setParent, comments, resetComments } = provideComments(id, { disabled })
+const { loading, parent, setParent, comments, resetComments } = provideComments(id, { disabled })
 resetComments()
 
 const countIt = (comment: FilledComment): number => {
@@ -91,7 +92,8 @@ export default {
         />
       </div>
     </div>
-    <CommentList class="mb-64px" :comments="comments" />
+    <CommentSkeleton v-if="loading" class="mb-64px" />
+    <CommentList v-else class="mb-64px" :comments="comments" />
     <teleport v-if="mounted && !disabled" :to="parent ? '#comment-' + parent.objectId : wrap">
       <CommentForm id="comment-form" :class="{ 'mt-32px': parent?.objectId }" />
     </teleport>

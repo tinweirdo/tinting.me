@@ -55,7 +55,9 @@ const handleAnchors = (event: MouseEvent & { target: HTMLElement }) => {
 onMounted(() => {
   useEventListener(defaultWindow, 'hashchange', navigateToAnchor)
   useEventListener(content.value!, 'click', handleAnchors, { passive: false })
-  setTimeout(navigateToAnchor, 500)
+  setTimeout(() => {
+    if (!location.hash.startsWith('#comment-')) navigateToAnchor()
+  }, 500)
 })
 </script>
 
