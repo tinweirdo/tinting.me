@@ -13,6 +13,18 @@ export const prefetchUrls = (urls: string[]) => {
  return new Promise<void>((resolve, reject) => cdnManager.prefetchUrls(urls, (err) => err ? reject(err) : resolve()))
 }
 
+export const refreshUrls = (urls: string[]) => {
+  let p: Promise<any> = Promise.resolve()
+  for (let i = 0;; i++) {
+    const sliced = urls.slice(100 * i, 100 * (i + 1))
+    p = p.then(() => {
+      return new Promise<void>((resolve, reject) => cdnManager.refreshUrls(sliced, (err) => err ? reject(err) : resolve()))
+    })
+    if (!sliced.length) break
+  }
+  return p
+}
+
 export const getDistFiles = (path = 'dist'): string[] => {
   const results: string[] = []
   const files = fs.readdirSync(path)
