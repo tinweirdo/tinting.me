@@ -18,6 +18,9 @@ export const SMTP_PORT = (process.env?.SMTP_PORT ?? 25) as number
 export const SMTP_EMAIL = process.env.SMTP_EMAIL as string
 export const SMTP_PASSWORD = process.env.SMTP_PASSWORD as string
 
+export const QINIU_ACCESS_KEY = process.env.QINIU_ACCESS_KEY as string
+export const QINIU_SECRET_KEY = process.env.QINIU_SECRET_KEY as string
+
 export const SITE_NAME = VITE_ENV.VITE_SITE_NAME
 export const SITE_DESCRIPTION = VITE_ENV.VITE_SITE_DESCRIPTION
 export const SITE_DOMAIN = VITE_ENV.VITE_SITE_DOMAIN
