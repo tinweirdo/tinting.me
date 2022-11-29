@@ -37,5 +37,5 @@ export const getDistFiles = (path = 'dist'): string[] => {
       results.push(newPath)
     }
   })
-  return results.map((item) => item.replace(/^dist\//, ''))
+  return results.map((item) => item.replace(/^dist/, ''))
 }
