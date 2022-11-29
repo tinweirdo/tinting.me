@@ -1,9 +1,11 @@
 import { ViteSSG } from 'vite-ssg'
+import { defaultWindow, isClient } from '@vueuse/core'
 import autoRoutes from '~pages'
 import NProgress from 'nprogress'
 import dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 import { plugin as messagePlugin } from '~/plugins/message'
+import { DEV } from './env'
 import App from './App.vue'
 
 import 'virtual:windi.css'
@@ -19,6 +21,11 @@ const routes = autoRoutes.map((i) => {
 })
 
 NProgress.configure({ showSpinner: false })
+
+if (isClient && DEV) {
+  // remove referrer of resources only for local dev
+  defaultWindow?.document.querySelector('meta[name=referrer]')?.setAttribute('content', 'never')
+}
 
 const scrollBehavior = (from: any, to: any, savedPosition: any) => {
   if (savedPosition)
