@@ -51,7 +51,7 @@ Set these environment variables in netlify.
 
 ### Invasive Configuration
 
-Even though most of options can configure with `.env`, but something is hard-coded, I assume you are good at Vue, so there is no more explanations.
+Even though most of options can configure with `.env`, but something is hard-code, I assume you are good at Vue, so there is no more explanations.
 
 ### Others
 
