@@ -40,6 +40,28 @@ category: Coding Tips
 
 而鉴于 **UniApp** 小程序不支持 `inheritAttrs`，则需要将组件外包一层 `view`，将外边距样式作用于该包装元素中，或者将 class 添加于组件属性中（但有时样式不生效）。
 
+还有一种比较特殊的情况则是 [外边距折叠](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing) 的问题，在这种情况下，组件中子元素的上下外边距有可能会给组件带来外边距，因此需要特别注意。解决方法可以给父元素设置内边距以替代外边距。重复元素的间距则可以设置边界元素外边距为0；
+
+```css
+.parent {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+/* or */
+.parent .child:first-child {
+  margin-top: 0;
+}
+
+```
+
+## 将间距写在可能不存在的元素上
+
+考虑图中的情况，CASE 1 表示了预期效果，我们使用了弹性盒子布局实现了右边组（Title & Desc）与左边组（Avatar）水平对齐，Desc 为可能不存在的元素，当我们把 Title 和 Desc 之间的间距写在 Title 时，如果 Desc 不存在，则由于 Title 上带有下边距，导致 Title 未居中显示。而 Case 3 中，将间距写在 Desc 上，其不存在时，边距同样不存在，符合预期。
+
+![set margin in different el](https://static.wayne-wu.com/2022_11_29_16_08_26_5LM8Wg.png)
+
+
 ## 全圆角尽量使用高值设定
 
 当使用相对单位设置元素圆角时，其实际圆角尺寸与元素对应边的长度有关，如果元素长宽不一致，则实际的圆角将表现为非对称的效果，固定数值则可以保证圆角半径的一致性，但表现效果最大不超过其短边尺寸，即使设定了远超长度的大小作为圆角半径。下面的例子表现了不同值下的圆角效果，通过拖动滑块以观察圆角的变化。
@@ -49,7 +71,7 @@ category: Coding Tips
      title="interesting-shaw-swcmnk"
      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-   />
+   ></iframe>
 
 百分比圆角在不同尺寸小表现怪异，全圆角的效果只有在长宽一致时才能实现。固定尺寸表现则没有那么怪异。当圆角半径大于边长的一半时，可以实现全圆角。或许多数情况元素尺寸已知，你仍然可以通过计算来设置全圆角，但为了兼容以及后期维护考虑，都应该使用高值来设定圆角，以防止元素尺寸主动或被动发生改变而导致圆角样式BUG的出现。
 
