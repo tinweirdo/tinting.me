@@ -17,9 +17,7 @@ category: Front End
 
 ## 新颖的图标方案
 
-[@userquin](https://github.com/userquin) 在 [unplugin-icons](https://github.com/antfu/unplugin-icons) 项目中的 [PR](https://github.com/antfu/unplugin-icons/pull/90) 中实现了一种新的图标方案。
-
-css 的 `mask-image` 属性可以将元素按给定图像的形状进行裁剪，下面是一个实际实现：
+[@antfu](https://github.com/antfu) 在[这篇文章](https://antfu.me/posts/icons-in-pure-css)介绍了一种新的 css 图标方案，通过使用 css 的 `mask-image` 属性将元素按给定图像的形状进行裁剪，并可以使用 `background-color` 设定图标颜色，下面是一个实际实现：
 
 <iframe
   src="https://codesandbox.io/embed/font-icon-solution-kyn77k?fontsize=14&hidenavigation=1&theme=dark"
@@ -134,4 +132,4 @@ export default {
 
 而为了减少项目依赖，让整个架构看起来干净一点，可以将 svg 图标事先转化为 base64 进行存储，这样小程序请求到的资源无需进行 base64 编码，减少运行时损耗。当然，这是另外的事情了。
 
-至此，我们已经得到了可以在小程序运行的图标字体方案了。
+至此，我们已经实现了一个在小程序显示字体图标的可行方案了。
