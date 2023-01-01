@@ -9,7 +9,7 @@ useIntersectionObserver(logoEl, ([{ isIntersecting }]) => visible = isIntersecti
 </script>
 
 <template>
-  <header class="bg-bg-base z-10 pt-16px px-32px sticky -top-52px border-b-border border-b-1px border-solid transition-shadow duration-300" :class="{ 'shadow-md shadow-gray-100 dark:shadow-transparent': !visible }">
+  <header class="bg-bg-base z-10 pt-16px px-32px sticky -top-52px border-b-border border-b-1px border-solid transition-shadow duration-300">
     <Logo ref="logoEl" show-author-name class="mb-4px" />
     <NavBar>
       <div class="w-0 transition-all duration-300 h-1px" :class="{ '!w-48px': !visible }">
