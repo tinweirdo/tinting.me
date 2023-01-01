@@ -24,7 +24,7 @@ category: Front End
 
 ## 代码的具体实现
 
-> 以下实现基于 Electron，并且我假设你了解并熟悉 Electron，关于具体 Electron 细节并不会有太多说明。以下代码中，`main.js` 指主进程代码，`preload.js` 为预加载脚本，`renderer.js` 为 HTML 页面代码。
+> 以下实现基于 Electron，并且我假设你了解并熟悉 Electron，关于具体 Electron 细节并不会有太多说明。以下代码中，`main.js` 指主进程代码，`preload.js` 为预加载脚本，`renderer.js` 渲染进程 HTML 页面的 JS 代码。
 
 我们使用 Electron 按照官网示例新建一个窗口，主线程代码是这样的（你完全可以从官网拿到基本相同的代码）：
 
