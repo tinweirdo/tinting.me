@@ -261,3 +261,5 @@ btn.addEventListener('click', ({ clientX, clientY }) => {
 最终我们实现了它，效果出乎意料的好，与 Bilibili Mac 端的表现几乎一致。唯一不足的地方是：`capturePage` 获取的截图质量差强人意（Bilibili Mac 端同样存在这个问题），但在几百毫秒的动画中，用户是难以察觉的，因此这个缺点也就可以忽略不计了。
 
 ![result](https://static.wayne-wu.com/awesome-light-dark-switching_2022-12-27-22:30:16.gif)
+
+> 该代码已推送到 Github [awesome-light-dark-switching](https://github.com/WayneWu98/awesome-light-dark-switching) 项目，可以查看源码了解整个实现。
