@@ -9,7 +9,7 @@ category: Front End
 在 WEB 前端项目中，我们有成熟的方案来显示图标，如：
 
 1. 制作图标字体；
-2. 直接显示图像（使用 `background-img` css属性 或 `img` 标签）。
+2. 直接显示图像（使用 `background-img` css属性或 `img` 标签）。
 
 前者将图标转化为 Unicode 码点的字体图形打包进字体文件中，通过不同的字符可以显示不同的图标。这种方案的图标可以通过 `font-size` 和 `color` 修改图标的大小和颜色，与正常字体表现一致，体验非常好。
 
@@ -17,7 +17,7 @@ category: Front End
 
 ## 新颖的图标方案
 
-[@antfu](https://github.com/antfu) 在[这篇文章](https://antfu.me/posts/icons-in-pure-css)介绍了一种新的 css 图标方案，通过使用 css 的 `mask-image` 属性将元素按给定图像的形状进行裁剪，并可以使用 `background-color` 设定图标颜色，下面是一个实际实现：
+[@antfu](https://github.com/antfu) 在 [这篇文章](https://antfu.me/posts/icons-in-pure-css) 介绍了一种新的 css 图标方案，通过使用 css 的 `mask-image` 属性将元素按给定图像的形状进行裁剪，并可以使用 `background-color` 设定图标颜色，下面是一个实际实现：
 
 <iframe
   src="https://codesandbox.io/embed/font-icon-solution-kyn77k?fontsize=14&hidenavigation=1&theme=dark"
@@ -55,7 +55,7 @@ span {
 
 ## 小程序实现
 
-如果你直接在小程序中使用上面的代码，或许在开发者工具上体验良好，但一换到真实设备，Dangdang～，出问题了，图标显示不出来。在微信开放社区这一篇来自 [@savokiss](https://developers.weixin.qq.com/community/personal/oCJUsw1Zwh-83oeSk7RSQqMleenA) 的[回答中](https://developers.weixin.qq.com/community/develop/doc/5be2d74dfae5d7688a6a721065364d26?highLine=mask-image) 可以找到答案。
+如果你直接在小程序中使用上面的代码，或许在开发者工具上体验良好，但一换到真实设备，Dangdang～，出问题了，图标显示不出来。在微信开放社区这一篇来自 [@savokiss](https://developers.weixin.qq.com/community/personal/oCJUsw1Zwh-83oeSk7RSQqMleenA) 的 [回答中](https://developers.weixin.qq.com/community/develop/doc/5be2d74dfae5d7688a6a721065364d26?highLine=mask-image) 可以找到答案。
 
 我们需要给 `mask-image` 属性加上 `-webkit` 前缀，同时图片需要使用 base64 格式。于是我们得到下面的解决方案：
 
