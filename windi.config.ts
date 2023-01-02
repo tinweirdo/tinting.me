@@ -33,6 +33,18 @@ export default defineConfig({
       lg: ['20px', '28px'],
       xl: ['24px', '32px'],
     },
+    cursor: {
+      'auto': 'auto',
+      'default': 'default',
+      'pointer': 'pointer',
+      'wait': 'wait',
+      'text': 'text',
+      'move': 'move',
+      'not-allowed': 'not-allowed',
+      'crosshair': 'crosshair',
+      'zoom-in': 'zoom-in',
+      'zoom-out': 'zoom-out',
+    },
   },
   shortcuts: {
     'w-content': 'max-w-48rem mx-auto <w-content:mx-24px',

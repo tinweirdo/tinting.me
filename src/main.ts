@@ -5,6 +5,7 @@ import NProgress from 'nprogress'
 import dayjs from 'dayjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 import { plugin as messagePlugin } from '~/plugins/message'
+import { plugin as lightboxPlugin } from '~/plugins/lightbox'
 import { DEV } from './env'
 import App from './App.vue'
 
@@ -41,6 +42,7 @@ export const createApp = ViteSSG(
     dayjs.extend(LocalizedFormat)
     if (isClient) {
       app.use(messagePlugin)
+      app.use(lightboxPlugin)
       router.beforeEach(() => { NProgress.start() })
       router.afterEach(() => { NProgress.done() })
     }

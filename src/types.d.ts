@@ -7,7 +7,9 @@ export interface FrontMatter {
   category?: string,
   thumb?: string,
   head?: { [k: keyof any]: any },
-  comment?: 'enabled' | 'disabled' | 'hidden'
+  comment?: 'enabled' | 'disabled' | 'hidden',
+  custom?: boolean,
+  disableLightBox?: boolean,
   [k: keyof any]: any
 }
 
