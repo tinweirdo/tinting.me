@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { computed, useSlots } from 'vue'
 import useFrontMatter from '~/hooks/useFrontMatter'
-import LigtBox from '~/plugins/lightbox'
+import LightBox from '~/plugins/lightbox'
 
 let captionRef = $ref<HTMLElement>()
 
@@ -12,8 +13,12 @@ let enabledLightBox = $computed(() => !frontmatter?.disableLightBox)
 
 const preview = () => {
   if (!enabledLightBox) return
-  LigtBox.open(props.src, captionRef?.innerHTML ?? '')
+  LightBox.open(props.src, captionRef?.innerHTML ?? '')
 }
+
+const slots = useSlots()
+
+const alt = computed(() => slots.default?.()?.[0]?.children as string)
 
 </script>
 
@@ -23,6 +28,7 @@ const preview = () => {
       data-with-component="true"
       :src="src"
       :class="{'cursor-zoom-in': enabledLightBox }"
+      :alt="alt"
       @click="preview"
     >
     <figcaption ref="captionRef" class="italic">

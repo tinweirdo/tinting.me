@@ -5,7 +5,7 @@ import { AUTHOR_NAME } from '~/env'
 
 <template>
   <footer class="py-32px mt-64px">
-    <div class="w-content opacity-50 prose">
+    <div class="w-content opacity-80 prose">
       <p style="font-size: .8rem" class="!m-0">
         <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>
       </p>

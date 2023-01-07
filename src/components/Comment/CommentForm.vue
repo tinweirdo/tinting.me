@@ -84,7 +84,7 @@ const submit = () => {
     <textarea
       v-model="inputs.content"
       maxlength="1000"
-      class="input h-10em w-full"
+      class="input h-10em w-full leading-[1.5]"
       placeholder="说点什么"
     />
     <div class="mt-16px">
