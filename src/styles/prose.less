@@ -200,7 +200,7 @@ h6:focus .header-anchor {
 }
 
 .prose ul > li.task-list-item {
-  padding-left: 0;
+  padding-left: 1.75em;
 
   &::before {
     display: none;
@@ -215,10 +215,18 @@ h6:focus .header-anchor {
   border: none;
   display: inline-block;
   box-sizing: border-box;
-  width: auto;
-  height: auto;
+  width: 0;
+  height: 0;
   font-size: 1.2em;
   margin-right: .2em;
+
+  &::after {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
   &:not(:checked)::after {
     content: '⏳';
   }

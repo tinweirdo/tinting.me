@@ -5,7 +5,7 @@ import LightBox from '~/plugins/lightbox'
 
 let captionRef = $ref<HTMLElement>()
 
-const props = defineProps<{ src: string }>()
+const props = defineProps<{ src: string, alt?: string }>()
 
 const frontmatter = useFrontMatter()
 
@@ -18,7 +18,7 @@ const preview = () => {
 
 const slots = useSlots()
 
-const alt = computed(() => slots.default?.()?.[0]?.children as string)
+const _alt = computed(() => props.alt ?? slots.default?.()?.[0]?.children as string)
 
 </script>
 
@@ -28,7 +28,7 @@ const alt = computed(() => slots.default?.()?.[0]?.children as string)
       data-with-component="true"
       :src="src"
       :class="{'cursor-zoom-in': enabledLightBox }"
-      :alt="alt"
+      :alt="_alt"
       @click="preview"
     >
     <figcaption ref="captionRef" class="italic">
