@@ -208,29 +208,17 @@ h6:focus .header-anchor {
 }
 
 .prose .task-list-item-checkbox[type='checkbox'] {
-  background-image: none !important;
-  padding: 0;
-  margin: 0;
-  background: none;
-  border: none;
-  display: inline-block;
-  box-sizing: border-box;
-  width: 0;
-  height: 0;
-  font-size: 1.2em;
-  margin-right: .2em;
+  display: none;
 
-  &::after {
+  & + label::before {
     position: absolute;
     left: 0;
-    top: 50%;
-    transform: translateY(-50%);
   }
 
-  &:not(:checked)::after {
+  &:not(:checked) + label::before {
     content: '⏳';
   }
-  &:checked::after {
+  &:checked + label::before {
     content: '✅'
   }
 }
