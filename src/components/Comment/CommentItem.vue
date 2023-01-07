@@ -7,6 +7,7 @@ import CrownIcon from '~icons/fluent-emoji/crown'
 import useAuthState from '~/hooks/useAuthState'
 import * as CommentApi from '~/api/comments'
 import * as MailApi from '~/api/mail'
+import { computed } from 'vue'
 
 // eslint-disable-next-line vue/no-setup-props-destructure
 const { comment } = defineProps<{comment: FilledComment}>()
@@ -16,6 +17,8 @@ const { setParent, disabled, onCommentUpdated, onCommentDeleted } = useComments(
 const { isAuthed } = useAuthState()!
 
 let loading = $ref(false)
+
+const content = computed(() => comment.content.split(/\r?\n/))
 
 const toggleCommentStatus = () => {
   if (loading) return
@@ -74,8 +77,13 @@ const deleteComment = () => {
           </template>
         </div>
       </div>
-      <div class="text-base">
-        <p><span v-if="comment.parent" class="mr-0.5em text-accent">@{{ comment.parent.nickname }}</span>{{ comment.content }}</p>
+      <div class="content text-base leading-[1.5]">
+        <p class="mb-0.7em">
+          <span v-if="comment.parent" class="mr-0.5em text-accent">@{{ comment.parent.nickname }}</span>{{ content[0] }}
+        </p>
+        <p v-for="(p, i) in content.slice(1)" :key="i" class="mb-0.7em">
+          {{ p }}
+        </p>
         <p v-if="comment.status === CommentStatus.Unreviewed" class="text-size-14px mt-1.2em text-red-500">
           * 此条评论正在等待审核
         </p>
@@ -86,3 +94,9 @@ const deleteComment = () => {
     </div>
   </div>
 </template>
+
+<style lang="less" scoped>
+.content p:last-of-type {
+  margin-bottom: 0;
+}
+</style>
