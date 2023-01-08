@@ -6,7 +6,7 @@ category: Front End
 
 [[toc]]
 
-在 Hybrid 应用开发中，JSBridge 提供了 WebView 和 Native 之间互相通信的能力，使得前端网页可以调用平台相关的 API，平台也可以操作前端网页。JSBridge 如同一座桥连接了 WebView 和 Native，如果没有 JSBridge，Hybrid 开发的应用不过是一个小号浏览器。实际上，我们也可以把浏览器向网页提供的各种 API （如 `navigator.clipboard`, `navigator.bluetooth`）当作一种 JSBridge，因为本质上 JS 也是通过它们和 Native 进行了通信。
+在 Hybrid 应用开发中，JSBridge 提供了 WebView 和 Native 之间互相通信的能力，使得前端网页可以调用平台相关的 API，Native 也可以操作前端网页。JSBridge 如同一座桥连接了 WebView 和 Native，如果没有 JSBridge，Hybrid 开发的应用不过是一个小号浏览器。实际上，我们也可以把浏览器向网页提供的各种 API （如 `navigator.clipboard`, `navigator.bluetooth`）当作一种 JSBridge，因为本质上 JS 也是通过它们和 Native 进行了通信。
 
 受限于浏览器的 API 支持情况，基本所有需要任何 Native 操作的应用都不可能使用纯网页开发。因此，Hybrid 应用为了在 Web 端实现 Native 操作的能力，需要利用平台提供的 WebView API 手动实现 JSBridge。同时，平台（iOS、Android、Windows）差异是客观存在的，不同的平台所内置的 WebView 引擎不一致，提供的 WebView API 也不一致，因此，JSBridge 的具体实现还与平台有关。
 
@@ -98,7 +98,7 @@ interface Window {
 
 > 函数 `ipc.postMessage` 所接受的参数为一个字符串，这是因为与语言实现相关的 JS 数据类型并不能被另一种语言使用，语言之间想要传递数据需要进行序列化和反序列化操作，而字符串的字节数据可以很好的进行序列化存储，以及反序列化恢复为语言相关的类型数据。在这里 JS 可以将对象序列化为 JSON 字符串，以字节的形式传递给 Rust，Rust 可以（利用 serde 和 serde_json）将 JSON 字符串的字节数据转换为对应结构体。
 
-JS 通过该方法向 Native 传递消息，我们为 WebView 接收到 IPC 消息事件注册处理函数：
+JS 通过该方法向 Native 传递消息，我们为 WebView 接收到 IPC 消息的事件注册处理函数：
 
 ```rust
 // rust
@@ -110,6 +110,7 @@ let webview = WebViewBuilder::new(window)?
     })
     .build()?;
 
+// 直接将收到的数据打印出来
 pub fn handle_ipc_msg(msg: String) {
     println!("IPC MSG: {}", msg);
 }
@@ -149,13 +150,13 @@ webview.evaluate_script("window.onReceivedMsg('hello too')");
 
 ![receive msg from native](https://static.wayne-wu.com/RNwLs2_2023-01-07-19:37:28.png)
 
-这样，WebView 与 Native 之间的消息通信完全走通，以此为基础已经可以实现任何 WebView 和 Native 的 API 互相调用的功能了。
+这样，WebView 与 Native 之间的最基本的消息通信已经实现了，以此为基础可以实现任何 WebView 和 Native 的 API 互相调用的功能。
 
 ### 响应和回调
 
-WebView 与 Native 之间的调用往往需要响应结果，并且还有一个与之对应的回调函数来消费该响应结果。为了实现 WebView 调用 Native 后可以接收并处理响应，我们可以这么做：
+WebView 与 Native 之间的调用往往需要响应结果，并且还有一个与之对应的回调函数来消费该响应结果。为了实现 WebView 调用 Native API 后可以接收并处理响应，我们可以这么做：
 
-JS 调用 `postMessage` 时，将一个回调函数存在一个容器中，并将该函数的句柄（**callbackId**）一同发送给 Native，等到 Native 处理完成所有操作时，通过 `evaluateJavascript` 从容器中找到该函数并调用，简单的实现是这样的：
+JS 调用 `postMessage` 前，将一个回调函数存在一个容器中，并将该函数的句柄（**callbackId**）一同发送给 Native，等到 Native 处理完成所有操作时，通过 `evaluateJavascript` 运行 `onReceivedMsg` 并传递函数句柄，`onReceivedMsg` 则从容器中找到该函数并调用，简单的实现是这样的：
 
 ```typescript
 // ts
@@ -241,13 +242,13 @@ invoke('hello, ', console.log)
 
 ### 多次响应和回调
 
-在某些 WebView 调用 Native API 的情况，Native 可能会多次返回响应数据，而 WebView 也需要进行多次接收并处理。这里有一个具体的例子：
+在某些 WebView 调用 Native API 的情况，Native 可能会多次返回响应数据，而 WebView 也需要进行多次接收并处理。假设以下场景：
 
 Native 提供了一个下载资源的 API，WebView 调用后需要回调**下载进度改变**、**下载成功**、**下载失败**和**下载结束**事件，这些回调都发生在同一个 Native 接口调用中。这时，除了触发下载的动作是 WebView 主动发出外，其余事件都由 Native 端决定，WebView 是完全无法控制的。WebView 可以主动的去发送 IPC 消息去轮询进度，但这种做法不仅增加无用花销，还需要 Native 去维护数据的共享问题，增加内存安全隐患（虽然 Rust 极度内存安全）。
 
-一个有效且实用的做法是：只注册一个回调函数，Native 可以多次调用，并在不同的状态下给回调函数传递不同的响应，回调函数可以依据响应做出不同的反应，当 Native 最后一次调用回调函数时，回调函数从容器中删除。因此，Native 在执行 `evaluateJavascript` 时不仅需要按情况给回调函数传递响应，还需要传递一个**是否是最后一次调用**的标志，JS 以此来判断是否应该清理回调函数。
+一个有效且实用的做法是：只注册一个回调函数，Native 可以多次调用，并在不同的状态下给回调函数传递不同的响应，回调函数可以依据响应进行不同的操作，当 Native 最后一次调用回调函数时，回调函数从容器中删除。因此，Native 在执行 `evaluateJavascript` 时不仅需要按情况给回调函数传递响应，还需要传递一个 **是否是最后一次调用** 的标志 `callEnded`，JS 以此来判断是否应该清理回调函数。
 
-我们封装一下 JS 调用 Native 下载 API 的接口：
+我们封装一下 JS 调用 Native 下载 API 的方法：
 
 ```typescript
 // ts
@@ -270,6 +271,7 @@ const download = (config: DownloadConfig) {
   invoke(
     config.url,
     ({ type, data }: { type: keyof typeof CallbackType, data: any }) => {
+      // type 为 'Progress' | 'Success' | 'Fail' | 'Finally'
       config[CallbackType[type]]?.(data)
     }
   )
@@ -304,7 +306,7 @@ pub async fn download<T: IntoUrl>(
     let path = path::Path::new("./downloads/temp.png");
     fs::remove_file(path).ok();
     let mut f = fs::OpenOptions::new().write(true).create(true).open(path)?;
-    // 我们使用 reqwest 来发送 http 请求
+    // 使用第三方库 reqwest 来发送 http 请求
     let res = reqwest::get(url).await?;
     let total = res.content_length().unwrap_or(0);
     let mut stream = res.bytes_stream();
@@ -375,6 +377,7 @@ impl CallbackType {
                 })
             ));
         }
+        // 使用 tokio 执行异步下载任务
         tokio::spawn(async move {
             let err = download(url, |progress, total| {
                 notice(CallbackType::Progress(progress, total), false);
