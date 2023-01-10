@@ -58,16 +58,8 @@ html:not(.dark) .shiki-dark {
   color: var(--color-mark);
   position: relative;
   background: none;
-  &::after {
-    content: '';
-    position: absolute;
-    top: -.2em;
-    bottom: -.2em;
-    left: 0;
-    right: 0;
-    z-index: -1;
-    background-color: var(--color-mark-bg);
-  }
+  background: var(--color-mark-bg);
+  padding: .3em .2em;
 }
 
 .prose a code {
