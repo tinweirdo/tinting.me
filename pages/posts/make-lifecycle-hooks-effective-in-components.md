@@ -1,7 +1,7 @@
 ---
 title: UniApp：在组件中使用小程序生命周期钩子
 date: 2023-01-10T14:12:50+08:00
-category: Code Tips
+category: Coding Tips
 ---
 
 [[toc]]
