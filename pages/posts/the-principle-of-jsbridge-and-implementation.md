@@ -164,7 +164,7 @@ type Fn = (...params: any[]) => void
 
 const CALLBACK_BUCKET = new Map<number, Fn>()
 
-let callbackId = 0
+let callbackId = Number.MIN_SAFE_INTEGER
 
 const invoke = (params: string, cb?: Fn) => {
   if (cb) {
@@ -176,7 +176,7 @@ const invoke = (params: string, cb?: Fn) => {
     .ipc
     .postMessage(JSON.stringify({
       params,
-      callbackId: callback ? callbackId : undefined
+      callbackId: cb ? callbackId : undefined
     }))
 }
 
