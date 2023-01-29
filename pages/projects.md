@@ -3,6 +3,10 @@ title: Projects
 custom: true
 comment: hidden
 items:
+  - name: keyshorts
+    desc: keyshorts helps you add keyboard shortcuts to your website quickly and easily!!!
+    status: maintaining
+    link: https://github.com/WayneWu98/keyshorts
   - name: wayne-wu.com
     desc: My personal website.
     status: maintaining
