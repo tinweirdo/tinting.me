@@ -12,11 +12,11 @@ const parsed = parser.parse(fs.readFileSync('./dist/sitemap.xml'))
 const urls = parsed.urlset.url.map((url) => {
   const patched = url.loc.replace(/\/?$/, '/')
   if (patched === DOMAIN + 'posts/' || patched === DOMAIN + 'categories/') {
-    url.changeFreq = 'always'
+    url.changefreq = 'always'
   } else if (patched === DOMAIN + 'projects/') {
-    url.changeFreq = 'monthly'
+    url.changefreq = 'monthly'
   } else {
-    url.changeFreq = 'yearly'
+    url.changefreq = 'yearly'
   }
   return url
 })
