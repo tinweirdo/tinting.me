@@ -5,25 +5,36 @@
 }
 
 .table-of-contents {
-  @apply flex flex-col items-center justify-center transition-opacity duration-300;
+  @apply flex flex-col items-center justify-end transition-opacity duration-300 subpixel-antialiased;
   position: fixed;
   top: 0;
   bottom: 0;
-  right: 0;
+  left: 0;
   font-size: 0.8rem;
   max-width: 200px;
-  padding: 10vh 32px 10vh 0;
+  padding-left: 1rem;
   overflow-y: auto;
   overflow-x: hidden;
   text-overflow: ellipsis;
-  opacity: 0;
+  opacity: .4;
+  pointer-events: none;
 
   &:hover {
     opacity: 1;
   }
 }
 
-.table-of-contents ul > li::before {
+.prose .table-of-contents ul {
+  pointer-events: auto
+}
+
+.prose .table-of-contents ul > li {
+  @apply font-medium;
+  border-bottom: none;
+  padding-left: 0;
+}
+
+.prose .table-of-contents ul > li::before {
   display: none;
 }
 
@@ -32,7 +43,7 @@
 }
 
 .table-of-contents a {
-  @apply !text-lite;
+  @apply !text-lite !border-none;
   @apply transition-colors duration-150;
 
   &:hover {
