@@ -4,8 +4,8 @@ import env from './env'
 
 const DOMAIN = env.VITE_SITE_DOMAIN.replace(/\/?$/, '/')
 
-const parser = new XMLParser()
-const builder = new XMLBuilder({})
+const parser = new XMLParser({ ignoreAttributes: false })
+const builder = new XMLBuilder({ ignoreAttributes: false })
 
 const parsed = parser.parse(fs.readFileSync('./dist/sitemap.xml'))
 
