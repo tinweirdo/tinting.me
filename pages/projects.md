@@ -3,15 +3,19 @@ title: Projects
 custom: true
 comment: hidden
 items:
-  - name: keyshorts
-    desc: keyshorts helps you add keyboard shortcuts to your website quickly and easily!!!
+  - name: Canvaskit
+    desc: A cross-platform canvas based on wasm!!!
+    status: upcoming
+    link: https://github.com/WayneWu98/canvaskit
+  - name: Keyshorts
+    desc: Keyshorts helps you add keyboard shortcuts to your website quickly and easily!!!
     status: maintaining
     link: https://github.com/WayneWu98/keyshorts
   - name: wayne-wu.com
     desc: My personal website.
     status: maintaining
     link: https://github.com/WayneWu98/wayne-wu.com
-  - name: perzine
+  - name: Perzine
     desc: BLOG system, includes Back-End and Front-End
     status: upcoming
     link: https://github.com/WayneWu98/perzine
