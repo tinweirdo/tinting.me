@@ -21,6 +21,7 @@ import slugify from './scripts/slugify'
 import excludePosts from './scripts/excludePosts'
 import generateSitemap from 'vite-ssg-sitemap'
 import env from './scripts/env'
+import lazyImage from './build/plugins/lazy-image'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -122,6 +123,7 @@ export default defineConfig({
 
       },
     }),
+    lazyImage(),
   ],
   server: {
     cors: true,

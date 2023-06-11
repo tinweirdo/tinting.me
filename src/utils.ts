@@ -17,3 +17,9 @@ export const navigateToAnchor = (hash?: string) => {
 const GRAVATAR_CDN = 'https://dn-qiniu-avatar.qbox.me/avatar/'
 
 export const getGravatar = (email: string) => `${GRAVATAR_CDN}${md5(email.trim().toLowerCase())}?d=identicon`
+
+export const isSupportWebp = (() => {
+  return document.createElement('canvas').toDataURL('image/webp').startsWith('data:image/webp')
+})()
+
+export const PLACEHOLDER_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'

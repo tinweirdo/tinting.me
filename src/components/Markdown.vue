@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { defaultWindow, useEventListener } from '@vueuse/core'
 import { useHead } from '@vueuse/head'
-import { onMounted, ref, provide } from 'vue'
+import { onMounted, ref, provide, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { SITE_DESCRIPTION, SITE_NAME } from '~/env'
 import { KEY as FrontMatterKey } from '~/hooks/useFrontMatter'
+import { PLACEHOLDER_IMAGE, isSupportWebp } from '~/utils'
 import { FrontMatter } from '~/types'
 import LigtBox from '~/plugins/lightbox'
 
@@ -68,6 +69,7 @@ const handleImagePreview = () => {
   }
 }
 
+// intercept anchor navigation
 onMounted(() => {
   useEventListener(defaultWindow, 'hashchange', navigateToAnchor)
   useEventListener(content.value!, 'click', handleAnchors, { passive: false })
@@ -76,10 +78,49 @@ onMounted(() => {
     if (!location.hash.startsWith('#comment-')) navigateToAnchor()
   }, 500)
 })
+
+const observer = new IntersectionObserver((entries) => {
+  for (const entry of entries) {
+    if (entry.isIntersecting) {
+      const image = entry.target as HTMLImageElement
+      image.src = image.dataset.src!
+      observer.unobserve(image)
+    }
+  }
+}, {
+  rootMargin: '0px 0px 0px 0px',
+})
+
+// lazy load images
+onMounted(() => {
+  const images = content.value?.querySelectorAll<HTMLImageElement>('img') ?? []
+  for (const image of Array.from(images)) {
+    const [src, hash] = image.src.split('?')
+    const queries = hash?.split('&').reduce((acc, cur) => {
+      const [key, value] = cur.split('=')
+      acc[key] = value
+      return acc
+    }, {} as Record<string, string>) ?? {}
+    if (queries._w && queries._h) {
+      image.style.aspectRatio = `${queries._w} / ${queries._h}`
+      Reflect.deleteProperty(queries, '_w')
+      Reflect.deleteProperty(queries, '_h')
+    }
+    if (queries['cdn'] === 'qiniuyun' && queries['format'] !== 'gif' && isSupportWebp) {
+      image.setAttribute('data-src', `${src}?imageView2/2/format/webp&${Object.entries(queries).map(([key, value]) => `${key}=${value}`).join('&')}`)
+    } else {
+      image.setAttribute('data-src', `${src}?${Object.entries(queries).map(([key, value]) => `${key}=${value}`).join('&')}`)
+    }
+    image.src = PLACEHOLDER_IMAGE
+    observer.observe(image)
+  }
+})
+
+onUnmounted(() => observer.disconnect())
 </script>
 
 <template>
-  <div ref="content">
+  <div ref="content" class="content">
     <slot v-if="custom" />
     <Post
       v-else
@@ -93,3 +134,9 @@ onMounted(() => {
     <Comment :disabled="comment === 'disabled'" class="w-content my-80px" />
   </ClientOnly>
 </template>
+
+<style lang="less" scoped>
+.content::v-deep(img) {
+  @apply bg-bg-deep;
+}
+</style>
