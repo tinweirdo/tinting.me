@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defaultWindow, useEventListener } from '@vueuse/core'
+import { defaultWindow, isClient, useEventListener } from '@vueuse/core'
 import { useHead } from '@vueuse/head'
 import { onMounted, ref, provide, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
@@ -7,7 +7,7 @@ import { SITE_DESCRIPTION, SITE_NAME } from '~/env'
 import { KEY as FrontMatterKey } from '~/hooks/useFrontMatter'
 import { PLACEHOLDER_IMAGE, isSupportWebp } from '~/utils'
 import { FrontMatter } from '~/types'
-import LigtBox from '~/plugins/lightbox'
+import LightBox from '~/plugins/lightbox'
 
 import { navigateToAnchor } from '~/utils'
 const props = defineProps<{ frontmatter: FrontMatter }>()
@@ -65,7 +65,7 @@ const handleImagePreview = () => {
     .filter((img) => !img.getAttribute('data-with-component'))
   for (const img of imgs) {
     img.style.cursor = 'zoom-in'
-    img.addEventListener('click', () => LigtBox.open(img.src))
+    img.addEventListener('click', () => LightBox.open(img.src))
   }
 }
 
@@ -79,7 +79,7 @@ onMounted(() => {
   }, 500)
 })
 
-const observer = new IntersectionObserver((entries) => {
+const observer = isClient ?  new IntersectionObserver((entries) => {
   for (const entry of entries) {
     if (entry.isIntersecting) {
       const image = entry.target as HTMLImageElement
@@ -89,7 +89,7 @@ const observer = new IntersectionObserver((entries) => {
   }
 }, {
   rootMargin: '0px 0px 0px 0px',
-})
+}) : {} as IntersectionObserver
 
 // lazy load images
 onMounted(() => {
