@@ -23,7 +23,7 @@ const getImageInfo = (url: string) => {
 
 export default function lazyImage(): Plugin {
   const filter = createFilter(['**/*.vue', '**/*.md'])
-  const regx = /https?:\/\/static\.wayne-wu\.com\/.*?\.(?:png|gif|jpg|webp|jpeg)/g
+  const regx = /https?:\/\/static\.wayne-wu\.com\/.*?\.(?:png|gif|jpg|webp|jpeg|JPG|PNG|JPEG|GIF|WEBP)/g
   return {
     name: 'vite-plugin-lazy-image',
     enforce: 'pre',

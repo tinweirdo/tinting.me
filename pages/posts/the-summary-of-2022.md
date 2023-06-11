@@ -10,7 +10,7 @@ category: Life
 
 ## 平凡的一年
 
-<Image src="https://static.wayne-wu.com/me-in-2022_2023-01-03-20:48:27.JPG?imageView2/2/w/1200">Graduation</Image>
+<Image src="https://static.wayne-wu.com/me-in-2022_2023-01-03-20:48:27.JPG">Graduation</Image>
 
 2018年，考上大学；2022年，我毕业了。快离开校园前和朋友聚了聚，其他就再没有去留下更多纪念性的东西了。大学专业，对我来说是一个错误的选择，因为它并非我的兴趣所在，更无法让我觉得在这一亩地可以找到有价值的东西。
 
