@@ -88,9 +88,9 @@ const model = new User({/* ... */}) // deserialize
 const serialized = model.serialize() // serialize
 ```
 
-而问题的关键在于：我们不可能手动编写所有 Model 序列化和反序列化的处理逻辑，这样的工作量太大了，并且也不利于维护。我们需要一种自动化的方式来实现这种转换。而序列化与反序列化的操作前提是：我们需要预先知道 Model 身上存在哪些属性并且与 Plain Object 键值之间的映射关系，在静态语言中，这种预知工作往往在编译期就可以轻松实现，但对于 JS 动态语言来说似乎不是一件容易的事（不考虑现今前端工程化下的代码打包和编译）。
+而问题的关键在于：我们不可能手动编写所有 Model 序列化和反序列化的处理逻辑，这样的工作量太大了，并且也不利于维护。我们需要一种自动化的方式来实现这种转换。而序列化与反序列化的操作前提是：我们需要预先知道 Model 身上存在哪些属性并且与 Plain Object 键值之间的映射关系，在静态语言中，这种预知工作往往在编译期就可以轻松实现，但对于 JS 动态语言来说似乎不是一件容易的事。
 
-装饰器为我们提供一种可能。装饰器是一种函数，可以对被装饰的类、成员或方法参数进行动态扩展，并且装饰器会随着 class 的定义而被执行。因此借助装饰器我们可以为 class 属性添加额外的元信息，这些元信息保存了该属性在序列化和反序列化时的配置信息，如属性名、转换函数等。在我们的自动 序列化/反序列化 中就可以轻松获取这些元信息。大致可以这么实现：
+装饰器为我们提供一种可能。装饰器是一种函数，可以对被装饰的类、成员或方法参数进行动态扩展，并且装饰器会随着 class 的定义而被执行。因此借助装饰器我们可以为 class 属性添加额外的元信息，这些元信息保存了该属性在序列化和反序列化时的配置信息，如属性名、转换函数等。在我们的自动 序列化/反序列化 中就可以轻松获取这些元信息以确定转换策略。于是我们大致上可以这么实现：
 
 ```ts
 interface FieldConfig {
@@ -164,7 +164,9 @@ const deserialized = serialize(raw)
 const serialized = deserialize(model)
 ```
 
-达到生产环境可用的程度还需要考虑更多的细节，比如：如何处理嵌套对象、如何处理数组、如何处理复杂的数据类型等。本质上这些问题都可以通过装饰器来解决，但显然从零开始实现一个 序列化/反序列化 工具库是一件复杂的事情。
+以上代码定义了一个类成员装饰器 `Field`，它接受一个配置对象并将其以类成员名称作为键值保存在一个字典中，配置对象包含了该属性对应原始序列的属性名、序列化/反序列化 的转换函数等，。在 `serialize` 和 `deserialize` 函数中，我们通过 `fields` Map 获取了所有成员的配置信息，然后根据配置信息进行转换。这样我们就实现了一个简单的序列化/反序列化工具。
+
+但要达到生产环境可用的程度还需要考虑更多的细节，比如：如何处理嵌套对象、如何处理数组、如何处理复杂的数据类型等。本质上这些问题都可以通过装饰器来解决，但显然从零开始实现一个 序列化/反序列化 工具库是一件复杂的事情。
 
 [class-transformer](https://github.com/typestack/class-transformer) 是一个非常强大的 class 和 Plain Object 之间的转换工具，在这种转换之外，它提供了强大的操作支持，比如对象字段名的映射、序列化或反序列化时是否忽略、数据类型的转换等。按照官方文档的介绍，基本使用是这样的：
 
@@ -209,21 +211,9 @@ Expose 对类成员属性进行暴露，指定该属性对应 Plain Object 上�
 2. 不需要给每一个类成员都添加 Field 装饰器，也能让它按照默认规则进行转换；
 3. 高度聚合 Model 基本逻辑，不需要在业务代码中关心序列化/反序列化的细节。
 
-对于第 2 点，更为重要的是：实现数据字段命名风格的自动转换，如：当前端使用 camelCase，后端使用 snake_case 时，`first_name` 反序列化后变为 `firstName`，`firstName` 序列化后变为 `first_name`：
+对于第 2 点，其中一点尤为重要：前后端数据结构的命名规范可能不一致，大多数后端语言偏好 snake_case，但 JS/EcmaScript 标准一般使用 camelCase，为了避免额外的手动装饰 Field 和 键名配置，我们可以在 反序列化前 和 序列化后 手动实现数据字段命名风格的自动转换。
 
-```ts
-// Plain Object
-{
-  first_name: 'Jack'
-}
-
-// User Model
-class User {
-  firstName: string
-}
-```
-
-实现以上 3 个目标的同时，进行以下 API 设计：
+从以上 3 个目标出发，进行以下 API 设计：
 
 1. 定义一个 Field 装饰器，支持配置：字段名、转换函数、是否忽略；
 2. 定义一个 BaseModel 基础类，封装两个静态方法：序列化 `toPlain` 和 反序列化 `from`，任何 Model 都从 BaseModel 进行派生，不需要在业务代码中关心序列化/反序列化的细节，使得每个 Model 在使用上可以直接调用，如: `User.from(raw)` 和 `user.toPlain()`；
@@ -256,19 +246,13 @@ interface FieldConfig {
 
 // we use Field decorator to decorate class member
 function Field(config: FieldConfig = {}) {
-  return function(target: any, propertyKey: string) {
-    /* ... */
-  }
+  /* ... */
 }
 
 // we use BaseModel to implement basic logic
 class BaseModel {
-  static from<T extends ClassConstructor<BaseModel>>(raw: any): InstanceType<T> {
-    /* ... */
-  }
-  toPlain<T extends BaseModel>(): Object {
-    /* ... */
-  }
+  toPlain<T extends BaseModel>(): Object { /* ... */ }
+  static from<T extends typeof BaseModel>(raw: any):  InstanceType<T> { /* ... */ }
 }
 ```
 
@@ -304,9 +288,11 @@ const plain = user.toPlain()
 
 ## 远不止于此
 
-使用 class 代替 interface 去约束数据类型不是本篇文章的最终目标，当手动封装了 class-transformer 的部分逻辑以控制了 序列化/反序列化 的过程时，我发现借助装饰器可以实现更多功能，甚至重新组织 View 与 Model 之间的代码逻辑。
+使用 class 代替 interface 去约束数据类型不是本篇文章的最终目标，借助装饰器所带来的强大元编程能力，我们可以给 class化 的 Model 添加更多功能逻辑，通过良好的封装来减少重复代码的编写。
 
-对一个 Model 进行 CRUD 是一个再正常不过的场景，这里我们定义一个 CRUD 抽象类，用以约束 Model 存在 CRUD 操作：
+### CRUD
+
+显然，Model 大多数与接口有关，对其进行 CRUD 是一个再正常不过的场景，因此，在此之前我们先定义一个 CRUD 抽象类，用以约束 Model 存在 CRUD 能力：
 
 ```ts
 abstract class CRUD<Get = any, Create = Get, Update = Get, Delete = any> {
@@ -317,7 +303,7 @@ abstract class CRUD<Get = any, Create = Get, Update = Get, Delete = any> {
 }
 ```
 
-假设 User Model 实现了 CRUD，那么我们可以这样使用：
+当一个 Model 实现了以上抽象类，就认为这个 Model 是可以进行 CRUD 操作的，假设 User Model 实现了 CRUD，那么我们可以这样使用：
 
 ```ts
 class User extends BaseModel implements CRUD<User> {
@@ -336,13 +322,17 @@ user.update()
 // delete a user
 user.delete()
 ```
+> Yeahhhh，这样很 OOP。
 
-这样，我们把请求逻辑代码从 api 文件夹中移除，最后附加在了 Model 上，这样很 OOP。而通常在接口设计上，对于一个 Model（Entity）的 CRUD 都遵守一定的规范，如：`GET /users` 获取用户列表，`POST /users` 创建用户，`PUT /users/:id` 更新用户，`DELETE /users/:id` 删除用户。
+如果只是这样定义一个抽象类，CRUD 的逻辑却仍需要我们手动在 Model 上实现，似乎除了给我们带来一点 OOP式 的代码开发体验外，并没有带来任何实质上的帮助，显然形式大于意义了。
 
-既然如此，我们可以写一个工具函数，自动为某个 Model 实现 CRUD 请求方法，为了保持一致的代码风格，我们可以将这个工具函数实现为一个类装饰器：
+不过，通常在接口设计上，对于一个 Model（Entity）的 CRUD 都遵守一定的规范，如：`GET /users` 获取用户列表，`POST /users` 创建用户，`PUT /users/:id` 更新用户，`DELETE /users/:id` 删除用户。在这种固定形式下，很容易就可以通过统一的方式给 Model 自动添加 CRUD 能力。为了将装饰器贯彻到底，考虑将其实现为一个类装饰器：
 
 ```ts
-export function CRUDDeriver() {
+
+type EndPoint<T> = string | ((action: 'get' | 'create' | 'update' | 'delete', model: T) => string)
+
+export function CRUDDeriver<T>(endpoint: EndPoint<T>) {
   return function<T extends ClassConstructor<CRUD>>(target: T) {
     target.prototype.get = function() { /* ... */ }
     target.prototype.create = function() { /* ... */ }
@@ -351,14 +341,16 @@ export function CRUDDeriver() {
   }
 }
 
-@CRUDDeriver()
+@CRUDDeriver('/users')
 class User extends BaseModel { /* ... */ }
 
 // for type checking, declare a interface that named as User Model and extends CRUD
 interface User extends CRUD<User> {}
 ```
 
-对 Model 进行查询时，我们可能会传递额外的参数，我们再定义两个个抽象类。
+定义一个 CRUDDeriver，它接受一个参数 endpoint，用来确定 HTTP 请求应该发送到后端的哪个接口，endpoint 可以是一个字符串，也可以是一个函数，当它是一个函数时，它接受两个参数：action 和 model，action 表示当前请求的动作，model 表示当前请求的 Model，通过这两个参数，我们可以根据不同的动作和 Model，返回不同的 endpoint。最后将其装饰在 Model 上，就可以为 Model 添加 CRUD 能力了。
+
+当对 Model 进行 CRUD 时，可能会传递额外的参数，因此再定义两个个抽象类。
 
 ```ts
 abstract class Query<T> {
@@ -370,8 +362,48 @@ abstract class Entity<T extends string | number = number> {
 }
 ```
 
-Query 约束该 Model 在 CRUD 操作时，可以传递额外的查询参数，Entity 约束该 Model 对应后端数据的一个实体，它具有唯一的 id。同时在 `CRUDDeriver` 中，通过判断 Model 上的 `query` 和 `id` 属性是否存在，来为 Model 实现具体的请求逻辑。当实体 Model 存在 `query` 时，在请求中将它作为参数传递，当实体 Model 存在 `id` 时，查询请求将会被转换为单个实体的查询，即：`GET /users/:id`，如果  `id` 不存在，则查询请求将会被转换为列表查询，即：`GET /users`。
+Query 约束该 Model 在 CRUD 操作时，可以传递额外的查询参数，Entity 约束该 Model 对应后端数据的一个实体，它具有唯一的 id。同时在 `CRUDDeriver` 中，通过判断 Model 上的 `query` 和 `id` 属性是否存在，来为 Model 实现具体的请求逻辑。
 
-Model 常常处于 View 与 Service 之间，因此 View 与 Service 。
+> 抽象类并不会真的给 Model 添加这些属性，我们仍需要手动在 Model 上定义，换句话说，我们不给 Model class 添加 `implements` 也是可行的，但那样只会造成这些属性意义不明确，所以，必须手动标记一下 `implements`。
+
+### 数据校验
+
+在涉及 Model CRUD 操作时，往往少不了数据校验工作，目前常见的检验一般在组件层面，包括对一些组件库的校验规则传参、自己手动编写的校验步骤等。从本篇文章的目标出发，我们希望能够将数据校验逻辑封装在 Model 层面，高度聚合与 Model 相关的逻辑。同样也可以将其实现为装饰器：
 
 ```ts
+// decorator for validate
+type ValidateFn = (v: any, model: BaseModel) => boolean
+function Validator(...validate: ValidateFn) { /* ... */ }
+
+function Required(v: string) {
+  return () => v?.trim()
+}
+
+function MinLength(min: number) {
+  return (v: string) => v?.trim().length >= min
+}
+
+function MaxLength(max: number) {
+  return (v: string) => v?.trim().length <= max
+}
+
+class BaseModel {
+  /* ... */
+  validate<T extends BaseModel>(this: T, field?: keyof T): Promise<boolean> { /* ... */ }
+  /* ... */
+}
+
+Model User extends BaseModel {
+  @Validator(Required(), MinLength(6), MaxLength(16))
+  name: string
+}
+
+const user = new User()
+user.name = 'Jack'
+user.validate() // true
+```
+
+以上代码定义了一个装饰器 Validator，接受多个校验函数，Model 可以直接通过调用 validate 方法来进行数据校验。当 Model 实现校验功能时，通过编写针对组件库表单的 Adaptor，就可以将 Model 的校验逻辑与组件库的校验规则进行对接，从而实现 Model 的校验逻辑在组件库表单上的应用。
+
+## 将他们结合起来
+
