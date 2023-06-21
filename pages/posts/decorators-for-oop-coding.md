@@ -48,6 +48,8 @@ category: Front End
 
 > 为了更统一概念，后文中将 JS Plain Object 转换为 class 实例的操作称为反序列化，将 class 实例转换为 JS Plain Object 的操作称为序列化，一切前端所需的数据模型都称为 Model（包括 Entity）。
 
+> **下文不会进行过多具体代码实现，而是通过伪代码来描述实现思路，因为实现细节并不是本文的重点。**
+
 考虑使用 class 代替 interface 来约束 Model 数据类型，在 class 上扩展更多属于 Model 相关的操作。对于上面的例子，可以这样：
 
 ```ts
@@ -364,7 +366,7 @@ abstract class Entity<T extends string | number = number> {
 
 Query 约束该 Model 在 CRUD 操作时，可以传递额外的查询参数，Entity 约束该 Model 对应后端数据的一个实体，它具有唯一的 id。同时在 `CRUDDeriver` 中，通过判断 Model 上的 `query` 和 `id` 属性是否存在，来为 Model 实现具体的请求逻辑。
 
-> 抽象类并不会真的给 Model 添加这些属性，我们仍需要手动在 Model 上定义，换句话说，我们不给 Model class 添加 `implements` 也是可行的，但那样只会造成这些属性意义不明确，所以，必须手动标记一下 `implements`。
+> 抽象类并不会真的给 Model 添加这些属性，我们仍需要手动在 Model 上定义，换句话说，我们不给 Model class 添加 `implements` 也是可行的，但那样会造成这些属性意义不明确，所以，必须手动标记一下 `implements`。
 
 ### 数据校验
 
@@ -407,3 +409,95 @@ user.validate() // true
 
 ## 将他们结合起来
 
+**表单提交** 和 **列表渲染** 是两个最为常见的、数据与视图存在较强逻辑关联的场景，两个场景中的代码往往是逻辑相似的，却又难以进行抽象进而实现高度的代码复用，最后导致我们需要编写很多重复的代码，重复意味着 ugly-prone 和 unmaintainable-prone。用以上规则去组织代码逻辑，或许更能让你感受到它的优势所在。
+
+下面将对于这两个场景进行简单的伪代码实现。
+
+### 表单提交
+
+表单提交一般包含以下流程：
+
+1. 表单回填；
+2. 用户修改；
+3. 数据校验；
+4. 表单提交。
+
+```vue
+<script setup lang="ts">
+@CRUDDeriver('/users')
+class User extends BaseModel implements Entity {
+  id: number
+  @Validator(Required(), MinLength(6), MaxLength(16))
+  name: string
+  @Validator(Required(), Pattern(/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/))
+  email: string
+
+  @Field({ ignore: { onDeserialize: true } })
+  @Validator(Required(), MinLength(6), MaxLength(16))
+  password: string
+
+  new(id: number) {
+    const user = new User()
+    user.id = id
+    return user
+  }
+}
+
+interface User extends CRUD<User> {}
+
+const user = ref<User>(new User())
+// or
+// const user = ref<User>(User.new(1))
+// user.get()
+
+const submit = async () => {
+  const valid = await user.value.validate()
+  if (!valid) return
+  await user.value.create()
+  // or
+  // await user.value.update()
+}
+</script>
+<template>
+  <!-- ModelForm is a specific component aim at model, we bind user to a form by using v-model -->
+  <model-form v-model="user" @submit="submit" />
+</template>
+```
+
+以上代码中，我们将 User Model 作为表单的数据源，通过 `v-model` 将其绑定到表单上，当表单数据发生变化时，会触发 `validate` 事件，我们可以通过 `validate` 事件来对表单数据进行校验，当校验通过时，触发 `submit` 事件，提交数据。
+
+### 列表渲染
+
+```vue
+<script setup lang="ts">
+@CRUDDeriver('/users')
+class User extends BaseModel implements Entity {
+  id: number
+  @Validator(Required(), MinLength(6), MaxLength(16))
+  name: string
+  @Validator(Required(), Pattern(/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/))
+  email: string
+}
+
+interface User extends CRUD<User> {}
+
+const user = ref<User>(new User())
+
+const validate = (field: keyof User) => {
+  return user.value.validate(field)
+}
+
+const submit = async () => {
+  const valid = await user.value.validate()
+  if (!valid) return
+  await user.value.create()
+  // or
+  // await user.value.update()
+}
+
+</script>
+<template>
+  <!-- we bind user to a form by using v-model -->
+  <model-table v-model="user" @validate="validate" @submit="submit" />
+</template>
+```
