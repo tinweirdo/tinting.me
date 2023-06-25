@@ -395,14 +395,14 @@ class BaseModel {
   /* ... */
 }
 
-Model User extends BaseModel {
+class User extends BaseModel {
   @Validator(Required(), MinLength(6), MaxLength(16))
   name: string
 }
 
 const user = new User()
 user.name = 'Jack'
-user.validate() // true
+user.validate() // Promise<true>
 ```
 
 以上代码定义了一个装饰器 Validator，接受多个校验函数，Model 可以直接通过调用 validate 方法来进行数据校验。当 Model 实现校验功能时，通过编写针对组件库表单的 Adaptor，就可以将 Model 的校验逻辑与组件库的校验规则进行对接，从而实现 Model 的校验逻辑在组件库表单上的应用。
@@ -411,6 +411,154 @@ user.validate() // true
 
 单看以上每一个功能实现都不算得特别有用，不过当将他们结合起来，或许更能体现它的优势所在。
 
-**表单提交** 和 **列表渲染** 是两个最为常见的、数据与视图存在较强逻辑关联的场景，两个场景中的代码往往是逻辑相似的，却又难以进行抽象进而实现高度的代码复用，最后导致我们需要编写很多重复的代码，重复意味着 ugly-prone 和 unmaintainable-prone。
+**表单提交** 和 **表格渲染** 是两个最为常见的、数据与视图存在较强逻辑关联的场景，两个场景中的代码往往是逻辑相似的，却又难以进行抽象进而实现高度的代码复用，最后导致我们需要编写很多重复的代码，重复意味着 ugly-prone 和 unmaintainable-prone。
 
-运用以上的代码封装，我们可以将这两个场景的代码进行高度的抽象，从而实现高度的代码复用。
+从以上思路出发尝试去编写两个场景下的代码逻辑。
+
+定义几个 Model（FormItem 和 TableColumn 为新增装饰器，分别用来存储字段的表单项 和 表格列 的配置信息）：
+
+```ts
+// User.ts
+@Model()
+@CRUDDeriver('/users')
+export class User extends BaseModel implements Entity {
+  id: number
+  @FormItem({ label: 'First Name', type: 'text' })
+  @TableColumn()
+  @Validator(Required(), MinLength(2), MaxLength(10))
+  firstName: string
+  @FormItem({ label: 'First Name', type: 'text' })
+  @TableColumn()
+  @Validator(Required(), MinLength(2), MaxLength(10))
+  lastName: string
+  @Field({
+    transform: {
+      onSerialize: (value: Dayjs) => v.format('YYYY-MM-DD'),
+      onDeserialize: (v: string) =>  dayjs(v)
+    }
+  })
+  @FormItem({ label: 'First Name', type: 'Date' })
+  @TableColumn()
+  @Validator(Required())
+  birthday: Dayjs
+  @FormItem({ label: 'First Name', type: 'password' })
+  // ignore password when deserialize, because will never get password from backend
+  @Field({ ignore: { onDeserialize: true } })
+  password: string = ''
+  @TableColumn()
+  get age() {
+    return dayjs().diff(this.birthday, 'year')
+  }
+  @TableColumn()
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`
+  }
+
+  static fromId(id: number) {
+    const user = new User()
+    user.id = id
+    return user.get()
+  }
+}
+
+export interface User extends CRUD<User> {}
+
+class UserListQuery extends BaseModel {
+  page: number = 1
+  per: number = 10
+  sortBy?: string
+  sort: 'asc' | 'desc' = 'asc'
+  filter?: string
+  filterBy?: string
+}
+
+@Model()
+@CRUDDeriver('/users')
+export class UserList extends BaseModel implements Query {
+  query: UserListQuery = new UserListQuery()
+  items: User[] = []
+  total: number = 0
+}
+
+export interface UserList extends CRUD<User> {}
+```
+
+User 对应单个用户，UserList 对应多个用户，并与后端用户列表接口相关联，在表单场景下可以这么使用：
+
+```vue
+<script setup lang="ts">
+// using-case of form
+const user = ref(new User())
+// or
+// const user = ref(User.fromId(1))
+// user.get().then(u => user.value = u)
+
+const submit = () => {
+  user.value.validate().then((valid) => {
+    if (valid) {
+      return user.value.create()
+      // or
+      // return user.value.update()
+    }
+  })
+}
+</script>
+
+<template>
+  <model-form :model="user" @submit="submit" />
+</template>
+```
+
+`<model-form />` 组件接受一个继承 BaseModel 的 Model 实例，这里是 User，组件内部通过获取 Model 上的 FormItem 装饰器信息，来渲染表单。同时，也可以通过获取 Validator 装饰器信息来控制验证逻辑，当提交动作发生时，手动调用 Model create 或 update 方法来实现提交请求。
+
+在表格场景下可以这么使用：
+
+```vue
+<script setup lang="ts">
+// using-case of table
+const userList = ref(new UserList())
+
+const change = () => {
+  userList.value.get().then(_userList => userList.value.merge(_userList, ['items']))
+}
+</script>
+
+<template>
+  <model-table v-model:query="userList.query" :items="userList.items" @change="userList.get()" />
+</template>
+```
+
+`<model-form />` 组件接受两个参数 query 和 items ，其中 query 可以进行双向绑定，使 userList.query 可以实时与表格组件的查询条件保持同步，当 query 发生变化时，会触发 change 事件，从而调用 userList.get() 方法来获取最新的数据。
+
+> `<model-form />` 和 `<model-table />` 的逻辑实现并不复杂，本质就是获取 Model 上的 metadata 来控制不同的行为，这里就不作具体实现了。
+
+以上 Model 与其对应组件结合使用的代码逻辑，体现出几个特点：
+
+1. 组件代码变得更干净；
+2. 与数据有关的逻辑代码都被抽象到了 Model 中，提高了接口与数据的代码聚合度；
+3. 手动的数据处理代码（命令式的）变成可配置（声明式）的；
+4. 重复代码大大减少，只需要维护具有差异性的代码。
+
+在当项目体量逐渐变大时，以上优势和特点会更加明显。到现在，最开始的问题应该已经有答案了。
+
+不过，这仍然有一些需要注意的地方。class 和 decorator 的结合使用，本质只解决两个问题：
+
+1. 数据序列化和反序列化的处理；
+2. 合理组织 View、Model、Entity 之间的代码逻辑。
+
+针对第一点，并不是所有接口都需要 序列化/反序列化 操作，假设有一个接口用来上传文件，响应为**文件URL**，此时就不必对此定义一个 Model，单独调用接口或许更合理。
+
+而第二点，它的实现本质是以 Model 为中心，将 View 和 Entity 与 Model 关联起来，借助强大的装饰器和元编程，减少重复逻辑的同时，将命令式代码转换为声明式代码，提高代码的可读性和可维护性。但并不是所有与 View 相关的 (View) Model 都存在与 Entity 或后端接口的关联，有些 Model 只是为了 View 而存在，它们更应该被编写在组件代码当中。
+
+总之就是一点，保持克制，合理利用 class model，不要过度使用。
+
+## 结语
+
+当我刚接触 JS 时，它不完美，当然现在也不。对于使用它来进行大型现代项目开发，我一直持怀疑态度，不过最近几年，TypeScript 的出现、ES6+ （2015~2023）规范持续演进、装饰器提案的推进、还有刚刚进入 Stage1 的模式匹配提案，这些多少缓解了我这方面的顾虑。不过提案毕竟只是提案，距离它们落地还需要很长一段时间，而且也不是所有提案都会被采纳，继续观望吧。
+
+我已将本文的具体实现代码上传到了 GitHub：[https://github.com/WayneWu98/power-coding](https://github.com/WayneWu98/power-coding)（欢迎 Star 和 PR）。
+
+## 参考
+
+- [typestack/class-transformer](https://github.com/typestack/class-transformer)
+- [Typescript: Documentation - Decorators](https://www.typescriptlang.org/docs/handbook/decorators.html)
