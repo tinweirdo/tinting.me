@@ -46,7 +46,7 @@ category: Front End
 
 ## 一种思路
 
-> 为了更统一概念，后文中将 JS Plain Object 转换为 class 实例的操作称为反序列化，将 class 实例转换为 JS Plain Object 的操作称为序列化，一切前端所需的数据模型都称为 Model（包括 Entity）。
+> 在此之前我们约定：JS Plain Object 转换为 class 实例的操作称为反序列化，class 实例转换为 JS Plain Object 的操作称为序列化，一切前端所需的数据模型都称为 Model（包括 Entity）。
 
 > **下文不会进行过多具体代码实现，而是通过伪代码来描述实现思路，因为实现细节并不是本文的重点。**
 
