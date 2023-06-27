@@ -80,10 +80,15 @@ onMounted(() => {
 })
 
 const observer = isClient ?  new IntersectionObserver((entries) => {
+  const removeSkeleton = function(this: HTMLImageElement) {
+    this.classList.remove('IMG_SKELETON')
+    this.removeEventListener('load', removeSkeleton)
+  }
   for (const entry of entries) {
     if (entry.isIntersecting) {
       const image = entry.target as HTMLImageElement
       image.src = image.dataset.src!
+      image.addEventListener('load', removeSkeleton)
       observer.unobserve(image)
     }
   }
@@ -112,6 +117,7 @@ onMounted(() => {
       image.setAttribute('data-src', `${src}?${Object.entries(queries).map(([key, value]) => `${key}=${value}`).join('&')}`)
     }
     image.src = PLACEHOLDER_IMAGE
+    image.classList.add('IMG_SKELETON')
     observer.observe(image)
   }
 })
@@ -136,7 +142,20 @@ onUnmounted(() => observer.disconnect())
 </template>
 
 <style lang="less" scoped>
-.content::v-deep(img) {
+.content::v-deep(img.IMG_SKELETON) {
   @apply bg-bg-deep;
+  background-size: 100% 100%;
+  background-position: 100% 50%;
+  animation: skeleton 1s linear infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes skeleton {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: .65;
+  }
 }
 </style>
