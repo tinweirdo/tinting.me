@@ -65,31 +65,21 @@ const goCommentForm = async (e: MouseEvent) => {
 
 <script lang="ts">
 export default {
-    name: "Comment",
+  name: "Comment",
 }
 </script>
 
 <template>
   <div ref="wrap">
     <div class="border-border border-b-1px border-solid pb-12px text-deep flex items-center justify-between mb-40px">
-      <span class="flex items-center font-semibold"><CommentQuote class="mr-6px" />{{ total }}</span>
+      <span class="flex items-center font-semibold">
+        <CommentQuote class="mr-6px" />{{ total }}
+      </span>
       <div class="flex items-center">
-        <span
-          v-show="!disabled"
-          class="text-base hover:opacity-70 duration-200 cursor-pointer text-size-14px"
-          title="发表一条评论"
-          @click.prevent="goCommentForm"
-        >发表一条评论</span>
-        <LogoutIcon
-          v-if="isAuthed"
-          class="cursor-pointer ml-8px"
-          @click="logout"
-        />
-        <SettingsIcon
-          v-else-if="showManagerEntry"
-          class="cursor-pointer ml-8px"
-          @click="login"
-        />
+        <span v-show="!disabled" class="text-base hover:opacity-70 duration-200 cursor-pointer text-size-14px"
+          title="发表一条评论" @click.prevent="goCommentForm">发表一条评论</span>
+        <LogoutIcon v-if="isAuthed" class="cursor-pointer ml-8px" @click="logout" />
+        <SettingsIcon v-else-if="showManagerEntry" class="cursor-pointer ml-8px" @click="login" />
       </div>
     </div>
     <CommentSkeleton v-if="loading" class="mb-64px" />
@@ -100,5 +90,4 @@ export default {
   </div>
 </template>
 
-<style lang="less">
-</style>
+<style lang="less"></style>

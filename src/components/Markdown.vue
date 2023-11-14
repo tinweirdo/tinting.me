@@ -9,7 +9,6 @@ import { PLACEHOLDER_IMAGE, isSupportWebp } from '~/utils'
 import { FrontMatter } from '~/types'
 import LightBox from '~/plugins/lightbox'
 
-import { navigateToAnchor } from '~/utils'
 const props = defineProps<{ frontmatter: FrontMatter }>()
 const content = ref<HTMLElement>()
 
@@ -31,6 +30,8 @@ const router = useRouter()
 
 const handleAnchors = (event: MouseEvent & { target: HTMLElement }) => {
   const link = event.target.closest('a')
+  // const main = document.getElementsByClassName('prose m-auto')[0];
+  // const headings = main.querySelectorAll('h1, h2, h3, h4, h5, h6');
   if (
     !event.defaultPrevented
     && link
@@ -47,12 +48,12 @@ const handleAnchors = (event: MouseEvent & { target: HTMLElement }) => {
     if (url.origin !== window.location.origin) {
       return
     }
-    event.preventDefault()
+    event.preventDefault();
     const { pathname, hash } = url
     if (hash && (!pathname || pathname === location.pathname)) {
       window.history.replaceState({}, '', hash)
-      navigateToAnchor()
-    } else {
+    }
+    else {
       router.push({ path: pathname, hash })
     }
   }
@@ -71,12 +72,8 @@ const handleImagePreview = () => {
 
 // intercept anchor navigation
 onMounted(() => {
-  useEventListener(defaultWindow, 'hashchange', navigateToAnchor)
   useEventListener(content.value!, 'click', handleAnchors, { passive: false })
   handleImagePreview()
-  setTimeout(() => {
-    if (!location.hash.startsWith('#comment-')) navigateToAnchor()
-  }, 500)
 })
 
 const observer = isClient ? new IntersectionObserver((entries) => {
@@ -154,31 +151,5 @@ onUnmounted(() => observer.disconnect())
   to {
     opacity: .65;
   }
-}
-.content {
-  overflow-y: auto;
-  height: calc(100vh - 110px);
-}
-
-.content::-webkit-scrollbar {
-  width: 0.3em;
-}
-
-.content::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-.content::-webkit-scrollbar-thumb {
-  background-color: #888;
-}
-
-.content::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
-
-/* 当内容不滚动时隐藏滚动条 */
-.content.hide-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
 }
 </style>

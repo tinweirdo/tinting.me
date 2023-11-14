@@ -13,3 +13,12 @@ const logoEl = ref<HTMLElement>()
     </NavBar>
   </header>
 </template>
+
+<style scoped>
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 110px;
+}
+</style>

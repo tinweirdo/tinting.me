@@ -22,3 +22,12 @@ provideAuthState()
   </main>
   <Footer />
 </template>
+
+<style>
+main {
+  overflow: auto;
+  position: relative;
+  top: 110px;
+  height: calc(100vh - 220px);
+}
+</style>

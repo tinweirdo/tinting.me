@@ -3564,15 +3564,15 @@ Vue3 中组件可以没有根标签，内部会将多个标签包含在一个 `F
 
 - 将全局 API ，即 `Vue.xxx` 调整到应用实例 ( `app` )上
 
-|  Vue2   | Vue3  |
-|  ----  | ----  |
-| Vue.config.xxx  | app.config.xxx |
-| Vue.config.productionTip  | 移除 |
-| Vue.component  | app.component |
-| Vue.directive  | app.directive |
-| Vue.mixin  | app.mixin |
-| Vue.use  | app.use |
-| Vue.prototype  | app.prototype |
+| Vue2                     | Vue3           |
+| ------------------------ | -------------- |
+| Vue.config.xxx           | app.config.xxx |
+| Vue.config.productionTip | 移除           |
+| Vue.component            | app.component  |
+| Vue.directive            | app.directive  |
+| Vue.mixin                | app.mixin      |
+| Vue.use                  | app.use        |
+| Vue.prototype            | app.prototype  |
 
 - data 选项应始终被声明为一个函数
 - 移除 keyCode 作为 `v-on` 的修饰符，同时也不再支持 `config.keyCodes`

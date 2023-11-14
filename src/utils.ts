@@ -10,6 +10,7 @@ export const navigateToAnchor = (hash?: string) => {
     const headerHeight = 56
     const viewportTop = defaultWindow?.document.documentElement.scrollTop ?? 0
     const elTop = document.querySelector(decodeURIComponent(location.hash))?.getBoundingClientRect().top ?? 0
+    console.log('defaultWindow :>> ', defaultWindow);
     defaultWindow?.scrollTo({ top: viewportTop + elTop - headerHeight - 16, behavior: 'smooth' })
   }
 }

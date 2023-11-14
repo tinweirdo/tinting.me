@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { AUTHOR_NAME } from '~/env'
-
 </script>
 
 <template>
@@ -15,3 +14,11 @@ import { AUTHOR_NAME } from '~/env'
     </div>
   </footer>
 </template>
+
+<style scoped>
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+</style>
