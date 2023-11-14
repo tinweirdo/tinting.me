@@ -1,6 +1,6 @@
-## Personal Website for Wayne Wu
+## Personal Website for Tingting Xu
 
-**[Click here to Take a look](https://wayne-wu.com)**
+**[Click here to Take a look](https://tinweirdo.life)**
 
 With tech-stacks: [Vite SSG](https://github.com/antfu/vite-ssg), [Vue.js](https://vuejs.org/), [Vite](https://vitejs.dev/), [Windi CSS](https://windicss.org/). And hosting in [Netlify](https://www.netlify.com/).
 

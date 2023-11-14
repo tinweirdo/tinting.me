@@ -10,13 +10,16 @@ const { themeMode, toggleThemeMode } = useThemeMode() ?? {}
 
 <template>
   <div class="flex-shrink-0 flex items-center <md:hidden">
-    <a href="/feed.xml" target="_blank" class="btn mr-4px flex block cursor-pointer p-4px rounded-4px bg-transparent hover:bg-bg-deep">
+    <a href="/feed.xml" target="_blank"
+      class="btn mr-4px flex block cursor-pointer p-4px rounded-4px bg-transparent hover:bg-bg-deep">
       <IconRSS width="24" height="24" />
     </a>
-    <a href="https://github.com/WayneWu98" target="_blank" class="btn mr-4px flex block cursor-pointer p-4px rounded-4px bg-transparent hover:bg-bg-deep">
+    <a href="https://github.com/tinweirdo" target="_blank"
+      class="btn mr-4px flex block cursor-pointer p-4px rounded-4px bg-transparent hover:bg-bg-deep">
       <IconGithub width="24" height="24" />
     </a>
-    <span class="btn mr-4px flex block cursor-pointer p-4px rounded-4px bg-transparent hover:bg-bg-deep box-border" @click="toggleThemeMode">
+    <span class="btn mr-4px flex block cursor-pointer p-4px rounded-4px bg-transparent hover:bg-bg-deep box-border"
+      @click="toggleThemeMode">
       <IconWaningCrescentMoon v-show="themeMode === ThemeMode.Dark" width="24" height="24" />
       <IconWaningGibbousMoon v-show="themeMode === ThemeMode.Light" width="24" height="24" />
       <IconLastQuarterMoon v-show="themeMode === ThemeMode.Auto" width="24" height="24" />
@@ -27,5 +30,4 @@ const { themeMode, toggleThemeMode } = useThemeMode() ?? {}
 <style lang="less" scoped>
 .btn {
   @apply text-deep;
-}
-</style>
+}</style>

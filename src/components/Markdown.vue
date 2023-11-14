@@ -79,8 +79,8 @@ onMounted(() => {
   }, 500)
 })
 
-const observer = isClient ?  new IntersectionObserver((entries) => {
-  const removeSkeleton = function(this: HTMLImageElement) {
+const observer = isClient ? new IntersectionObserver((entries) => {
+  const removeSkeleton = function (this: HTMLImageElement) {
     this.classList.remove('IMG_SKELETON')
     this.removeEventListener('load', removeSkeleton)
   }
@@ -128,11 +128,7 @@ onUnmounted(() => observer.disconnect())
 <template>
   <div ref="content" class="content">
     <slot v-if="custom" />
-    <Post
-      v-else
-      class="my-80px"
-      :frontmatter="frontmatter"
-    >
+    <Post v-else class="my-80px" :frontmatter="frontmatter">
       <slot />
     </Post>
   </div>
@@ -154,8 +150,35 @@ onUnmounted(() => observer.disconnect())
   from {
     opacity: 1;
   }
+
   to {
     opacity: .65;
   }
+}
+.content {
+  overflow-y: auto;
+  height: calc(100vh - 110px);
+}
+
+.content::-webkit-scrollbar {
+  width: 0.3em;
+}
+
+.content::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* 当内容不滚动时隐藏滚动条 */
+.content.hide-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
 }
 </style>

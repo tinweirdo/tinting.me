@@ -1,4 +1,5 @@
-import { resolve } from 'path'
+import pkg from 'path'
+const { resolve } = pkg;
 import fs from 'fs-extra'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
@@ -68,17 +69,19 @@ export default defineConfig({
       extendRoute(route) {
         const path = resolve(__dirname, route.component.slice(1))
         const md = fs.readFileSync(path, 'utf-8')
-        const { data, excerpt } = matter(md, { excerpt: (file) => {
-          const content = ((file as any).content as string).replace(/<[^>]*>/g, '').replace(/\[\[toc\]\]/g, '')
-          ;(file as any).excerpt =  MarkdownIt()
-            .render(content)
-            .replace(/<[^>]*>/g, '')
-            .replace(/\n/g, ' ')
-            .replace(/\s+/, ' ')
-            .slice(0, 280)
-            .concat('...')
-          return file
-        } })
+        const { data, excerpt } = matter(md, {
+          excerpt: (file) => {
+            const content = ((file as any).content as string).replace(/<[^>]*>/g, '').replace(/\[\[toc\]\]/g, '')
+              ; (file as any).excerpt = MarkdownIt()
+                .render(content)
+                .replace(/<[^>]*>/g, '')
+                .replace(/\n/g, ' ')
+                .replace(/\s+/, ' ')
+                .slice(0, 280)
+                .concat('...')
+            return file
+          }
+        })
         route.meta = Object.assign(route.meta || {}, { frontmatter: data, excerpt })
         return route
       },

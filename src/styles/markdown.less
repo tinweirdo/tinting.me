@@ -1,20 +1,19 @@
 @media screen and (max-width: 1200px) {
   .table-of-contents {
-    display: none!important;
+    display: none !important;
   }
 }
 
 .table-of-contents {
   @apply flex flex-col items-center justify-end transition-opacity duration-300 subpixel-antialiased;
   position: fixed;
-  top: 0;
+  top: 110px;
   bottom: 0;
   left: 0;
   font-size: 0.8rem;
   max-width: 200px;
   padding-left: 1rem;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   opacity: .4;
   pointer-events: none;
@@ -24,25 +23,49 @@
   }
 }
 
+.table-of-contents>ul {
+  overflow-y: auto;
+}
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+  border-radius: 2px;
+  background-color: transparent;
+}
+
+
+/*定义滑块 内阴影+圆角*/
+
+::-webkit-scrollbar-thumb {
+  border-radius: 40px;
+  background-color: #d2dede;
+  height: 10vh;
+}
+
 .prose .table-of-contents ul {
   pointer-events: auto
 }
 
-.prose .table-of-contents ul > li {
+.prose .table-of-contents ul>li {
   @apply font-medium;
   border-bottom: none;
   padding-left: 0;
 }
 
-.prose .table-of-contents ul > li::before {
+.prose .table-of-contents ul>li::before {
   display: none;
 }
 
-.table-of-contents ul > li {
+.table-of-contents ul>li {
   padding-left: 0.8rem;
 }
 
-.table-of-contents li > ul {
+.table-of-contents li>ul {
   padding-left: 1rem;
 }
 

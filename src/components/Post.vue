@@ -19,3 +19,6 @@ defineProps<{ frontmatter: FrontMatter }>()
     </div>
   </article>
 </template>
+
+<style scoped>
+</style>
