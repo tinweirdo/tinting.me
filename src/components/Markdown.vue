@@ -30,8 +30,6 @@ const router = useRouter()
 
 const handleAnchors = (event: MouseEvent & { target: HTMLElement }) => {
   const link = event.target.closest('a')
-  // const main = document.getElementsByClassName('prose m-auto')[0];
-  // const headings = main.querySelectorAll('h1, h2, h3, h4, h5, h6');
   if (
     !event.defaultPrevented
     && link
@@ -49,11 +47,10 @@ const handleAnchors = (event: MouseEvent & { target: HTMLElement }) => {
       return
     }
     event.preventDefault();
-    const { pathname, hash } = url
+    const { pathname, hash } = url;
     if (hash && (!pathname || pathname === location.pathname)) {
-      window.history.replaceState({}, '', hash)
-    }
-    else {
+      window.history.replaceState({}, '', hash);
+    } else {
       router.push({ path: pathname, hash })
     }
   }
@@ -69,10 +66,8 @@ const handleImagePreview = () => {
     img.addEventListener('click', () => LightBox.open(img.src))
   }
 }
-
 // intercept anchor navigation
 onMounted(() => {
-  useEventListener(content.value!, 'click', handleAnchors, { passive: false })
   handleImagePreview()
 })
 
@@ -151,5 +146,9 @@ onUnmounted(() => observer.disconnect())
   to {
     opacity: .65;
   }
+}
+
+.content {
+  height: calc(100vh - 330px);
 }
 </style>

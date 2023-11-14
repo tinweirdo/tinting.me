@@ -30,4 +30,21 @@ main {
   top: 110px;
   height: calc(100vh - 220px);
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 2px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 5px;
+  height: 5px;
+  border-radius: 40px;
+  background-color: #999;
+}
 </style>

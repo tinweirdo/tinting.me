@@ -52,7 +52,7 @@ export default defineConfig({
         fileExtensions: ['vue', 'js', 'ts', 'md'], // also enabled scanning for js/ts
       },
     }),
-    eslint(),
+    // eslint(),
     Inspect(),
     Components({
       extensions: ['vue', 'md'],
