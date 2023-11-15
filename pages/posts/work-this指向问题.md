@@ -1,7 +1,7 @@
 ---
 title: 函数 this 指向问题
 date: 2023-02-18 12:15:30
-category: Tips-Work
+category: Work
 comment: hidden
 ---
 

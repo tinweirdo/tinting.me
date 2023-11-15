@@ -1,7 +1,7 @@
 ---
 title: Hello, 2023!
 date: 2023-01-01
-category: Summarys-Life
+category: Summarys
 comment: hidden
 ---
 

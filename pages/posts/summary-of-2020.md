@@ -1,7 +1,7 @@
 ---
 title: Hello, 2021!
 date: 2021-02-08
-category: Summarys-Life
+category: Summarys
 comment: hidden
 ---
 

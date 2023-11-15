@@ -1,7 +1,7 @@
 ---
 title: ES6
 date: 2023-01-09 20:30
-category: Notes-Learn
+category: Notes
 comment: hidden
 ---
 
