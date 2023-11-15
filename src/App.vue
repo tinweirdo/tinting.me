@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { provideThemeMode } from './hooks/useThemeMode'
+import { provideAuthState } from './hooks/useAuthState'
+
 import { useHead } from '@vueuse/head'
 import { SITE_DESCRIPTION, SITE_NAME } from './env'
-import { provideAuthState } from './hooks/useAuthState'
+import { ref } from 'vue';
 
 useHead({
   meta: [
@@ -13,11 +15,17 @@ useHead({
 
 provideThemeMode()
 provideAuthState()
+
+// 解决移动端 Footer 位置显示问题
+const mainHeight = ref((window.innerHeight - 160) + 'px')
+window.addEventListener('resize', () => {
+  mainHeight.value = (window.innerHeight - 160) + 'px';
+})
 </script>
 
 <template>
   <Header />
-  <main>
+  <main :style="{ height: mainHeight }">
     <RouterView />
   </main>
   <Footer />
@@ -28,7 +36,6 @@ main {
   overflow: auto;
   position: relative;
   top: 110px;
-  height: calc(100vh - 160px);
 }
 
 ::-webkit-scrollbar {

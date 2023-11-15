@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { AUTHOR_NAME } from '~/env'
+
 </script>
 
 <template>
@@ -21,4 +22,5 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
 </style>
