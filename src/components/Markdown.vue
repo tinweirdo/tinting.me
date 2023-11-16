@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import { defaultWindow, isClient, useEventListener } from '@vueuse/core'
+import { isClient } from '@vueuse/core'
 import { useHead } from '@vueuse/head'
 import { onMounted, ref, provide, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { SITE_DESCRIPTION, SITE_NAME } from '~/env'
 import { KEY as FrontMatterKey } from '~/hooks/useFrontMatter'
 import { PLACEHOLDER_IMAGE, isSupportWebp } from '~/utils'
@@ -25,36 +24,6 @@ useHead({
   ],
   ...head,
 })
-
-const router = useRouter()
-
-const handleAnchors = (event: MouseEvent & { target: HTMLElement }) => {
-  const link = event.target.closest('a')
-  if (
-    !event.defaultPrevented
-    && link
-    && event.button === 0
-    && link.target !== '_blank'
-    && link.rel !== 'external'
-    && !link.download
-    && !event.metaKey
-    && !event.ctrlKey
-    && !event.shiftKey
-    && !event.altKey
-  ) {
-    const url = new URL(link.href)
-    if (url.origin !== window.location.origin) {
-      return
-    }
-    event.preventDefault();
-    const { pathname, hash } = url;
-    if (hash && (!pathname || pathname === location.pathname)) {
-      window.history.replaceState({}, '', hash);
-    } else {
-      router.push({ path: pathname, hash })
-    }
-  }
-}
 
 const handleImagePreview = () => {
   if (disableLightBox) return
@@ -124,7 +93,7 @@ onUnmounted(() => observer.disconnect())
       <slot />
     </Post>
   </div>
-  <ClientOnly v-if="comment !== 'hidden'">
+  <ClientOnly v-if="comment && (comment !== 'hidden')">
     <Comment :disabled="comment === 'disabled'" class="w-content my-80px" />
   </ClientOnly>
 </template>

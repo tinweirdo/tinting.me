@@ -4,7 +4,7 @@ import { provideAuthState } from './hooks/useAuthState'
 
 import { useHead } from '@vueuse/head'
 import { SITE_DESCRIPTION, SITE_NAME } from './env'
-import { ref } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 
 useHead({
   meta: [
@@ -16,11 +16,17 @@ useHead({
 provideThemeMode()
 provideAuthState()
 
-// 解决移动端 Footer 位置显示问题
-const mainHeight = ref((window.innerHeight - 160) + 'px')
-window.addEventListener('resize', () => {
-  mainHeight.value = (window.innerHeight - 160) + 'px';
-})
+const mainHeight = ref()
+const footerRef = ref()
+onMounted(() => {
+  window.addEventListener('resize', () => {
+    mainHeight.value = (window.innerHeight - 110 - footerRef.value.$el.offsetHeight) + 'px';
+  })
+  // Trigger a window resize event to update mainHeight on initial render
+  const event = new Event('resize');
+  window.dispatchEvent(event);
+});
+
 </script>
 
 <template>
@@ -28,7 +34,7 @@ window.addEventListener('resize', () => {
   <main :style="{ height: mainHeight }">
     <RouterView />
   </main>
-  <Footer />
+  <Footer ref="footerRef" />
 </template>
 
 <style>
