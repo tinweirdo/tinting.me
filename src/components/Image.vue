@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, useSlots } from 'vue'
+import { computed, useSlots, onMounted, shallowRef } from 'vue'
 import useFrontMatter from '~/hooks/useFrontMatter'
 import LightBox from '~/plugins/lightbox'
 
 let captionRef = $ref<HTMLElement>()
 
-const props = defineProps<{ src: string, alt?: string }>()
+const props = defineProps<{ src: string, alt?: string, zoom: string }>()
 
 const frontmatter = useFrontMatter()
 
@@ -20,17 +20,24 @@ const slots = useSlots()
 
 const _alt = computed(() => props.alt ?? slots.default?.()?.[0]?.children as string)
 
+const styleOpt = shallowRef({})
+
+onMounted(() => {
+  console.log("src", props.src);
+  if (props.zoom) {
+    styleOpt.value = {
+      "max-width": Number(props.zoom) * 100 + "%",
+      "margin-left": (0.5 - Number(props.zoom) / 2) * 100 + "%",
+    }
+  }
+})
+
 </script>
 
 <template>
   <figure class="w-full">
-    <img
-      data-with-component="true"
-      :src="src"
-      :class="{'cursor-zoom-in': enabledLightBox }"
-      :alt="_alt"
-      @click="preview"
-    >
+    <img :style="styleOpt" data-with-component="true" :src="src" :class="{ 'cursor-zoom-in': enabledLightBox }"
+      :alt="_alt" @click="preview">
     <figcaption ref="captionRef" class="italic">
       <slot />
     </figcaption>
