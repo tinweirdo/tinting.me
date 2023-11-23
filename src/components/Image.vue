@@ -23,7 +23,6 @@ const _alt = computed(() => props.alt ?? slots.default?.()?.[0]?.children as str
 const styleOpt = shallowRef({})
 
 onMounted(() => {
-  console.log("src", props.src);
   if (props.zoom) {
     styleOpt.value = {
       "max-width": Number(props.zoom) * 100 + "%",
