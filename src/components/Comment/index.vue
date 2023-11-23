@@ -70,7 +70,7 @@ export default {
 </script>
 
 <template>
-  <div ref="wrap">
+  <div class="comment" ref="wrap">
     <div class="border-border border-b-1px border-solid pb-12px text-deep flex items-center justify-between mb-40px">
       <span class="flex items-center font-semibold">
         <CommentQuote class="mr-6px" />{{ total }}
@@ -90,4 +90,8 @@ export default {
   </div>
 </template>
 
-<style lang="less"></style>
+<style scoped>
+.comment {
+  position: relative;
+}
+</style>

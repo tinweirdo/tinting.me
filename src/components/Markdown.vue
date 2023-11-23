@@ -92,10 +92,10 @@ onUnmounted(() => observer.disconnect())
     <Post v-else class="my-80px" :frontmatter="frontmatter">
       <slot />
     </Post>
+    <ClientOnly v-if="comment && (comment !== 'hidden')">
+      <Comment :disabled="comment === 'disabled'" class="w-content my-80px" />
+    </ClientOnly>
   </div>
-  <ClientOnly v-if="comment && (comment !== 'hidden')">
-    <Comment :disabled="comment === 'disabled'" class="w-content my-80px" />
-  </ClientOnly>
 </template>
 
 <style lang="less" scoped>
