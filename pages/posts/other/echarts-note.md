@@ -1,7 +1,7 @@
 ---
 title: Echarts 相关
 date: 2023-12-18 15:00
-category: Echarts
+category: Web
 comment: hidden
 ---
 

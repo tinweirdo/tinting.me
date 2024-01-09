@@ -46,3 +46,9 @@ resizeObserver.unobserve(divElem);
 // 取消特定观察者目标上所有对 Element 的监听。
 resizeObserver.disconnect();
 ```
+
+# json 
+
+## json 文件里加双引号
+
+使用反斜杠：`\"`

@@ -1,7 +1,7 @@
 ---
 title: AST 混淆及反混淆
 date: 2023-11-23 10:45
-category: JavaScript
+category: Web
 comment: enable
 ---
 
