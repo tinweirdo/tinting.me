@@ -255,6 +255,8 @@ css/*.css       //忽略css目录下的.css文件
 
 重新生成密匙：`ssh-keygen -t rsa -C "your_email@example.com"`
 
+参考[Github配置ssh key的步骤](https://blog.csdn.net/weixin_42310154/article/details/118340458)。
+
 ## ERROR:ssh connect to host github.com port 22
 
 似乎是没有成功认证用户，参考[文章](https://jueee.github.io/2020/10/2020-10-19-github%E8%BF%9E%E6%8E%A5%E6%8A%A5ssh%20connect%20to%20host%20github.com%20port%2022%20Connection%20timed%20out%E9%94%99%E8%AF%AF/)解决。在存放公钥私钥的同级文件夹中，新建 `config` 文本，内容为：
