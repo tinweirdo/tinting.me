@@ -16,6 +16,7 @@
     "lint:fix": "npx eslint . --fix"
   },
   "dependencies": {
+    "@docsearch/js": "^3.5.2",
     "@middy/core": "^3.6.2",
     "@middy/http-json-body-parser": "^3.6.2",
     "@middy/http-router": "^3.6.2",

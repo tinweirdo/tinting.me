@@ -3,7 +3,7 @@ import fs from 'fs-extra'
 
 const content = fs.readFileSync('.env').toString()
 
-const VITE_ENV = dotenv.parse<{ VITE_SITE_NAME: string, VITE_SITE_DOMAIN: string, VITE_AUTHOR_NAME: string, VITE_AUTHOR_EMAIL: string, VITE_SITE_DESCRIPTION: string}>(content)
+const VITE_ENV = dotenv.parse<{ VITE_SITE_NAME: string, VITE_SITE_DOMAIN: string, VITE_AUTHOR_NAME: string, VITE_AUTHOR_EMAIL: string, VITE_SITE_DESCRIPTION: string, VITE_DOCSEARCH_ID: string, VITE_DOCSEARCH_KEY: string, VITE_DOCSEARCH_INDEXNAME: string }>(content)
 
 export const JWT_SECRET = process.env.JWT_SECRET as string
 export const AUTH_USERNAME = process.env.AUTH_USERNAME as string
@@ -21,8 +21,14 @@ export const SMTP_PASSWORD = process.env.SMTP_PASSWORD as string
 export const QINIU_ACCESS_KEY = process.env.QINIU_ACCESS_KEY as string
 export const QINIU_SECRET_KEY = process.env.QINIU_SECRET_KEY as string
 
+export const DOCSEARCH_ID = VITE_ENV.VITE_DOCSEARCH_ID
+export const DOCSEARCH_KEY = VITE_ENV.VITE_DOCSEARCH_KEY
+export const DOCSEARCH_INDEXNAME = VITE_ENV.VITE_DOCSEARCH_INDEXNAME
 export const SITE_NAME = VITE_ENV.VITE_SITE_NAME
 export const SITE_DESCRIPTION = VITE_ENV.VITE_SITE_DESCRIPTION
 export const SITE_DOMAIN = VITE_ENV.VITE_SITE_DOMAIN
 export const AUTHOR_EMAIL = VITE_ENV.VITE_AUTHOR_EMAIL
 export const AUTHOR_NAME = VITE_ENV.VITE_AUTHOR_NAME
+
+
+
