@@ -41,6 +41,10 @@ defineProps<{ showAuthorName?: boolean }>()
   font-size: 14px;
 }
 
+.DocSearch-Button .DocSearch-Search-Icon {
+  color: unset;
+}
+
 .DocSearch-Search-Icon {
   stroke-width: 1;
   width: 14px;
