@@ -89,11 +89,7 @@ git checkout dev //如果当前就在dev分支则不需要
 git pull //拉取当前分支最新代码
 git checkout master //切换到需要合并的分支
 git merge dev //将master分支和dev合并
-
-//push master 分支
-git add .
-git commit -m '**'
-git push origin master
+git push //推送到远程仓库
 ```
 
 # 删除分支
