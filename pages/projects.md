@@ -6,7 +6,7 @@ items:
   - name: map demo
     desc: Practice for GIS.
     status: upcoming #upcoming,maintaining
-    link: https://github.com/tinweirdo/vue-map
+    link: ./mapdemo/index.html
 ---
 
 <Banner title="Projects" desc="All projects maintained by me" />

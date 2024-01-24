@@ -1,0 +1,62 @@
+{
+    "map3d": {
+        "homeButton": true,
+        "sceneModePicker": true,
+        "navigationHelpButton": false,
+        "infoBox": false,
+        "vrButton": true,
+        "fullscreenButton": true,
+        "animation": false,
+        "timeline": false,
+        "geocoder": false,
+        "showRenderLoopErrors": true,
+        "depthTestAgainstTerrain": true,
+        "center": {
+            "y": 31.852908,
+            "x": 117.158389,
+            "z": 600,
+            "heading": 303,
+            "pitch": -37,
+            "roll": 0
+        },
+        "minzoom": 1,
+        "maxzoom": 50000000,
+        "style": {
+            "atmosphere": true,
+            "lighting": false,
+            "fog": false,
+            "testTerrain": false
+        },
+        "contextmenu": true,
+        "mouseZoom": true,
+        "location": {
+            "fps": true,
+            "format": "<div>经度:{x}</div> <div>纬度:{y}</div> <div>海拔：{z}米</div> <div>层级：{level}</div> <div>方向：{heading}度</div> <div>俯仰角：{pitch}度</div> <div>视高：{height}米</div>"
+        },
+        "navigation": {
+            "legend": {
+                "left": "0px",
+                "bottom": "-1px"
+            },
+            "compass": {
+                "bottom": "240px",
+                "right": "5px"
+            }
+        },
+        "terrain": {
+            "url": "https://kc3.kcgis.cn:30011/3dtiled/terrain/",
+            "visible": true
+        },
+        "terrain2": {
+            "type": "gee",
+            "url": "http://www.earthenterprise.org/3d",
+            "proxy": "https://data.marsgis.cn/proxy/",
+            "visible": false
+        },
+        "terrain3": {
+            "type": "arcgis",
+            "url": "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer",
+            "visible": false
+        }
+    }
+}
