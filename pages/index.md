@@ -1,6 +1,6 @@
 ---
 title: Hi
-hideSiteName: true
+hideSiteName: false
 comment: hidden
 head:
   title: tinweirdo
