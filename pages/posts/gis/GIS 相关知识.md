@@ -20,3 +20,12 @@ comment: hidden
 4. 水资源管理：通过提高水资源的利用效率、减少水的浪费和污染，实现水资源的可持续管理。
 
 海绵城市的理念旨在通过自然系统的模仿和利用，提高城市的水资源利用效率、水环境质量和生态可持续性。它不仅可以改善城市的水环境，减少洪涝风险，还能提升城市的生态价值和居民的生活质量。海绵城市的概念在全球范围内得到了广泛关注和应用，成为未来可持续城市发展的重要方向之一。
+
+# Cesium 学习
+
+1. [Cesium中文网](http://cesium.xin/): 这个网站提供了很多 Cesium 的入门教程以及示例，是学习 Cesium 的好地方。此外，该网站还有标签分类，可以让你更加方便地找到你需要的内容。
+2. [Cesium：入门教程（一）之Hello World](https://blog.csdn.net/sinat_36226553/article/details/105896271): 这篇文章在 CSDN 上，是介绍 Cesium 入门的教程。
+3. [核心依赖库Cesium介绍](http://mars3d.cn/dev/guide/start/cesium.html): 这个是来自 Mars3D开发教程网的介绍 Cesium 的文章，对 Cesium 有一个全面的介绍。
+4. [Cesium介绍和国内主要学习网站汇总](https://www.cnblogs.com/tiandi/p/16580238.html): 这篇文章在博客园，里面汇总了很多 Cesium 的学习资源，包括 Cesium 的基础知识视频教程。
+
+# WebGL
