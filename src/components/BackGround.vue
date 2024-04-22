@@ -1,8 +1,8 @@
 <template>
 </template>
 <script setup>
-import * as THREE from "https://cdn.skypack.dev/three@0.136.0";
-import { OrbitControls } from "https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls";
+import * as THREE from 'three';
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 let scene = new THREE.Scene();
 scene.background = new THREE.Color(0x160016);
