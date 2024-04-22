@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { provideThemeMode } from './hooks/useThemeMode'
+import { provideThemeMode, getPreferThemeMode } from './hooks/useThemeMode'
 import { provideAuthState } from './hooks/useAuthState'
 
 import { useHead } from '@vueuse/head'
-import { SITE_DESCRIPTION, SITE_NAME } from './env'
+import { SITE_DESCRIPTION, SITE_NAME, DEFAULT_THEME_MODE } from './env'
+
 import { ref, onMounted, watch } from 'vue';
+
 
 useHead({
   meta: [
@@ -18,6 +20,9 @@ provideAuthState()
 
 const mainHeight = ref()
 const footerRef = ref()
+
+const themeMode = getPreferThemeMode();
+
 onMounted(() => {
   window.addEventListener('resize', () => {
     mainHeight.value = (window.innerHeight - 110 - footerRef.value.$el.offsetHeight) + 'px';
@@ -30,6 +35,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <BackGround v-if="themeMode === 'dark'" />
   <Header />
   <main :style="{ height: mainHeight }">
     <RouterView />
@@ -59,5 +65,12 @@ main {
   height: 5px;
   border-radius: 40px;
   background-color: #999;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  opacity: 0.15;
+  z-index: -999;
 }
 </style>

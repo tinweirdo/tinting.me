@@ -10,7 +10,19 @@ export const enum ThemeMode {
 
 export const setPreferThemeMode = (mode: ThemeMode) => {
   defaultWindow?.localStorage.setItem('theme', mode)
+  setBackGround(mode)
   return mode
+}
+
+export const setBackGround = (mode: ThemeMode) => {
+  const div = document.getElementById('stars-bkg');
+  if (!div) return
+  if (mode === "dark") {
+    div.style.display = 'block';
+  }
+  else {
+    div.style.display = 'none';
+  }
 }
 
 export const getPreferThemeMode = () => {
