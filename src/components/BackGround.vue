@@ -2,7 +2,7 @@
 </template>
 <script setup>
 import * as THREE from 'three';
-const OrbitControls = require("three/examples/js/controls/OrbitControls");
+import { OrbitControls }  from "../hooks/OrbitControls";
 
 let scene = new THREE.Scene();
 scene.background = new THREE.Color(0x160016);
