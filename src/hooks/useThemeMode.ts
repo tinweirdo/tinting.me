@@ -17,7 +17,7 @@ export const setPreferThemeMode = (mode: ThemeMode) => {
 export const setBackGround = (mode: ThemeMode) => {
   const div = document.getElementById('stars-bkg');
   if (!div) return
-  if (mode === "dark") {
+  if (mode === "dark" || (mode === "auto" && defaultWindow?.matchMedia('(prefers-color-scheme: dark)').matches)) {
     div.style.display = 'block';
   }
   else {

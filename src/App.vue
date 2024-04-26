@@ -3,7 +3,7 @@ import { provideThemeMode, getPreferThemeMode } from './hooks/useThemeMode'
 import { provideAuthState } from './hooks/useAuthState'
 
 import { useHead } from '@vueuse/head'
-import { SITE_DESCRIPTION, SITE_NAME, DEFAULT_THEME_MODE } from './env'
+import { SITE_DESCRIPTION, SITE_NAME } from './env'
 
 import { ref, onMounted, watch } from 'vue';
 
