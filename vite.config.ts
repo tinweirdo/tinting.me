@@ -67,6 +67,12 @@ export default defineConfig({
       exclude: excludePosts(),
       importMode: 'async',
       extendRoute(route) {
+        // 解决路径中含有中文的跳转问题
+        route.path = route.path.split("/").map((ele, index) => {
+          if (/[\u4e00-\u9fa5]/.test(ele)) return encodeURIComponent(ele);
+          else return ele;
+        }).join("/")
+        console.log('route.path :>> ', route.path);
         const path = resolve(__dirname, route.component.slice(1))
         const md = fs.readFileSync(path, 'utf-8')
         const { data, excerpt } = matter(md, {

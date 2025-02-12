@@ -10,6 +10,7 @@ const builder = new XMLBuilder({ ignoreAttributes: false })
 const parsed = parser.parse(fs.readFileSync('./dist/sitemap.xml'))
 
 const urls = parsed.urlset.url.map((url) => {
+  debugger
   const patched = url.loc.replace(/\/?$/, '/')
   if (patched === DOMAIN + 'posts/' || patched === DOMAIN + 'categories/') {
     url.changefreq = 'always'
