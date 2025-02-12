@@ -7,7 +7,6 @@ import { SITE_DESCRIPTION, SITE_NAME } from './env'
 
 import { ref, onMounted, watch } from 'vue';
 
-
 useHead({
   meta: [
     { property: 'og:title', content: SITE_NAME },

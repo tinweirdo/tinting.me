@@ -75,5 +75,21 @@ const myIcon = L.icon({
 
 ## 解决
 
-1. **使用其他库或插件：**如 `Leaflet.MarkerCluster` 插件，其可能为大量标记及高级别缩放提供了优化解决方案。
+1. **使用其他库或插件**：如 `Leaflet.MarkerCluster` 插件，其可能为大量标记及高级别缩放提供了优化解决方案。
 2. **限制最大缩放级别。**
+
+# [FAQ](https://github.com/Leaflet/Leaflet/blob/main/FAQ.md)
+
+## 支持的瓦片服务
+
+Leaflet 是无关供应商的，这意味着只要遵守其使用条款，我们就可以使用任何地图供应商。当然也可以自己制作瓦片。其中 OpenStreetMap 是不同瓦片供应商中最受欢迎的数据源。这个[例子](https://leaflet-extras.github.io/leaflet-providers/preview/)包含了七十多种图层，包括 [MapBox](http://mapbox.com/), [Bing Maps](http://www.microsoft.com/maps/choose-your-bing-maps-API.aspx) (using a [plugin](https://github.com/shramov/leaflet-plugins)), [Esri ArcGIS](http://www.esri.com/software/arcgis/arcgisonline/maps/maps-and-map-layers) ([official plugin](https://github.com/Esri/esri-leaflet)), [Here Maps](https://developer.here.com/), and [Stadia Maps](https://docs.stadiamaps.com/tutorials/raster-maps-with-leaflet/).
+
+这里有一份[指南](http://switch2osm.org/serving-tiles/)，介绍了如何使用 leaflet 创建自己的 OSM 服务器。
+
+## 数据加载
+
+这篇[文章](https://github.com/tmcw/mapmakers-cheatsheet)介绍了不同种类、数量的数据，如何使用地图库达到最佳性能。
+
+# Leaflet 介绍
+
+这个[视频](http://www.youtube.com/watch?v=_P2SaCPbJ4w)介绍了创造 leaflet 的故事、哲学、历史背景，他是作者为了解决 openLayers 太过庞大，优化性能所提出的一种解决方式。

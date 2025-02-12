@@ -57,6 +57,10 @@ function deg2num(lat_deg, lon_deg, zoom) {
   
   return [xtile, ytile];
 }
+
+map.on('click', function(e) {
+ console.log(deg2num(e.latlng.lat, e.latlng.lng, map.getZoom()));
+});
 ```
 
 ## [瓦片的水平距离](https://wiki.openstreetmap.org/wiki/Zoom_levels)
