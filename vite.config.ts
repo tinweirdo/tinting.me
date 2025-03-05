@@ -72,7 +72,6 @@ export default defineConfig({
           if (/[\u4e00-\u9fa5]/.test(ele)) return encodeURIComponent(ele);
           else return ele;
         }).join("/")
-        console.log('route.path :>> ', route.path);
         const path = resolve(__dirname, route.component.slice(1))
         const md = fs.readFileSync(path, 'utf-8')
         const { data, excerpt } = matter(md, {

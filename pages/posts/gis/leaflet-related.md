@@ -92,4 +92,4 @@ Leaflet 是无关供应商的，这意味着只要遵守其使用条款，我们
 
 # Leaflet 介绍
 
-这个[视频](http://www.youtube.com/watch?v=_P2SaCPbJ4w)介绍了创造 leaflet 的故事、哲学、历史背景，他是作者为了解决 openLayers 太过庞大，优化性能所提出的一种解决方式。
+这个[视频](http://www.youtube.com/watch?v=_P2SaCPbJ4w)介绍了创造 leaflet 的故事、哲学、历史背景，他是[作者](https://agafonkin.com/)为了解决 openLayers 太过庞大，优化性能所提出的一种解决方式。
