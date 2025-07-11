@@ -157,3 +157,26 @@ HTML5 引入了表达内容含义的标签，提升可访问性和 SEO(Search En
 
 
 ## CSS3
+
+### 选择器
+
+参考文章：
+
+1. [CSS 选择器](https://www.runoob.com/cssref/css-selectors.html)
+2. [`nth-child` 和: `nth-of-type` 的差异](https://www.zhangxinxu.com/wordpress/2011/06/css3%E9%80%89%E6%8B%A9%E5%99%A8nth-child%E5%92%8Cnth-of-type%E4%B9%8B%E9%97%B4%E7%9A%84%E5%B7%AE%E5%BC%82/)
+
+### 文本属性
+
+1. `color`	设置文本颜色
+2. `direction`	设置文本方向
+3. `letter-spacing`	设置字符间距
+4. `line-height`	设置行高
+5. `text-align`	对齐元素中的文本
+6. `text-decoration`	向文本添加修饰
+7. `text-indent`	缩进元素中文本的首行
+8. `text-shadow`	设置文本阴影
+9. `text-transform`	控制元素中的字母
+10. `unicode-bidi`	设置或返回文本是否被重写 
+11. `vertical-align`	设置元素的垂直对齐
+12. `white-space`	设置元素中空白的处理方式
+13. `word-spacing`	设置字间距
