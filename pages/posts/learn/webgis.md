@@ -7,7 +7,7 @@ comment: hidden
 
 [[toc]]
 
-<Image zoom="0.4" src="/images/2025/webgis-learning.JPG"/>
+<Image zoom="0.4" src="/images/2025/webgis-learning.jpg"/>
 
 # web 基础入门
 
