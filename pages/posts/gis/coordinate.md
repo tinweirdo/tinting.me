@@ -114,10 +114,10 @@ comment: hidden
 都是识别坐标系的方法，可以确保使用的参数与其他人完全相同。
 
 - Well-Known Text (WKT)是一个字符串，用于定义坐标系的所有必要参数。保存任何坐标系的投影文件 (.prj) 并在文本编辑器中打开它以查看其 WKT。
-<Image zoom="0.8" src="/images/2024/wkt-prj.png" />
+<Image zoom="0.8" src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2024/wkt-prj.png" />
 
 - 该ID（WKID）是分配给坐标系的唯一编号。可以在坐标系详细信息窗口中找到 WKID。一旦知道了这个数字，就可以方便地在以后搜索坐标系。
-<Image zoom="0.8" src="/images/2024/wkid.png" />
+<Image zoom="0.8" src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2024/wkid.png" />
 
 - WKID 的权威是EPSG（欧洲石油调查组）或 Esri，但这些数字不重叠，因此无需担心是哪个权威定义了 ID。
 

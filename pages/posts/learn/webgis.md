@@ -7,7 +7,7 @@ comment: hidden
 
 [[toc]]
 
-<Image zoom="0.4" src="/images/2025/webgis-learning.jpg"/>
+<Image zoom="0.4" src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2025/webgis-learning.jpg"/>
 
 # web 基础入门
 
@@ -165,7 +165,7 @@ HTML5 引入了表达内容含义的标签，提升可访问性和 SEO(Search En
 1. [CSS 选择器](https://www.runoob.com/cssref/css-selectors.html)
 2. [`nth-child` 和: `nth-of-type` 的差异](https://www.zhangxinxu.com/wordpress/2011/06/css3%E9%80%89%E6%8B%A9%E5%99%A8nth-child%E5%92%8Cnth-of-type%E4%B9%8B%E9%97%B4%E7%9A%84%E5%B7%AE%E5%BC%82/)
 
-### 文本属性
+### [文本属性](https://www.runoob.com/css/css-text.html)
 
 1. `color`	设置文本颜色
 2. `direction`	设置文本方向
@@ -180,3 +180,11 @@ HTML5 引入了表达内容含义的标签，提升可访问性和 SEO(Search En
 11. `vertical-align`	设置元素的垂直对齐
 12. `white-space`	设置元素中空白的处理方式
 13. `word-spacing`	设置字间距
+
+### [背景](https://www.runoob.com/css/css-background.html)
+
+1. `background-color`
+2. `background-image`
+3. `background-repeat`
+4. `background-attachment`
+5. `background-position`

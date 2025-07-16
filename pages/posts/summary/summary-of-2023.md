@@ -52,7 +52,7 @@ comment: hidden
 
 今年 11 月，有些用户向我们询问我们是否使用了一些国外软件。
 
-<Image zoom="0.5" src="/images/2024/管网建设软件排查表.png">管网建设软件排查表</Image>
+<Image zoom="0.5" src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2024/管网建设软件排查表.png">管网建设软件排查表</Image>
 
 似乎会影响到甲方的招投标，管网数据比较敏感，有些数据涉及军事，国家也会比较重视，未来的趋势必定是软件国产化，但目前似乎没有完全能代替 ArcGIS 的国产软件。
 
@@ -85,7 +85,7 @@ comment: hidden
 
 贴一张年度收益：
 
-<Image zoom="0.5" src="/images/2024/同花顺.jpg">2024理财</Image>
+<Image zoom="0.5" src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2024/同花顺.jpg">2024理财</Image>
 
 新的一年，主攻纳斯达克，希望理财技能 up up，财源广进！哈哈。
 
@@ -95,7 +95,7 @@ comment: hidden
 
 元旦男朋友送了我一只猫猫，小金渐妹妹，才2个多月，生日是 10.25。给它起名旺仔，这个名字喜庆，也比较喜欢 "仔" 这个字。
 
-<Image zoom="0.5" src="/images/2024/旺仔1.14.jpg"></Image>
+<Image zoom="0.5" src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2024/旺仔1.14.jpg"></Image>
 
 刚接回来的那一天，很胆小，在家里使劲乱窜，钻到阳台沙发下面那个隐蔽吃灰的地方，当天晚上也不在猫窝睡（后来发现是男朋友把猫窝装反了，哈哈），在沙发和空调的三角区睡着了。
 

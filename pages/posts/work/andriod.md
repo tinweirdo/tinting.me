@@ -39,37 +39,50 @@ comment: hidden
 
 在 MuMu 安装目录下运行 `adb connect 127.0.0.1:16384` 后，再运行 `adb devices`
 
-  <Image src="/images/2024/Snipaste_2024-01-22_16-28-26.png" zoom="0.8"/>
+  <Image src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2024/Snipaste_2024-01-22_16-28-26.png" zoom="0.8"/>
 
 ## 运行时的一些问题
 
 ### 安装HBuilder调试基座完成，但手机中并未出现App
 
-  <Image src="/images/2024/Snipaste_2024-01-23_09-32-58.png" zoom="0.5">显示连接成功却无响应</Image>
+  <Image src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2024/Snipaste_2024-01-23_09-32-58.png" zoom="0.5">显示连接成功却无响应</Image>
 
 **原因**： App 卸载不干净造成的。
 **解决方式**：
 - 查看是否存在应用包：`adb shell pm  list package -3`
 
-  <Image src="/images/2024/1705903145.png"/>
+  <Image src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2024/1705903145.png"/>
 
 - 卸载 `adb uninstall io.dcloud.HBuilder`，注意，需替换为项目的应用包名
 
-  <Image src="/images/2024/Hbuilder配置.png" zoom="0.5"/>
+  <Image src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2024/Hbuilder配置.png" zoom="0.5"/>
 
 - 卸载成功
 
-  <Image src="/images/2024/1705903145.png"/>
+  <Image src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2024/1705903145.png"/>
 
 - 重新运行
 **遇到的问题**：
 - 卸载失败报错：`Failure [DELETE_FAILED_INTERNAL_ERROR]`，后续发现是拼写错误..(`uninstall` 而不是 `uninsatll`)
 
-  <Image src="/images/2024/1705904795.png"/>
+  <Image src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2024/1705904795.png"/>
 
 # [Hbuilder 配置夜神模拟器进行调试](https://blog.csdn.net/Greenhand_BN/article/details/116021646)
 
 1. [查看夜神模拟器端口号](https://blog.csdn.net/lovedingd/article/details/108409634)
+
+# Chorme 浏览器调试模拟器
+
+1. 导航到 chrome://inspect
+
+  <Image src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2025/70178cb621603b0fca550b36421a270c.png" zoom="0.5"/>
+
+2. 点击：`Port forwarding`，输入 IP 地址和端口号
+  <Image src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2025/Snipaste_2025-07-16_09-53-59.png" zoom="0.5"/>
+3. 点击 inspect
+  <Image src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2025/Snipaste_2025-07-16_09-55-41.png" zoom="0.5"/>
+
+参考：[使用chrome远程调试设备及调试模拟器设备](https://www.cnblogs.com/ranyonsue/p/10078261.html)
 
 # 补充
 

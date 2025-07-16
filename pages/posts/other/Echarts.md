@@ -25,7 +25,7 @@ myChart.setOption(options,true);
 
 ## 补充：echartsInstance.setOption
 
-<Image zoom="0.5" src="/images/2024/echart.setOption.png"/>
+<Image zoom="0.5" src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2024/echart.setOption.png"/>
 
 - **`notMerge`** 可选。是否不跟之前设置的 `option` 进行合并。默认为 `false`。即表示合并。合并的规则，详见 组件合并模式。如果为 `true`，表示所有组件都会被删除，然后根据新 `option` 创建所有新组件。
 - **`replaceMerge`** 可选。用户可以在这里指定一个或多个组件，如：`xAxis, series`，这些指定的组件会进行 "`replaceMerge`"。如果用户想删除部分组件，也可使用 "`replaceMerge`"。详见 组件合并模式。

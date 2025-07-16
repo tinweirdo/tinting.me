@@ -26,11 +26,11 @@ this.featureGroup.addLayer(marker);
 
 出现这个偏移的感觉主要是由**数学坐标系**和**屏幕坐标**的区别导致的。
 
-<Image zoom="0.3" src="/images/2024/数学坐标系.png">数学坐标系</Image>
+<Image zoom="0.3" src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2024/数学坐标系.png">数学坐标系</Image>
 
 在数学坐标系中，中心是原点，向上是y轴正方向，所以我们常将一个图标的底部作为这个图标的定位点。
 
-<Image zoom="0.3" src="/images/2024/屏幕坐标系.png">屏幕坐标系</Image>
+<Image zoom="0.3" src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2024/屏幕坐标系.png">屏幕坐标系</Image>
 
 但在屏幕坐标系，是以左上角作为坐标原点，右方向作为x轴正方向，下方向作为y轴正方向。
 
