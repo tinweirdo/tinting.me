@@ -20,7 +20,11 @@ comment: hidden
 
 # PicGo 设置
 
+从[PicGo官方安装地址](https://picgo.github.io/PicGo-Doc/zh/guide/#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85)下载软件，并配置：
+
 <Image zoom="0.5" src="https://cdn.jsdelivr.net/gh/tinweirdo/images/2025/20250716112424104.png"/>
+
+
 
 
 参考文章：

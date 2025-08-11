@@ -183,8 +183,51 @@ HTML5 引入了表达内容含义的标签，提升可访问性和 SEO(Search En
 
 ### [背景](https://www.runoob.com/css/css-background.html)
 
+> background-size、background-clip 等
+
 1. `background-color`
 2. `background-image`
 3. `background-repeat`
 4. `background-attachment`
 5. `background-position`
+
+### 属性值的计算机制
+### 视觉格式化模型
+### 伪类与伪元素
+### flex 布局与 grid 布局
+### 媒体查询与响应式
+### 过渡 transition
+### 变形 transform
+### 渐变
+### 关键帧动画
+
+# web 基础进阶
+
+## JavaScript 基础开发
+### 变量与数据类型
+### 运算符与表达式
+### 条件分支
+### 循环
+### 数组
+### 函数
+### 对象
+### WebAPI
+
+## DOM 与 BOM
+### 事件驱动
+### 回调函数
+### 冒泡与捕获
+### 事件委托
+### 本地存储
+
+## JavaScript 高级
+### 全局对象与活动对象
+### 作用域与闭包
+### 原型与原型链
+### let 和 const
+### 箭头函数
+### 解构
+### promise
+### async/await
+### 异常处理
+### EventLoop

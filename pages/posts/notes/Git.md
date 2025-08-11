@@ -82,16 +82,28 @@ git push test dev //在本地修改dev分支后，向远程推送dev分支，此
 
 # merge分支
 
-比如我在新建的dev分支做了修改，现在需要合并到其他分支，如master分支。
+比如我在新建的 dev 分支做了修改，现在需要合并到其他分支，如 main 分支。
 
 ```bash
-git checkout dev //如果当前就在dev分支则不需要
+git checkout dev //如果当前就在 dev 分支则不需要
 git pull //拉取当前分支最新代码
-git checkout master //切换到需要合并的分支
-git merge dev //将master分支和dev合并
+git checkout main //切换到需要合并的分支
+git merge dev //将 main 分支和 dev 合并
 git push //推送到远程仓库
 ```
 
+当在 main 分支合并 dev 分支时如果遇到报错：
+```bash
+$ git merge dev
+fatal: refusing to merge unrelated histories
+```
+
+应当执行<sup>[[link](https://www.educative.io/answers/the-fatal-refusing-to-merge-unrelated-histories-git-error)]</sup>:
+```bash
+$ git pull origin dev --allow-unrelated-histories
+$ git merge dev
+$ git push
+```
 # 删除分支
 
 删除远程分支：
